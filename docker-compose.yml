@@ -1,0 +1,67 @@
+version: "3.8"
+
+services:
+  cache:
+    image: redis:4-alpine
+
+  database:
+    image: mysql:8.0-oracle
+    ports:
+      - "3306:3306"
+    volumes:
+      - "./docker/database/:/docker-entrypoint-initdb.d/"
+      - "./docker/database/mysql:/var/lib/mysql"
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_DATABASE: "fleetbase"
+
+  socket:
+    image: socketcluster/socketcluster:v17.4.0
+    ports:
+      - "38000:8000"
+    environment:
+      SOCKETCLUSTER_WORKERS: 10
+      SOCKETCLUSTER_BROKERS: 10
+
+  console:
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./console:/app/console
+    build:
+      context: .
+      dockerfile: console/Dockerfile
+      args:
+        ENVIRONMENT: development
+
+  application:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+      target: app-dev
+      args:
+        ENVIRONMENT: development
+    environment:
+      DATABASE_URL: "mysql://root@database/fleetbase"
+      CACHE_DRIVER: redis
+      CACHE_PATH: /var/www/html/api/storage/framework/cache
+      CACHE_URL: tcp://cache
+      REDIS_URL: tcp://cache
+      SESSION_DOMAIN: localhost
+      BROADCAST_DRIVER: socketcluster
+      MAIL_FROM_NAME: Fleetbase
+      LOG_CHANNEL: daily
+    depends_on:
+      - database
+      - cache
+
+  httpd:
+    volumes:
+      - ./api/storage:/var/www/html/api/storage
+    build:
+      context: .
+      dockerfile:  docker/httpd/Dockerfile
+    ports:
+      - "8000:80"
+    depends_on:
+      - application
