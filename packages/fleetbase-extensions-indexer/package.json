@@ -1,0 +1,22 @@
+{
+    "name": "fleetbase-extensions-indexer",
+    "version": "0.0.4",
+    "description": "Indexes installed extensions for Fleetbase Console.",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "publish:npm": "npm config set registry https://registry.npmjs.org/ && npm publish",
+        "publish:github": "npm config set '@fleetbase:registry' https://npm.pkg.github.com/ && npm publish"
+    },
+    "keywords": [
+        "fleetbase-extension-indexer",
+        "fleetbase"
+    ],
+    "repository": "https://github.com/fleetbase/fleetbase-extension-indexer",
+    "license": "MIT",
+    "author": "Fleetbase Pte Ltd <hello@fleetbase.io>",
+    "dependencies": {
+        "broccoli-plugin": "^4.0.7",
+        "fast-glob": "^3.2.11"
+    }
+}
