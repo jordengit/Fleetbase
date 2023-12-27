@@ -68,7 +68,7 @@ class Entity extends Model
         'customer_type',
         'tracking_number_uuid',
         'destination_uuid',
-        'supplier_uuid',
+//        'supplier_uuid',
         'photo_uuid',
         '_import_id',
         'internal_id',
