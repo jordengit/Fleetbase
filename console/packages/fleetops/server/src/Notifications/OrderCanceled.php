@@ -141,4 +141,9 @@ class OrderCanceled extends Notification implements ShouldQueue
 
         return $message;
     }
+
+    public function toArray($notifiable)
+    {
+        return [];
+    }
 }

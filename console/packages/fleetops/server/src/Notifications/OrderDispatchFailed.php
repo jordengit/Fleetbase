@@ -93,4 +93,9 @@ class OrderDispatchFailed extends Notification implements ShouldQueue
             ->line($this->reason)
             ->action('View Details', Utils::consoleUrl('', ['shift' => 'fleet-ops/orders/view/' . $this->order->public_id]));
     }
+
+    public function toArray($notifiable)
+    {
+        return [];
+    }
 }
