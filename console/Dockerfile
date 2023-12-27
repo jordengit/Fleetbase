@@ -18,7 +18,7 @@ COPY console/package.json console/pnpm-lock.yaml ./
 COPY console/.npmr[c] ./
 
 # Install global dependencies
-RUN npm install -g ember-cli pnpm 
+RUN npm install -g ember-cli pnpm
 
 # Install git
 RUN apk update && apk add git openssh-client
@@ -27,6 +27,9 @@ RUN apk update && apk add git openssh-client
 RUN mkdir -p -m 0600 ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
 
 # Install app dependencies
+WORKDIR /app/packages/fleetops
+RUN pnpm install
+WORKDIR /app
 RUN pnpm install
 
 # Copy the console directory contents into the container at /app
