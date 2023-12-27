@@ -113,9 +113,19 @@ class OrderController extends FleetOpsController
 
             return ['order' => new $this->resource($record)];
         } catch (\Exception $e) {
-            return response()->error($e->getMessage());
+            return response()->error([
+                $e->getMessage(),
+                $e->getFile(),
+                $e->getLine(),
+                $e->getTrace(),
+            ]);
         } catch (\Illuminate\Database\QueryException $e) {
-            return response()->error($e->getMessage());
+            return response()->error([
+                $e->getMessage(),
+                $e->getFile(),
+                $e->getLine(),
+                $e->getTrace(),
+            ]);
         } catch (FleetbaseRequestValidationException $e) {
             return response()->error($e->getErrors());
         }
