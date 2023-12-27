@@ -75,7 +75,7 @@ WORKDIR /
 RUN echo $(cat /proc/sys/kernel/random/uuid) > /.fleetbase
 
 # Set environment
-ARG ENVIRONMENT=production
+ARG ENVIRONMENT=development
 ENV APP_ENV=$ENVIRONMENT
 
 # Set workdir to application
