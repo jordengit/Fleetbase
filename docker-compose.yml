@@ -49,7 +49,7 @@ services:
       SESSION_DOMAIN: localhost
       BROADCAST_DRIVER: socketcluster
       MAIL_FROM_NAME: Fleetbase
-      LOG_CHANNEL: daily
+      LOG_CHANNEL: single
     depends_on:
       - database
       - cache
