@@ -16,16 +16,9 @@
 3. docker 內建立 database
 
     ```bash
-    docker exec -ti fleetbase_application_1 bash
-    mysql -u root -p
-    # 輸入 db 密碼 (env 的 DB_PASSWORD)
-    
-    # mysql > 
-    CREATE DATABASE fleetbase;
-    exit;
-    
     # 跑 db migration & seed
-    php artisan mysql:fleetbase
+    docker exec -ti fleetbase_application_1 bash
+    php artisan mysql:createdb
     php artisan migrate:refresh --seed
     ```
 
