@@ -26,6 +26,10 @@ RUN apk update && apk add git openssh-client
 # Trust GitHub's RSA host key
 RUN mkdir -p -m 0600 ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
 
+# Copy and install dependencies for fleetops
+COPY packages/fleetops/package.json packages/fleetops/pnpm-lock.yaml ./packages/fleetops/
+RUN cd packages/fleetops && pnpm install
+
 # Install app dependencies
 RUN pnpm install
 
