@@ -16,6 +16,7 @@ export default class LayoutHeaderComponent extends Component {
     @service router;
     @service hostRouter;
     @service universe;
+    @service intl;
     @alias('args.user') user;
 
     @computed('store', 'user.company_uuid') get company() {
@@ -65,6 +66,7 @@ export default class LayoutHeaderComponent extends Component {
             {
                 route: 'console.home',
                 text: 'Home',
+                icon: 'home',
             },
             {
                 route: 'console.settings.index',
@@ -119,6 +121,31 @@ export default class LayoutHeaderComponent extends Component {
         }
 
         return items;
+    }
+
+    @computed('args.{localeNavigationItems}', 'intl.primaryLocale')
+    get localeNavigationItems() {
+        return [
+            {
+                href: 'javascript:;',
+                text: '繁體中文',
+                action: 'switchLocale',
+                params: ['zh-tw'],
+            },
+            {
+                href: 'javascript:;',
+                text: 'English',
+                action: 'switchLocale',
+                params: ['en-us'],
+            }
+        ];
+    }
+
+    @computed('intl.locale')
+    get activeLocaleText() {
+        const currentLocale = this.intl.primaryLocale;
+        const activeItem = this.localeNavigationItems.find(item => item.params[0] === currentLocale);
+        return activeItem ? activeItem.text : 'Unknown';
     }
 
     @computed('args.{userNavigationItems,extensions}', 'universe.userMenuItems') get userNavigationItems() {

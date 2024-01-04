@@ -67,7 +67,7 @@ export default class ApplicationRoute extends Route {
         }
 
         this.theme.initialize({ bodyClassNames, theme: this.defaultTheme });
-        this.intl.setLocale(['en-us']);
+        this.intl.setLocale(this.modalsManager.currentLocale);
     }
 
     /**

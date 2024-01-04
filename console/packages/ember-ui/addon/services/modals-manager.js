@@ -46,6 +46,7 @@ export default class ModalsManagerService extends Service {
         declineIconInactive: '',
         modalClass: '',
     };
+    @tracked currentLocale = 'en-us';
 
     /**
      * @throws {Error} if some modal is already opened
@@ -371,5 +372,11 @@ export default class ModalsManagerService extends Service {
      */
     @action clearOptions() {
         this.options = {};
+    }
+
+    @action switchLocale(newLocale) {
+        this.currentLocale = newLocale;
+        alert(this.currentLocale);
+        // this.intl.setLocale([newLocale]);
     }
 }

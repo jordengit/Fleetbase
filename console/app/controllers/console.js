@@ -58,6 +58,8 @@ export default class ConsoleController extends Controller {
      */
     @service universe;
 
+    @service intl;
+
     /**
      * Authenticated user organizations.
      *
@@ -253,5 +255,9 @@ export default class ConsoleController extends Controller {
             acceptButtonText: 'OK',
             hideDeclineButton: true,
         });
+    }
+
+    @action switchLocale(newLocale) {
+        this.intl.setLocale(newLocale);
     }
 }
