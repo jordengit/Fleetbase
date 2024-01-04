@@ -1,6 +1,6 @@
 <div class="next-content-overlay-panel-header" {{did-insert this.setupComponent}} ...attributes>
     {{#unless @hideLeftSection}}
-        <div class="next-view-header-left {{@headerLeftClass}}">
+        <div class="next-view-header-left {{@headerLeftClass}}"> 66666
             <div class={{@headerLeftInnerClass}}>
                 <div class="flex flex-row items-center {{@titleWrapperClass}}">
                     <h2 class="next-content-overlay-panel-title {{@titleClass}}">
@@ -25,7 +25,7 @@
             </div>
         </div>
     {{/unless}}
-    <div class="next-view-header-right {{@actionsWrapperClass}}">
+    <div class="next-view-header-right {{@actionsWrapperClass}}"> 66666
         {{yield}}
         {{#if @overlay.onMaximize}}
             <button type="button" class="next-content-overlay-panel-maximize-button {{@maximizeButtonClass}}" {{set-height @maximizeButtonHeight}} {{set-width @maximizeButtonWidth}} {{on "click" @overlay.maximize}}>

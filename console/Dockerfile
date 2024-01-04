@@ -27,8 +27,12 @@ RUN apk update && apk add git openssh-client
 RUN mkdir -p -m 0600 ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
 
 # Copy and install dependencies for fleetops
-COPY packages/fleetops/package.json packages/fleetops/pnpm-lock.yaml ./packages/fleetops/
+COPY console/packages/fleetops/package.json console/packages/fleetops/pnpm-lock.yaml ./packages/fleetops/
 RUN cd packages/fleetops && pnpm install
+
+# Copy and install dependencies for ember-ui
+COPY console/packages/ember-ui/package.json console/packages/ember-ui/pnpm-lock.yaml ./packages/ember-ui/
+RUN cd packages/ember-ui && pnpm install
 
 # Install app dependencies
 RUN pnpm install

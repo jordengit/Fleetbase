@@ -65,7 +65,6 @@ export default class LayoutHeaderComponent extends Component {
             {
                 route: 'console.home',
                 text: 'Home',
-                icon: 'house',
             },
             {
                 route: 'console.settings.index',
