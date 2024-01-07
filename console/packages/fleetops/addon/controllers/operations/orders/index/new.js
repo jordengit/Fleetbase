@@ -94,6 +94,8 @@ export default class OperationsOrdersIndexNewController extends Controller {
      */
     @service universe;
 
+    @service intl;
+
     /**
      * Create an OrderModel instance.
      *
@@ -140,14 +142,15 @@ export default class OperationsOrdersIndexNewController extends Controller {
     @tracked isUsingIntegratedVendor = false;
     @tracked integratedVendorServiceType;
     @tracked invalidReason;
-    @tracked metadataButtons = [
-        {
-            type: 'default',
-            text: 'Edit metadata',
-            icon: 'edit',
-            onClick: this.editMetaData,
-        },
-    ];
+    // @tracked metadataButtons = [
+    //     {
+    //         type: 'default',
+    //         // text: 'Edit metadata2223',
+    //         text: this.intl.t('fleet-ops.new-order.metadata.edit-metadata'),
+    //         icon: 'edit',
+    //         onClick: this.editMetaData,
+    //     },
+    // ];
 
     @not('isServicable') isNotServicable;
     @alias('currentUser.latitude') userLatitude;
@@ -155,6 +158,18 @@ export default class OperationsOrdersIndexNewController extends Controller {
     @alias('ordersController.leafletMap') leafletMap;
     @equal('isCsvImportedOrder', false) isNotCsvImportedOrder;
     @groupBy('typeConfig.meta.fields', 'group') groupedMetaFields;
+
+    get metadataButtons() {
+        return [
+            {
+                type: 'default',
+                // text: 'Edit metadata2223',
+                text: this.intl.t('fleet-ops.new-order.metadata.edit-metadata'),
+                icon: 'edit',
+                onClick: this.editMetaData,
+            },
+        ]
+    }
 
     @computed('entities.length', 'isMultipleDropoffOrder', 'isFetchingQuotes', 'isSubscriptionValid', 'order.type', 'payload.{dropoff,pickup}', 'waypoints.length')
     get isValid() {
@@ -326,11 +341,12 @@ export default class OperationsOrdersIndexNewController extends Controller {
         };
 
         this.modalsManager.show('modals/order-import', {
-            title: 'Import order(s) with spreadsheets',
-            acceptButtonText: 'Start Upload',
+            title: this.intl.t('fleet-ops.new-order.import.title'),
+            acceptButtonText: this.intl.t('fleet-ops.new-order.import.start-upload'),
             acceptButtonScheme: 'magic',
             acceptButtonIcon: 'upload',
             acceptButtonDisabled: true,
+            declineButtonText: this.intl.t('fleet-ops.new-order.import.cacnel'),
             isProcessing: false,
             uploadQueue: [],
             fileQueueColumns: [
@@ -436,7 +452,7 @@ export default class OperationsOrdersIndexNewController extends Controller {
             },
             decline: (modal) => {
                 this.modalsManager.setOption('uploadQueue', []);
-                this.fileQueue.flush();
+                // this.fileQueue.flush();
 
                 modal.done();
             },
@@ -1110,14 +1126,14 @@ export default class OperationsOrdersIndexNewController extends Controller {
         }
 
         this.modalsManager.show('modals/edit-meta-form', {
-            title: 'Edit Metadata',
+            title: this.intl.t('fleet-ops.new-order.metadata.edit-metadata'),
             hideDeclineButton: true,
             acceptButtonIcon: 'check',
             acceptButtonIconPrefix: 'fas',
-            acceptButtonText: 'Done',
+            acceptButtonText: this.intl.t('fleet-ops.new-order.metadata.done'),
             meta,
             addMetaField: (meta) => {
-                const label = 'New field';
+                const label = this.intl.t('fleet-ops.new-order.metadata.add-metafield');
                 meta.pushObject({
                     key: dasherize(label),
                     label,
@@ -1240,7 +1256,8 @@ export default class OperationsOrdersIndexNewController extends Controller {
     @action editEntity(entity) {
         this.modalsManager.show('modals/entity-form', {
             title: 'Edit Item',
-            acceptButtonText: 'Save Changes',
+            acceptButtonText: this.intl.t('fleet-ops.new-order.payload-entities.edit-item.save'),
+            declineButtonText: this.intl.t('fleet-ops.new-order.payload-entities.edit-item.cancel'),
             entity,
             uploadNewPhoto: (file) => {
                 if (entity.get('isNew')) {

@@ -2,6 +2,88 @@ fleet-ops:
     extension-name: Fleet-Ops
     sidebar:
         new-order: 新訂單
+    new-order:
+        title: 新訂單
+        import:
+            button: 匯入
+            title: 使用電子表格匯入訂單
+            upload-title: 上傳電子表格
+            upload-instruction: 將電子表格檔案拖曳到此放置區
+            upload-button: 或選擇要上傳的電子表格
+            start-upload: 開始上傳
+            cacnel: 取消
+        submit: 提交
+
+        detail: 細節
+        order-type:
+            label: 訂單類型
+            placeholder: 選擇訂單類型
+        internal-id: 內部ID
+        schedule: 行程
+        customer:
+            label: 顧客
+            placeholder: 選擇客戶
+        facilitator:
+            label: 協調員
+            placeholder: 選擇協調員
+        assign-driver:
+            label: 分配司機
+            placeholder: 選擇司機
+        ad-hoc: 特別指定
+        dispatch-immediately: 立即出貨
+        require-proof-of-delivery: 需要交貨證明
+
+        metadata:
+            title: 元數據
+            edit-metadata: 編輯元數據
+            add-metafield: 新增元字段
+            done: 完成
+
+        route:
+            title: 路線
+            multiple-dropoff: 多次下車
+            pickup: 撿起
+            select-pickup: 選擇取件
+            dropoff: 放下
+            select-dropoff: 選擇下車地點
+            return: 返回
+            select-return: 選擇返回
+
+        payload-entities:
+            title: 有效負載/實體
+            add-item:
+                button-label: 新增商品到訂單
+                name: 姓名
+                sku: 存貨單位
+            edit-item:
+                title: 編輯項目
+                upload-img-button: 上傳新的
+                details: 細節
+                name: 姓名
+                internal-id: 內部ID
+                sku: 存貨單位
+                description: 描述
+                pricing-value: 定價與價值
+                price: 價格
+                sale-price: 銷售價格
+                declare-value: 申報價值
+                measurements-weight: 尺寸和重量
+                length: 長度
+                width: 寬度
+                height: 高度
+                weight: 重量
+                enter: 輸入
+                cancel: 取消
+                save: 儲存變更
+
+        service:
+            title: 服務
+            apply-rate: 申請服務費率
+
+        notes:
+            title: 備註
+            placeholder: 在此輸入訂單備註...
+
     management:
         drivers:
             index:

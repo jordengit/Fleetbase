@@ -23,14 +23,14 @@
                         <div class="my-2">({{queue.progress}}%)</div>
                     {{else}}
                         <h4 class="font-semibold mb-8">
-                            <FaIcon @icon="file-spreadsheet" class="text-indigo-500 mr-2" /> Upload Spreadsheets
+                            <FaIcon @icon="file-spreadsheet" class="text-indigo-500 mr-2" /> {{t "fleet-ops.new-order.import.upload-title"}}
                         </h4>
                         <div>
                             {{#if dropzone.supported}}
-                                <p class="text-base font-semibold my-5">Drag and drop spreadsheet files onto this dropzone</p>
+                                <p class="text-base font-semibold my-5">{{t "fleet-ops.new-order.import.upload-instruction"}}</p>
                             {{/if}}
 
-                            <UploadButton @buttonText="or select spreadsheets to upload" @type="magic" @name="spreadsheets" @for="spreadsheets" @accept={{join "," @options.acceptedFileTypes}} @multiple={{true}} @onFileAdded={{@options.queueFile}} class="w-72" />
+                            <UploadButton @buttonText={{t "fleet-ops.new-order.import.upload-button"}} @type="magic" @name="spreadsheets" @for="spreadsheets" @accept={{join "," @options.acceptedFileTypes}} @multiple={{true}} @onFileAdded={{@options.queueFile}} class="w-72" />
                         </div>
                     {{/if}}
                 </FileDropzone>

@@ -2,6 +2,88 @@ fleet-ops:
     extension-name: Fleet-Ops
     sidebar:
         new-order: Create new order
+    new-order:
+        title: New Order
+        import:
+            button: Import
+            title: Import order(s) with spreadsheets
+            upload-title: Upload Spreadsheets
+            upload-instruction: Drag and drop spreadsheet files onto this dropzone
+            upload-button: or select spreadsheets to upload
+            start-upload: Start Upload
+            cacnel: Cancel
+        submit: Submit
+
+        detail: Details
+        order-type:
+            label: Order Type
+            placeholder: Select Order Type
+        internal-id: Internal ID
+        schedule: Schedule
+        customer:
+            label: Customer
+            placeholder: Select Customer
+        facilitator:
+            label: Facilitator
+            placeholder: Select Facilitator
+        assign-driver:
+            label: Assign Driver
+            placeholder: Select Driver
+        ad-hoc: Ad-Hoc
+        dispatch-immediately: Dispatch Immediately
+        require-proof-of-delivery: Require Proof of Delivery
+
+        metadata:
+            title: Metadata
+            edit-metadata: Edit metadata
+            add-metafield: Add metafield
+            done: Done
+
+        route:
+            title: Route
+            multiple-dropoff: Multiple Dropoff's
+            pickup: Pickup
+            select-pickup: Select Pickup
+            dropoff: Dropoff
+            select-dropoff: Select Dropoff
+            return: Return
+            select-return: Select Return
+
+        payload-entities:
+            title: Payload / Entities
+            add-item:
+                button-label: Add Item to Order
+                name: Name
+                sku: SKU
+            edit-item:
+                title: Edit Item
+                upload-img-button: Upload new
+                details: Details
+                name: Name
+                internal-id: Internal ID
+                sku: SKU
+                description: Description
+                pricing-value: Pricing & Value
+                price: Price
+                sale-price: Sale Price
+                declare-value: Declared Value
+                measurements-weight: Measurements & Weight
+                length: Length
+                width: Width
+                height: Height
+                weight: Weight
+                enter: Enter
+                cancel: Cancel
+                save: Save Changes
+
+        service:
+            title: Service
+            apply-rate: Apply service rate
+
+        notes:
+            title: Notes
+            placeholder: Enter order notes here....
+
     management:
         drivers:
             index:

@@ -376,7 +376,5 @@ export default class ModalsManagerService extends Service {
 
     @action switchLocale(newLocale) {
         this.currentLocale = newLocale;
-        alert(this.currentLocale);
-        // this.intl.setLocale([newLocale]);
     }
 }

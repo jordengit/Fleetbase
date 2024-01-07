@@ -1,5 +1,5 @@
 <Overlay @position="right" @noBackdrop={{true}} @isResizable={{true}} @isMaximizable={{true}} @isMinimizable={{true}} @width="700px" @fullHeight={{true}} @onLoad={{this.setupInterface}} as |overlay|>
-    <Overlay::Header @overlay={{overlay}} @title="New Order" @onPressCancel={{this.transitionBack}}>
+    <Overlay::Header @overlay={{overlay}} @title={{t "fleet-ops.new-order.title"}} @onPressCancel={{this.transitionBack}}>
         <DropdownButton @icon="ellipsis-h" @size="sm" @iconPrefix="fas" @triggerClass="mr-2 hidden md:flex" as |dd|>
             <div class="next-dd-menu mt-1 mx-0" aria-orientation="vertical" aria-labelledby="user-menu">
                 <div class="p-1">
@@ -42,27 +42,27 @@
                 </div>
             </div>
         </DropdownButton>
-        <Button @icon="upload" @type="magic" @text={{if (media 'isMobile') "" "Import"}} @onClick={{this.importOrder}} @disabled={{this.isCreatingOrder}} class="mr-2" />
-        <Button @icon="check" @type="primary" @text={{if (media 'isMobile') "" "Submit"}} @onClick={{this.createOrder}} @isLoading={{this.isCreatingOrder}} @disabled={{not this.isValid}} />
+        <Button @icon="upload" @type="magic" @text={{if (media 'isMobile') "" (t "fleet-ops.new-order.import.button")}} @onClick={{this.importOrder}} @disabled={{this.isCreatingOrder}} class="mr-2" />
+        <Button @icon="check" @type="primary" @text={{if (media 'isMobile') "" (t "fleet-ops.new-order.submit")}} @onClick={{this.createOrder}} @isLoading={{this.isCreatingOrder}} @disabled={{not this.isValid}} />
     </Overlay::Header>
 
     <Overlay::Body @wrapperClass="new-order-overlay-body" @increaseInnerBodyHeightBy={{1000}}>
-        <ContentPanel @title="Details" @open={{true}} @pad={{true}} @panelBodyClass="bg-white dark:bg-gray-800">
+        <ContentPanel @title={{t "fleet-ops.new-order.detail"}} @open={{true}} @pad={{true}} @panelBodyClass="bg-white dark:bg-gray-800">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-2">
                 <div class="input-group">
-                    <InputLabel @labelText="Order Type" @helpText="Selecting the order type will tell fleetbase what order configurations to use." />
-                    <Select class="w-full" @options={{this.types}} @value={{this.order.type}} @optionLabel="name" @optionValue="key" @onSelect={{this.setConfig}} @placeholder="Select Order Type" />
+                    <InputLabel @labelText={{t "fleet-ops.new-order.order-type.label"}} @helpText="Selecting the order type will tell fleetbase what order configurations to use." />
+                    <Select class="w-full" @options={{this.types}} @value={{this.order.type}} @optionLabel="name" @optionValue="key" @onSelect={{this.setConfig}} @placeholder={{t "fleet-ops.new-order.order-type.placeholder"}} />
                 </div>
 
-                <InputGroup @name="Internal ID" @value={{this.order.internal_id}} @helpText="Use this field to optionally set a custom identifier or internal identifier for the order." />
+                <InputGroup @name={{t "fleet-ops.new-order.internal-id"}} @value={{this.order.internal_id}} @helpText="Use this field to optionally set a custom identifier or internal identifier for the order." />
 
                 <InputGroup>
-                    <InputLabel @labelText="Schedule" @helpText="The date and time the order will be dispatched. If no driver is assigned at time of dispatch, the dispatch will fail. If the order is Ad-Hoc the order will be pinged to drivers in vicinity of pickup." />
+                    <InputLabel @labelText={{t "fleet-ops.new-order.schedule"}} @helpText="The date and time the order will be dispatched. If no driver is assigned at time of dispatch, the dispatch will fail. If the order is Ad-Hoc the order will be pinged to drivers in vicinity of pickup." />
                     <DateTimeInput class="form-input" @value={{this.order.scheduled_at}} @minDate={{format-date (now) "yyyy-MM-dd" }} @minTime={{format-date (now) "HH:mm" }} @onUpdate={{this.scheduleOrder}} @disabled={{this.order.dispatched}} />
                 </InputGroup>
 
-                <InputGroup @name="Customer" @helpText="Optionally assign the customer of this order. If it's a new customer, use the 'New Customer' button above.">
-                    <ModelSelect @modelName="customer" @selectedModel={{this.order.customer}} @placeholder="Select Customer" @triggerClass="form-select form-input" @infiniteScroll={{false}} @renderInPlace={{true}} @allowClear={{true}} @onChange={{this.setOrderCustomer}} as |model|>
+                <InputGroup @name={{t "fleet-ops.new-order.customer.label"}} @helpText="Optionally assign the customer of this order. If it's a new customer, use the 'New Customer' button above.">
+                    <ModelSelect @modelName="customer" @selectedModel={{this.order.customer}} @placeholder={{t "fleet-ops.new-order.customer.placeholder"}} @triggerClass="form-select form-input" @infiniteScroll={{false}} @renderInPlace={{true}} @allowClear={{true}} @onChange={{this.setOrderCustomer}} as |model|>
                         <div class="flex items-center">
                             <div class="w-7">
                                 <FaIcon @icon={{if model.isVendor "warehouse" "user" }} />
@@ -74,8 +74,8 @@
                     </ModelSelect>
                 </InputGroup>
 
-                <InputGroup @name="Facilitator" @helpText="Optionally assign a facilitator for this order, a facilitator can be a 3rd party subcontractor or service that will facilitate the transport of this order.">
-                    <ModelSelect @modelName="facilitator" @selectedModel={{this.order.facilitator}} @placeholder="Select Facilitator" @triggerClass="form-select form-input" @allowClear={{true}} @infiniteScroll={{false}} @renderInPlace={{true}} @onChange={{this.setOrderFacilitator}} as |model|>
+                <InputGroup @name={{t "fleet-ops.new-order.facilitator.label"}} @helpText="Optionally assign a facilitator for this order, a facilitator can be a 3rd party subcontractor or service that will facilitate the transport of this order.">
+                    <ModelSelect @modelName="facilitator" @selectedModel={{this.order.facilitator}} @placeholder={{t "fleet-ops.new-order.facilitator.placeholder"}} @triggerClass="form-select form-input" @allowClear={{true}} @infiniteScroll={{false}} @renderInPlace={{true}} @onChange={{this.setOrderFacilitator}} as |model|>
                         <div class="flex items-center">
                             <div class="w-7">
                                 {{#if model.isIntegratedVendor}}
@@ -97,8 +97,8 @@
                     </InputGroup>
                 {{/if}}
 
-                <InputGroup @name="Assign Driver" @helpText="Assign the driver this order will be dispatched to.">
-                    <ModelSelect @modelName="driver" @selectedModel={{this.order.driver_assigned}} @query={{@options.driversQuery}} @placeholder="Select Driver" @triggerClass="form-select form-input" @infiniteScroll={{false}} @renderInPlace={{true}} @allowClear={{true}} @disabled={{this.isUsingIntegratedVendor}} @onChange={{fn (mut this.order.driver_assigned)}} as |model|>
+                <InputGroup @name={{t "fleet-ops.new-order.assign-driver.label"}} @helpText="Assign the driver this order will be dispatched to.">
+                    <ModelSelect @modelName="driver" @selectedModel={{this.order.driver_assigned}} @query={{@options.driversQuery}} @placeholder={{t "fleet-ops.new-order.assign-driver.placeholder"}} @triggerClass="form-select form-input" @infiniteScroll={{false}} @renderInPlace={{true}} @allowClear={{true}} @disabled={{this.isUsingIntegratedVendor}} @onChange={{fn (mut this.order.driver_assigned)}} as |model|>
                         <div class="flex items-center">
                             <div class="w-7">
                                 <FaIcon @icon="id-card-alt" />
@@ -137,19 +137,19 @@
 
                 <div class="lg:col-span-2">
                     <InputGroup @wrapperClass="pt-2">
-                        <Toggle @label="Ad-Hoc" @wrapperClass="justify-start-i" @isToggled={{this.order.adhoc}} @onToggle={{this.toggleAdhoc}} @disabled={{this.isUsingIntegratedVendor}} @helpText="Toggling Ad-Hoc will enable the order to intelligently ping drivers within the order pickup vicinity about the order allowing the first available driver to accept the order. This is an alternative to manually assigning the driver for real-time orders." />
+                        <Toggle @label={{t "fleet-ops.new-order.ad-hoc"}} @wrapperClass="justify-start-i" @isToggled={{this.order.adhoc}} @onToggle={{this.toggleAdhoc}} @disabled={{this.isUsingIntegratedVendor}} @helpText="Toggling Ad-Hoc will enable the order to intelligently ping drivers within the order pickup vicinity about the order allowing the first available driver to accept the order. This is an alternative to manually assigning the driver for real-time orders." />
                     </InputGroup>
                 </div>
 
                 <div class="lg:col-span-2">
                     <InputGroup @wrapperClass="pt-1">
-                        <Toggle @label="Dispatch Immediately" @wrapperClass="justify-start-i" @isToggled={{this.order.dispatched}} @onToggle={{fn (mut this.order.dispatched)}} @disabled={{this.isUsingIntegratedVendor}} @helpText="Toggling dispatch will dispatch this order immediatley following creation." />
+                        <Toggle @label={{t "fleet-ops.new-order.dispatch-immediately"}} @wrapperClass="justify-start-i" @isToggled={{this.order.dispatched}} @onToggle={{fn (mut this.order.dispatched)}} @disabled={{this.isUsingIntegratedVendor}} @helpText="Toggling dispatch will dispatch this order immediatley following creation." />
                     </InputGroup>
                 </div>
 
                 <div class="lg:col-span-2">
                     <InputGroup @wrapperClass="pt-1">
-                        <Toggle @label="Require Proof of Delivery" @wrapperClass="justify-start-i" @isToggled={{this.order.pod_required}} @onToggle={{this.toggleProofOfDelivery}} @helpText="Toggling this will require driver to complete a proof of delivery." />
+                        <Toggle @label={{t "fleet-ops.new-order.require-proof-of-delivery"}}  @wrapperClass="justify-start-i" @isToggled={{this.order.pod_required}} @onToggle={{this.toggleProofOfDelivery}} @helpText="Toggling this will require driver to complete a proof of delivery." />
                     </InputGroup>
                 </div>
             </div>
@@ -183,7 +183,7 @@
             {{/each}}
         {{/if}}
 
-        <ContentPanel @title="Metadata" @open={{this.order.meta.length}} @pad={{true}} @panelBodyClass="bg-white dark:bg-gray-800" @actionButtons={{this.metadataButtons}}>
+        <ContentPanel @title={{t "fleet-ops.new-order.metadata.title"}} @open={{this.order.meta.length}} @pad={{true}} @panelBodyClass="bg-white dark:bg-gray-800" @actionButtons={{this.metadataButtons}}>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-2">
                 {{#each this.order.meta as |metaField index|}}
                     <InputGroup>
@@ -199,10 +199,10 @@
             </div>
         </ContentPanel>
 
-        <ContentPanel @title="Route" @open={{true}} @pad={{true}} @panelBodyClass="bg-white dark:bg-gray-800">
+        <ContentPanel @title={{t "fleet-ops.new-order.route.title"}} @open={{true}} @pad={{true}} @panelBodyClass="bg-white dark:bg-gray-800">
             <div class="flex flex-row justify-between mb-4">
                 <div class="flex">
-                    <Toggle @isToggled={{this.isMultipleDropoffOrder}} @onToggle={{this.toggleMultiDropOrder}} @label="Multiple Dropoff's" />
+                    <Toggle @isToggled={{this.isMultipleDropoffOrder}} @onToggle={{this.toggleMultiDropOrder}} @label={{t "fleet-ops.new-order.route.multiple-dropoff"}} />
                 </div>
                 <div class="flex flex-1 justify-end space-x-2">
                     {{#if this.isMultipleDropoffOrder}}
@@ -252,7 +252,7 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-2 text-xs dark:text-gray-100">
                     <InputGroup>
                         <div class="flex items-center justify-between">
-                            <label>Pickup</label>
+                            <label>{{t "fleet-ops.new-order.route.pickup"}}</label>
 
                             <div class="flex-row space-x-2 pr-0.5">
                                 {{#if this.payload.pickup}}
@@ -266,7 +266,7 @@
                             </div>
                         </div>
 
-                        <ModelSelect @modelName="place" @selectedModel={{this.payload.pickup}} @placeholder="Select Pickup" @triggerClass="form-select form-input" @infiniteScroll={{false}} @customSearchEndpoint="places/search" @query={{hash geo=true latitude=this.userLatitude longitude=this.userLongitude}} @renderInPlace={{true}} @onChange={{fn this.setPayloadPlace "pickup" }} as |model|>
+                        <ModelSelect @modelName="place" @selectedModel={{this.payload.pickup}} @placeholder={{t "fleet-ops.new-order.route.select-pickup"}} @triggerClass="form-select form-input" @infiniteScroll={{false}} @customSearchEndpoint="places/search" @query={{hash geo=true latitude=this.userLatitude longitude=this.userLongitude}} @renderInPlace={{true}} @onChange={{fn this.setPayloadPlace "pickup" }} as |model|>
                             {{model.address}}
                         </ModelSelect>
 
@@ -283,7 +283,7 @@
 
                     <InputGroup>
                         <div class="flex items-center justify-between">
-                            <label>Dropoff</label>
+                            <label>{{t "fleet-ops.new-order.route.dropoff"}}</label>
 
                             <div class="flex-row space-x-2 pr-0.5">
                                 {{#if this.payload.dropoff}}
@@ -297,7 +297,7 @@
                             </div>
                         </div>
 
-                        <ModelSelect @modelName="place" @selectedModel={{this.payload.dropoff}} @placeholder="Select Dropoff" @triggerClass="form-select form-input" @infiniteScroll={{false}} @customSearchEndpoint="places/search" @query={{hash geo=true latitude=this.userLatitude longitude=this.userLongitude}} @renderInPlace={{true}} @onChange={{fn this.setPayloadPlace "dropoff" }} as |model|>
+                        <ModelSelect @modelName="place" @selectedModel={{this.payload.dropoff}} @placeholder={{t "fleet-ops.new-order.route.select-dropoff"}} @triggerClass="form-select form-input" @infiniteScroll={{false}} @customSearchEndpoint="places/search" @query={{hash geo=true latitude=this.userLatitude longitude=this.userLongitude}} @renderInPlace={{true}} @onChange={{fn this.setPayloadPlace "dropoff" }} as |model|>
                             {{model.address}}
                         </ModelSelect>
 
@@ -314,14 +314,14 @@
 
                     <InputGroup>
                         <div class="flex items-center justify-between">
-                            <label>Return</label>
+                            <label>{{t "fleet-ops.new-order.route.return"}}</label>
 
                             {{#if this.payload.return}}
                                 <a href="javascript:;" {{on "click" (fn this.placesController.editPlace this.payload.return)}}>Edit Address</a>
                             {{/if}}
                         </div>
 
-                        <ModelSelect @modelName="place" @selectedModel={{this.payload.return}} @placeholder="Select Return" @triggerClass="form-select form-input" @infiniteScroll={{false}} @customSearchEndpoint="places/search" @query={{hash geo=true latitude=this.userLatitude longitude=this.userLongitude}} @renderInPlace={{true}} @onChange={{fn this.setPayloadPlace "return" }} as |model|>
+                        <ModelSelect @modelName="place" @selectedModel={{this.payload.return}} @placeholder={{t "fleet-ops.new-order.route.select-return"}} @triggerClass="form-select form-input" @infiniteScroll={{false}} @customSearchEndpoint="places/search" @query={{hash geo=true latitude=this.userLatitude longitude=this.userLongitude}} @renderInPlace={{true}} @onChange={{fn this.setPayloadPlace "return" }} as |model|>
                             {{model.address}}
                         </ModelSelect>
 
@@ -339,9 +339,9 @@
             {{/if}}
         </ContentPanel>
 
-        <ContentPanel @title="Payload / Entities" @open={{true}} @pad={{true}} @panelBodyClass="bg-white dark:bg-gray-800">
+        <ContentPanel @title={{t "fleet-ops.new-order.payload-entities.title"}} @open={{true}} @pad={{true}} @panelBodyClass="bg-white dark:bg-gray-800">
             {{#if this.isNotCsvImportedOrder}}
-                <Button @wrapperClass="mb-4" @icon="plus" @iconPrefix="fas" @text="Add Item to Order" @size="sm" @onClick={{this.addEntity}} />
+                <Button @wrapperClass="mb-4" @icon="plus" @iconPrefix="fas" @text={{t "fleet-ops.new-order.payload-entities.add-item.button-label"}} @size="sm" @onClick={{this.addEntity}} />
             {{/if}}
             {{#if this.isCsvImportedOrder}}
                 <div class="space-y-2">
@@ -365,12 +365,12 @@
                                             </div>
                                             <div class="space-y-2">
                                                 <div>
-                                                    <Input @value={{entity.name}}  @type="text" class="w-full form-input form-input-sm" placeholder="Name" />
+                                                    <Input @value={{entity.name}}  @type="text" class="w-full form-input form-input-sm" placeholder={{t "fleet-ops.new-order.payload-entities.add-item.name"}} />
                                                 </div>
                                                 <div>
-                                                    <Input @value={{entity.sku}}  @type="text" class="w-full form-input form-input-sm" placeholder="SKU" />
+                                                    <Input @value={{entity.sku}}  @type="text" class="w-full form-input form-input-sm" placeholder={{t "fleet-ops.new-order.payload-entities.add-item.sku"}} />
                                                 </div>
-                                                <Button @icon="pencil" @text="Edit Item" @size="sm" @onClick={{fn this.editEntity entity}} />
+                                                <Button @icon="pencil" @text={{t "fleet-ops.new-order.payload-entities.edit-item.title"}} @size="sm" @onClick={{fn this.editEntity entity}} />
                                             </div>
                                             <div class="absolute top-0 right-0 p-2">
                                                 <Button @icon="times" @iconPrefix="fas" @type="danger" @size="xs" @onClick={{fn this.removeEntity entity}} @wrapperClass={{if (eq index 0) "invisible"}} />
@@ -392,10 +392,10 @@
                                 </div>
                                 <div class="space-y-2">
                                     <div>
-                                        <Input @value={{entity.name}}  @type="text" class="w-full form-input form-input-sm" placeholder="Name" />
+                                        <Input @value={{entity.name}}  @type="text" class="w-full form-input form-input-sm" placeholder={{t "fleet-ops.new-order.payload-entities.add-item.name"}} />
                                     </div>
                                     <div>
-                                        <Input @value={{entity.sku}}  @type="text" class="w-full form-input form-input-sm" placeholder="SKU" />
+                                        <Input @value={{entity.sku}}  @type="text" class="w-full form-input form-input-sm" placeholder={{t "fleet-ops.new-order.payload-entities.add-item.sku"}} />
                                     </div>
                                     {{#if this.waypoints.length}}
                                         <select class="form-select w-full form-input-sm" {{on "change" (fn
@@ -413,7 +413,7 @@
                                             {{/each}}
                                         </select>
                                     {{/if}}
-                                    <Button @icon="pencil" @text="Edit Item" @size="sm" @onClick={{fn this.editEntity entity}} />
+                                    <Button @icon="pencil" @text={{t "fleet-ops.new-order.payload-entities.edit-item.title"}} @size="sm" @onClick={{fn this.editEntity entity}} />
                                 </div>
                                 <div class="absolute top-0 right-0 p-2">
                                     <Button @icon="times" @iconPrefix="fas" @type="danger" @size="xs" @onClick={{fn this.removeEntity entity}} @wrapperClass={{if (eq index 0) "invisible"}} />
@@ -425,8 +425,8 @@
             {{/if}}
         </ContentPanel>
 
-        <ContentPanel @title="Service" @open={{true}} @pad={{true}} @panelBodyClass="bg-white dark:bg-gray-800">
-            <Toggle @label="Apply service rate" @wrapperClass="justify-start-i mb-4" @isToggled={{this.servicable}} @onToggle={{this.checkServiceRates}} @disabled={{this.isNotServicable}} @helpText="Select a defined service rate to generate real time service quotations to apply to this order." />
+        <ContentPanel @title={{t "fleet-ops.new-order.service.title"}} @open={{true}} @pad={{true}} @panelBodyClass="bg-white dark:bg-gray-800">
+            <Toggle @label={{t "fleet-ops.new-order.service.apply-rate"}} @wrapperClass="justify-start-i mb-4" @isToggled={{this.servicable}} @onToggle={{this.checkServiceRates}} @disabled={{this.isNotServicable}} @helpText="Select a defined service rate to generate real time service quotations to apply to this order." />
 
             {{#if this.servicable}}
                 <ContentPanel @title="Service Quotes" @open={{true}} @pad={{true}} @wrapperClass="mt-6" @panelBodyClass="bg-white dark:bg-gray-800">
@@ -499,8 +499,8 @@
             {{/if}}
         </ContentPanel>
 
-        <ContentPanel @title="Notes" @open={{true}} @pad={{true}} @panelBodyClass="bg-white dark:bg-gray-800">
-            <Textarea @value={{this.order.notes}} class="form-input w-full" placeholder="Enter order notes here...." rows={{4}} />
+        <ContentPanel @title={{t "fleet-ops.new-order.notes.title"}} @open={{true}} @pad={{true}} @panelBodyClass="bg-white dark:bg-gray-800">
+            <Textarea @value={{this.order.notes}} class="form-input w-full" placeholder={{t "fleet-ops.new-order.notes.placeholder"}} rows={{4}} />
         </ContentPanel>
     </Overlay::Body>
 </Overlay>
