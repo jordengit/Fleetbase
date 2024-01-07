@@ -1255,7 +1255,7 @@ export default class OperationsOrdersIndexNewController extends Controller {
 
     @action editEntity(entity) {
         this.modalsManager.show('modals/entity-form', {
-            title: 'Edit Item',
+            title: this.intl.t('fleet-ops.new-order.payload-entities.edit-item.title'),
             acceptButtonText: this.intl.t('fleet-ops.new-order.payload-entities.edit-item.save'),
             declineButtonText: this.intl.t('fleet-ops.new-order.payload-entities.edit-item.cancel'),
             entity,

@@ -35,18 +35,18 @@
                 <ContentPanel @title={{t "fleet-ops.new-order.payload-entities.edit-item.measurements-weight"}} @open={{false}} @pad={{true}} @panelBodyClass="bg-white dark:bg-gray-800">
                     <div class="grid grid-cols-3 gap-1">
                         <InputGroup @name={{t "fleet-ops.new-order.payload-entities.edit-item.length"}} @helpText="The length of the entity." @wrapperClass="mb-2">
-                            <UnitInput class="w-full" @value={{@options.entity.length}} @unit={{@options.entity.dimensions_unit}} @canSelectUnit={{true}} @onUnitChange={{fn (mut @options.entity.dimensions_unit)}} />
+                            <UnitInput placeholder={{t "fleet-ops.new-order.payload-entities.edit-item.enter"}} class="w-full" @value={{@options.entity.length}} @unit={{@options.entity.dimensions_unit}} @canSelectUnit={{true}} @onUnitChange={{fn (mut @options.entity.dimensions_unit)}} />
                         </InputGroup>
                         <InputGroup @name={{t "fleet-ops.new-order.payload-entities.edit-item.width"}} @helpText="The width of the entity." @wrapperClass="mb-2">
-                            <UnitInput class="w-full" @value={{@options.entity.width}} @unit={{@options.entity.dimensions_unit}} @canSelectUnit={{true}} @onUnitChange={{fn (mut @options.entity.dimensions_unit)}} />
+                            <UnitInput placeholder={{t "fleet-ops.new-order.payload-entities.edit-item.enter"}} class="w-full" @value={{@options.entity.width}} @unit={{@options.entity.dimensions_unit}} @canSelectUnit={{true}} @onUnitChange={{fn (mut @options.entity.dimensions_unit)}} />
                         </InputGroup>
                         <InputGroup @name={{t "fleet-ops.new-order.payload-entities.edit-item.height"}} @helpText="The height of the entity." @wrapperClass="mb-2">
-                            <UnitInput class="w-full" @value={{@options.entity.height}} @unit={{@options.entity.dimensions_unit}} @canSelectUnit={{true}} @onUnitChange={{fn (mut @options.entity.dimensions_unit)}} />
+                            <UnitInput placeholder={{t "fleet-ops.new-order.payload-entities.edit-item.enter"}} class="w-full" @value={{@options.entity.height}} @unit={{@options.entity.dimensions_unit}} @canSelectUnit={{true}} @onUnitChange={{fn (mut @options.entity.dimensions_unit)}} />
                         </InputGroup>
                     </div>
                     <div class="grid grid-cols-3 gap-1">
                         <InputGroup @name={{t "fleet-ops.new-order.payload-entities.edit-item.weight"}} @helpText="The weight of the entity." @wrapperClass="mb-2">
-                            <UnitInput class="w-full" @value={{@options.entity.weight}} @measurement="weight" @unit={{@options.entity.weight_unit}} @canSelectUnit={{true}} @onUnitChange={{fn (mut
+                            <UnitInput placeholder={{t "fleet-ops.new-order.payload-entities.edit-item.enter"}} class="w-full" @value={{@options.entity.weight}} @measurement="weight" @unit={{@options.entity.weight_unit}} @canSelectUnit={{true}} @onUnitChange={{fn (mut
                                                             @options.entity.weight_unit)}} />
                         </InputGroup>
                     </div>
