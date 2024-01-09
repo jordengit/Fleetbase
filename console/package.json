@@ -25,9 +25,9 @@
     },
     "dependencies": {
         "@ember/legacy-built-in-components": "^0.4.1",
-        "@fleetbase/ember-core": "^0.1.8",
+        "@fleetbase/ember-core": "link:packages/ember-core",
         "@fleetbase/ember-ui": "link:packages/ember-ui",
-        "@fleetbase/fleetops-data": "^0.1.5",
+        "@fleetbase/fleetops-data": "link:packages/fleetops-data",
         "@fleetbase/fleetops-engine": "link:packages/fleetops",
         "@fleetbase/storefront-engine": "^0.2.4",
         "@fleetbase/dev-engine": "^0.1.9",
@@ -125,8 +125,8 @@
     },
     "pnpm": {
         "overrides": {
-            "@fleetbase/fleetops-data": "^0.1.5",
-            "@fleetbase/ember-core": "^0.1.8",
+            "@fleetbase/fleetops-data": "link:packages/fleetops-data",
+            "@fleetbase/ember-core": "link:packages/ember-core",
             "@fleetbase/ember-ui": "link:packages/ember-ui"
         }
     },

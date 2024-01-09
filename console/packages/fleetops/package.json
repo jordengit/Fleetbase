@@ -39,9 +39,9 @@
         "publish:github": "npm config set '@fleetbase:registry' https://npm.pkg.github.com/ && npm publish"
     },
     "dependencies": {
-        "@fleetbase/ember-core": "^0.1.8",
+        "@fleetbase/ember-core": "link:../packages/ember-core",
         "@fleetbase/ember-ui": "link:../packages/ember-ui",
-        "@fleetbase/fleetops-data": "^0.1.5",
+        "@fleetbase/fleetops-data": "link:../packages/fleetops-data",
         "@fleetbase/leaflet-routing-machine": "^3.2.16",
         "@fortawesome/ember-fontawesome": "^0.4.1",
         "@fortawesome/fontawesome-svg-core": "^6.4.0",

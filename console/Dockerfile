@@ -34,6 +34,14 @@ RUN cd packages/fleetops && pnpm install
 COPY console/packages/ember-ui/package.json console/packages/ember-ui/pnpm-lock.yaml ./packages/ember-ui/
 RUN cd packages/ember-ui && pnpm install
 
+# Copy and install dependencies for ember-core
+COPY console/packages/ember-core/package.json console/packages/ember-core/pnpm-lock.yaml ./packages/ember-core/
+RUN cd packages/ember-core && pnpm install
+
+# Copy and install dependencies for fleetops-data
+COPY console/packages/fleetops-data/package.json console/packages/fleetops-data/pnpm-lock.yaml ./packages/fleetops-data/
+RUN cd packages/fleetops-data && pnpm install
+
 # Install app dependencies
 RUN pnpm install
 

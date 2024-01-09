@@ -18,6 +18,14 @@ fleet-ops:
         order-type:
             label: 訂單類型
             placeholder: 選擇訂單類型
+            transport: 運輸
+            parcel-delivery: 包裹遞送
+            passenger-transport: 客運
+            task: 任務
+            food-delivery: 送外賣
+            ecommerce: 電子商務
+            haulage: 運輸
+            storefront: 店面
         internal-id: 內部ID
         schedule: 行程
         customer:

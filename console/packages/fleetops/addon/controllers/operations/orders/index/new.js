@@ -163,7 +163,6 @@ export default class OperationsOrdersIndexNewController extends Controller {
         return [
             {
                 type: 'default',
-                // text: 'Edit metadata2223',
                 text: this.intl.t('fleet-ops.new-order.metadata.edit-metadata'),
                 icon: 'edit',
                 onClick: this.editMetaData,
