@@ -43,6 +43,8 @@ export default class CurrentUserService extends Service.extend(Evented) {
      */
     @service notifications;
 
+    @service intl;
+
     /**
      * User options in localStorage
      *
@@ -148,6 +150,7 @@ export default class CurrentUserService extends Service.extend(Evented) {
 
                     for (let i = 0; i < configs.length; i++) {
                         const config = configs.objectAt(i);
+                        config['display_name'] = this.intl.t('fleet-ops.new-order.order-type.' + config['name'].toLowerCase().replace(/ /g, "-"), {locale: 'zh-tw'});
                         const normalizedConfig = this.store.normalize('order-config', config);
                         const serializedConfig = this.store.push(normalizedConfig);
 

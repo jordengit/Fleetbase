@@ -51,7 +51,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-2">
                 <div class="input-group">
                     <InputLabel @labelText={{t "fleet-ops.new-order.order-type.label"}} @helpText="Selecting the order type will tell fleetbase what order configurations to use." />
-                    <Select class="w-full" @options={{this.types}} @value={{this.order.type}} @optionLabel="display_name" @optionValue="key" @onSelect={{this.setConfig}} @placeholder={{t "fleet-ops.new-order.order-type.placeholder"}} />
+                    <Select class="w-full" @options={{this.types}} @value={{this.order.type}} @optionLabel={{this.displayNameType}} @optionValue="key" @onSelect={{this.setConfig}} @placeholder={{t "fleet-ops.new-order.order-type.placeholder"}} />
                 </div>
 
                 <InputGroup @name={{t "fleet-ops.new-order.internal-id"}} @value={{this.order.internal_id}} @helpText="Use this field to optionally set a custom identifier or internal identifier for the order." />

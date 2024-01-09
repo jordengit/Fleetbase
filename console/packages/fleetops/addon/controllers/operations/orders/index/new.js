@@ -226,6 +226,13 @@ export default class OperationsOrdersIndexNewController extends Controller {
         );
     }
 
+    get displayNameType() {
+        if(this.intl.primaryLocale === 'zh-tw')
+            return 'display_name';
+        else
+            return 'name';
+    }
+
     @computed('order.type', 'types') get typeConfig() {
         return this.types.find((type) => type.key === this.order.type);
     }
