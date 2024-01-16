@@ -1,3 +1,7 @@
+app:
+    name: Fleetbase
+terms:
+    search: 搜尋
 fleet-ops:
     extension-name: Fleet-Ops
     menu-panel:
@@ -19,6 +23,29 @@ fleet-ops:
         settings: 設定
     sidebar:
         new-order: 新訂單
+    orders:
+        title: 訂單
+        op-btn:
+            config: 配置
+            filter: 篩選
+            columns: 列
+            bulk-action:
+                title: 批次操作
+                cancel: 取消訂單
+                delete: 刪除訂單
+            new: 新的
+            export: 匯出
+        table:
+            title: 表格
+            columns:
+                id: ID
+                internal-id: 內部ID
+            order-actions:
+                title: 訂單操作
+                view-order: 查看訂單
+        map:
+            title: 地圖
+
     new-order:
         title: 新訂單
         import:

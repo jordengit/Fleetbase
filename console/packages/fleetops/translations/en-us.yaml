@@ -1,3 +1,7 @@
+app:
+    name: Fleetbase
+terms:
+    search: Search
 fleet-ops:
     extension-name: Fleet-Ops
     menu-panel:
@@ -19,6 +23,22 @@ fleet-ops:
         settings: Settings
     sidebar:
         new-order: Create new order
+    orders:
+        title: Orders
+        op-btn:
+            config: Config
+            filter: Filter
+            columns: Columns
+            bulk-action:
+                title: Bulk Action
+                cancel: Cancel Orders
+                delete: Delete Orders
+            new: New
+            export: Export
+        table:
+            title: Table
+        map:
+            title: Map
     new-order:
         title: New Order
         import:
