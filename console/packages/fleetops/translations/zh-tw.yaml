@@ -1,5 +1,22 @@
 fleet-ops:
     extension-name: Fleet-Ops
+    menu-panel:
+        operations:
+            title: 操作
+            dashboard: 儀表板
+            service-rates: 服務費率
+            scheduler: 調度程式
+        resources:
+            title: 資源
+            drivers: 司機
+            vehicles: 汽車
+            fleets: 車隊
+            vendors: 賣主
+            contacts: 聯絡方式
+            places: 地點
+            fuel-reports: 燃油報告
+            issues: 問題
+        settings: 設定
     sidebar:
         new-order: 新訂單
     new-order:

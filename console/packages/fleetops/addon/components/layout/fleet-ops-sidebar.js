@@ -1,7 +1,7 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
-import { action } from '@ember/object';
+import { computed, action } from '@ember/object';
 import { isArray } from '@ember/array';
 
 /**
@@ -13,6 +13,7 @@ export default class LayoutFleetOpsSidebarComponent extends Component {
     @service universe;
     @service contextPanel;
     @service store;
+    @service intl;
     @tracked routePrefix = 'console.fleet-ops.';
     @tracked menuPanels = [];
     @tracked universeMenuItems = [];
@@ -33,21 +34,23 @@ export default class LayoutFleetOpsSidebarComponent extends Component {
      * Initialize menu panels with visibility settings.
      */
     createMenuPanels() {
+        const intlOperationsPrefix = 'fleet-ops.menu-panel.operations.';
         const operationsItems = [
-            { title: 'Dashboard', icon: 'home', route: 'operations.orders' },
-            { title: 'Service Rates', icon: 'file-invoice-dollar', route: 'operations.service-rates' },
-            { title: 'Scheduler', icon: 'calendar-day', route: 'operations.scheduler' },
+            { title: intlOperationsPrefix + 'dashboard', icon: 'home', route: 'operations.orders' },
+            { title: intlOperationsPrefix + 'service-rates', icon: 'file-invoice-dollar', route: 'operations.service-rates' },
+            { title: intlOperationsPrefix + 'scheduler', icon: 'calendar-day', route: 'operations.scheduler' },
         ];
 
+        const intlResourcesPrefix = 'fleet-ops.menu-panel.resources.';
         const resourcesItems = [
-            { title: 'Drivers', icon: 'id-card', route: 'management.drivers' },
-            { title: 'Vehicles', icon: 'truck', route: 'management.vehicles' },
-            { title: 'Fleets', icon: 'user-group', route: 'management.fleets' },
-            { title: 'Vendors', icon: 'warehouse', route: 'management.vendors' },
-            { title: 'Contacts', icon: 'address-book', route: 'management.contacts' },
-            { title: 'Places', icon: 'location-dot', route: 'management.places' },
-            { title: 'Fuel Reports', icon: 'gas-pump', route: 'management.fuel-reports' },
-            { title: 'Issues', icon: 'triangle-exclamation', route: 'management.issues' },
+            { title: intlResourcesPrefix + 'drivers', icon: 'id-card', route: 'management.drivers' },
+            { title: intlResourcesPrefix + 'vehicles', icon: 'truck', route: 'management.vehicles' },
+            { title: intlResourcesPrefix + 'fleets', icon: 'user-group', route: 'management.fleets' },
+            { title: intlResourcesPrefix + 'vendors', icon: 'warehouse', route: 'management.vendors' },
+            { title: intlResourcesPrefix + 'contacts', icon: 'address-book', route: 'management.contacts' },
+            { title: intlResourcesPrefix + 'places', icon: 'location-dot', route: 'management.places' },
+            { title: intlResourcesPrefix + 'fuel-reports', icon: 'gas-pump', route: 'management.fuel-reports' },
+            { title: intlResourcesPrefix + 'issues', icon: 'triangle-exclamation', route: 'management.issues' },
         ];
 
         const createPanel = (title, routePrefix, items = []) => ({
@@ -62,7 +65,7 @@ export default class LayoutFleetOpsSidebarComponent extends Component {
                 .filter((item) => item.visible),
         });
 
-        this.menuPanels = [createPanel('Operations', 'operations', operationsItems), createPanel('Resources', 'management', resourcesItems)].filter((panel) => {
+        this.menuPanels = [createPanel('fleet-ops.menu-panel.operations.title', 'operations', operationsItems), createPanel('fleet-ops.menu-panel.resources.title', 'management', resourcesItems)].filter((panel) => {
             const isVisible = panel.visible && panel.items.length > 0;
             return isVisible;
         });

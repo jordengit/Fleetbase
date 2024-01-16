@@ -1,5 +1,22 @@
 fleet-ops:
     extension-name: Fleet-Ops
+    menu-panel:
+        operations:
+            title: Operations
+            dashboard: Dashboard
+            service-rates: Service Rates
+            scheduler: Scheduler
+        resources:
+            title: Resources
+            drivers: Drivers
+            vehicles: Vehicles
+            fleets: Fleets
+            vendors: Vendors
+            contacts: Contacts
+            places: Places
+            fuel-reports: Fuel Reports
+            issues: Issues
+        settings: Settings
     sidebar:
         new-order: Create new order
     new-order:
