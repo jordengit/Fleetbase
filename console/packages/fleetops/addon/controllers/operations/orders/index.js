@@ -1,7 +1,7 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import { action } from '@ember/object';
+import { computed, action } from '@ember/object';
 import { equal } from '@ember/object/computed';
 import { isArray } from '@ember/array';
 import { isBlank } from '@ember/utils';
@@ -71,6 +71,8 @@ export default class OperationsOrdersIndexController extends Controller {
      * @var {Service}
      */
     @service socket;
+
+    @service intl;
 
     /**
      * Queryable parameters for this controller's model
@@ -327,6 +329,7 @@ export default class OperationsOrdersIndexController extends Controller {
             sortable: true,
             filterable: true,
             filterComponent: 'filter/string',
+            labelKey: 'fleet-ops.orders.table.columns.id',
         },
         {
             label: 'Internal ID',
@@ -336,6 +339,7 @@ export default class OperationsOrdersIndexController extends Controller {
             sortable: true,
             filterable: true,
             filterComponent: 'filter/string',
+            labelKey: 'fleet-ops.orders.table.columns.internal-id',
         },
         {
             label: 'Payload',
@@ -390,6 +394,7 @@ export default class OperationsOrdersIndexController extends Controller {
             filterParam: 'pickup',
             modelNamePath: 'address',
             model: 'place',
+            labelKey: 'fleet-ops.orders.table.columns.pickup',
         },
         {
             label: 'Dropoff',
@@ -404,6 +409,7 @@ export default class OperationsOrdersIndexController extends Controller {
             filterParam: 'dropoff',
             modelNamePath: 'address',
             model: 'place',
+            labelKey: 'fleet-ops.orders.table.columns.dropoff',
         },
         {
             label: 'Scheduled At',
@@ -415,6 +421,7 @@ export default class OperationsOrdersIndexController extends Controller {
             sortable: true,
             filterable: true,
             filterComponent: 'filter/date',
+            labelKey: 'fleet-ops.orders.table.columns.scheduled-at',
         },
         {
             label: '# Items',
@@ -442,6 +449,7 @@ export default class OperationsOrdersIndexController extends Controller {
             sortable: true,
             filterable: true,
             filterComponent: 'filter/string',
+            labelKey: 'fleet-ops.orders.table.columns.tracking-number',
         },
         {
             label: 'Driver Assigned',
@@ -456,6 +464,7 @@ export default class OperationsOrdersIndexController extends Controller {
             filterComponentPlaceholder: 'Select driver for order',
             filterParam: 'driver',
             model: 'driver',
+            labelKey: 'fleet-ops.orders.table.columns.driver-assigned',
         },
         {
             label: 'Type',
@@ -481,6 +490,7 @@ export default class OperationsOrdersIndexController extends Controller {
             filterable: true,
             filterComponent: 'filter/multi-option',
             filterOptions: this.statusOptions,
+            labelKey: 'fleet-ops.orders.table.columns.status',
         },
         {
             label: 'Created At',
@@ -492,6 +502,7 @@ export default class OperationsOrdersIndexController extends Controller {
             sortable: true,
             filterable: true,
             filterComponent: 'filter/date',
+            labelKey: 'fleet-ops.orders.table.columns.created-at',
         },
         {
             label: 'Updated At',
@@ -544,11 +555,13 @@ export default class OperationsOrdersIndexController extends Controller {
                     label: 'View Order',
                     icon: 'eye',
                     fn: this.viewOrder,
+                    labelKey: 'fleet-ops.orders.table.order-actions.view-order',
                 },
                 {
                     label: 'Cancel Order',
                     icon: 'ban',
                     fn: this.cancelOrder,
+                    labelKey: 'fleet-ops.orders.table.order-actions.cancel-order',
                 },
                 {
                     separator: true,
@@ -557,6 +570,7 @@ export default class OperationsOrdersIndexController extends Controller {
                     label: 'Delete Order',
                     icon: 'trash',
                     fn: this.deleteOrder,
+                    labelKey: 'fleet-ops.orders.table.order-actions.delete-order',
                 },
             ],
             sortable: false,
@@ -565,6 +579,24 @@ export default class OperationsOrdersIndexController extends Controller {
             searchable: false,
         },
     ];
+
+    @computed('intl.locale')
+    get localizedColumns() {
+        return this.columns.map(column => ({
+            ...column,
+            label: column.labelKey ? this.intl.t(column.labelKey) : column.label,
+            ddMenuLabel: this.intl.t('fleet-ops.orders.table.order-actions.title'),
+            actions: column.actions ? column.actions.map(action => {
+                if (action.label) {
+                    return {
+                        ...action,
+                        label: action.labelKey ? this.intl.t(action.labelKey) : action.label,
+                    };
+                }
+                return action;
+            }) : []
+        }));
+    }
 
     /**
      * Creates an instance of OperationsOrdersIndexController.

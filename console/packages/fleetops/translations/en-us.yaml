@@ -37,8 +37,29 @@ fleet-ops:
             export: Export
         table:
             title: Table
+            columns:
+                id: ID
+                internal-id: Internal ID
+                pickup: Pickup
+                dropoff: Dropoff
+                scheduled-at: Scheduled At
+                tracking-number: Tracking Number
+                driver-assigned: Driver Assigned
+                status: Status
+                created-at: Created At
+            order-actions:
+                title: Order Actions
+                view-order: View Order
+                cancel-order: Cancel Order
+                delete-order: Delete Order
         map:
             title: Map
+            create-order: Create Order
+            search: Search
+            view-orders: View Orders
+            service-areas: Service Areas
+            visibility-controls: Visibility Controls
+            scope: Scope
     new-order:
         title: New Order
         import:

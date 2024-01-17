@@ -40,12 +40,26 @@ fleet-ops:
             columns:
                 id: ID
                 internal-id: 內部ID
+                pickup: 撿起
+                dropoff: 放下
+                scheduled-at: 預定於
+                tracking-number: 追蹤號碼
+                driver-assigned: 指定司機
+                status: 狀態
+                created-at: 創建於
             order-actions:
                 title: 訂單操作
                 view-order: 查看訂單
+                cancel-order: 取消訂單
+                delete-order: 刪除訂單
         map:
             title: 地圖
-
+            create-order: 建立訂單
+            search: 搜尋
+            view-orders: 查看訂單
+            service-areas: 服務範圍
+            visibility-controls: 能見度控制
+            scope: 範圍
     new-order:
         title: 新訂單
         import:
