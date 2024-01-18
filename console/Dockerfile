@@ -42,10 +42,6 @@ RUN cd packages/ember-core && pnpm install
 COPY console/packages/fleetops-data/package.json console/packages/fleetops-data/pnpm-lock.yaml ./packages/fleetops-data/
 RUN cd packages/fleetops-data && pnpm install
 
-# Copy and install dependencies for dev-engine
-COPY console/packages/dev-engine/package.json console/packages/dev-engine/pnpm-lock.yaml ./packages/dev-engine/
-RUN cd packages/dev-engine && pnpm install
-
 # Install app dependencies
 RUN pnpm install
 

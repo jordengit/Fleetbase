@@ -30,7 +30,7 @@
         "@fleetbase/fleetops-data": "link:packages/fleetops-data",
         "@fleetbase/fleetops-engine": "link:packages/fleetops",
         "@fleetbase/storefront-engine": "^0.2.4",
-        "@fleetbase/dev-engine": "link:packages/dev-engine",
+        "@fleetbase/dev-engine": "^0.1.9",
         "@fleetbase/iam-engine": "^0.0.7",
         "@fleetbase/leaflet-routing-machine": "^3.2.16",
         "@fortawesome/ember-fontawesome": "^0.4.1",
