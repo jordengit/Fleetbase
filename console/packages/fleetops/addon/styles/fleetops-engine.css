@@ -26,3 +26,8 @@ body[data-theme="dark"] .scheduler-left-sidebar {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 }
+.fleetbase-console.console-fleet-ops-operations-orders-index-new,
+.fleetbase-console.console-fleet-ops-operations-orders-index-view,
+.fleetbase-console .dragSortList {
+    overflow: visible !important;
+}

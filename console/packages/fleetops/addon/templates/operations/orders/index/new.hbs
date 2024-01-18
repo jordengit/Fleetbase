@@ -241,7 +241,7 @@
 
                             <div class="flex items-center">
                                 {{#if waypoint.place}}
-                                    <Button class="mr-2" @icon="edit" @size="sm" @onClick={{fn this.placesController.editPlace waypoint.place}} />
+                                    <Button class="mr-2" @icon="edit" @size="sm" @onClick={{fn this.editPlace waypoint.place}} />
                                 {{/if}}
                                 <Button @type="danger" @icon="trash" @size="sm" @onClick={{fn this.removeWaypoint waypoint}} />
                             </div>

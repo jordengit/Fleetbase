@@ -88,6 +88,13 @@ export default class OperationsOrdersIndexNewController extends Controller {
     @service store;
 
     /**
+     * Inject the `contextPanel` service
+     *
+     * @var {Service}
+     */
+    @service contextPanel;
+
+    /**
      * Inject the `universe` service
      *
      * @var {Service}
@@ -359,11 +366,7 @@ export default class OperationsOrdersIndexNewController extends Controller {
                 { name: 'Type', valuePath: 'extension', key: 'type' },
                 { name: 'File Name', valuePath: 'name', key: 'fileName' },
                 { name: 'File Size', valuePath: 'size', key: 'fileSize' },
-                {
-                    name: 'Upload Date',
-                    valuePath: 'blob.lastModifiedDate',
-                    key: 'uploadDate',
-                },
+                { name: 'Upload Date', valuePath: 'file.lastModifiedDate', key: 'uploadDate' },
                 { name: '', valuePath: '', key: 'delete' },
             ],
             acceptedFileTypes: ['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'text/csv'],
@@ -428,27 +431,22 @@ export default class OperationsOrdersIndexNewController extends Controller {
                 }
 
                 // import places
-                if (isArray(results?.places)) {
-                    this.isMultipleDropoffOrder = true;
+                    const places = get(results, 'places');
+                    const entities = get(results, 'entities');
 
-                    // map into place models
-                    const waypoints = results.places.map((_place) => {
+                    if (isArray(places)) {
+                        this.isMultipleDropoffOrder = true;
+                        this.waypoints = places.map((_place) => {
                         const place = this.store.createRecord('place', _place);
-
                         return this.store.createRecord('waypoint', { place });
                     });
-
-                    this.waypoints = waypoints;
                 }
 
                 // import entities
-                if (isArray(results?.entities)) {
-                    // map into entity models
-                    const entities = results.entities.map((entity) => {
+                    if (isArray(entities)) {
+                        this.entities = entities.map((entity) => {
                         return this.store.createRecord('entity', entity);
                     });
-
-                    this.entities = entities;
                 }
 
                 this.notifications.success('Import completed.');
@@ -458,8 +456,6 @@ export default class OperationsOrdersIndexNewController extends Controller {
             },
             decline: (modal) => {
                 this.modalsManager.setOption('uploadQueue', []);
-                // this.fileQueue.flush();
-
                 modal.done();
             },
         });
@@ -515,10 +511,13 @@ export default class OperationsOrdersIndexNewController extends Controller {
         }
     }
 
-    @action newPlace() {
-        if (this.placesController) {
-            return this.placesController.createPlace();
-        }
+    @action createPlace() {
+        const place = this.store.createRecord('place');
+        this.contextPanel.focus(place, 'editing');
+    }
+
+    @action editPlace(place) {
+        this.contextPanel.focus(place, 'editing');
     }
 
     @action async getQuotes(service) {

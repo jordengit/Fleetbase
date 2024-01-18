@@ -47,6 +47,9 @@ dependencies:
   ember-cli-htmlbars:
     specifier: ^6.1.0
     version: 6.1.0
+  ember-drag-sort:
+    specifier: ^3.0.1
+    version: 3.0.1
   ember-intl:
     specifier: ^6.0.0-beta.6
     version: 6.0.0-beta.6(webpack@5.74.0)
@@ -136,9 +139,6 @@ devDependencies:
   ember-disable-prototype-extensions:
     specifier: ^1.1.3
     version: 1.1.3
-  ember-drag-sort:
-    specifier: ^3.0.1
-    version: 3.0.1
   ember-engines:
     specifier: ^0.8.23
     version: 0.8.23(@ember/legacy-built-in-components@0.5.0)(ember-source@4.6.0)
@@ -6382,7 +6382,7 @@ packages:
       ember-cli-htmlbars: 6.1.0
     transitivePeerDependencies:
       - supports-color
-    dev: true
+    dev: false
 
   /ember-element-helper@0.8.5(ember-source@4.6.0):
     resolution: {integrity: sha512-yZYzuasn6ZC8Nwv0MpaLYGtm68ZxIBSNSe/CYxNWkDdgcuAb2lAG1gx37XkwBIiwPQET0W2agwq7++/HwdMF8g==}
