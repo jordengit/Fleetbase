@@ -82,7 +82,7 @@ fleet-ops:
             task: 任務
             food-delivery: 送外賣
             ecommerce: 電子商務
-            haulage: 運輸
+            haulage: 托運
             storefront: 店面
         internal-id: 內部ID
         schedule: 行程
@@ -108,6 +108,10 @@ fleet-ops:
         route:
             title: 路線
             multiple-dropoff: 多次下車
+            multiple-opration:
+                add-waypoint: 增加航點
+                optimize-route: 優化路線
+                select-waypoint: 選擇航點
             pickup: 撿起
             select-pickup: 選擇取件
             dropoff: 放下
