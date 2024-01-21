@@ -29,7 +29,7 @@ export default class ManagementDriversIndexRoute extends Route {
     };
 
     beforeModel() {
-        this.intl.setLocale(['en-us']);
+        // this.intl.setLocale(['en-us']);
     }
 
     model(params) {
