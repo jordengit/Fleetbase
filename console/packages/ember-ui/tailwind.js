@@ -67,6 +67,11 @@ module.exports = {
                     750: '#283345',
                     850: '#212a38',
                 },
+                nblack: '#170517',
+                ncyan: '#008080',
+                npurple: '#462846',
+                norange: '#FF6600',
+                ndarkblue: '#202838',
             },
             boxShadow: {
                 xs: '0 0 0 1px rgba(0,0,0, 0.05)',
