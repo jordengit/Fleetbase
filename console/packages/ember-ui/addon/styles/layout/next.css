@@ -1662,7 +1662,7 @@ body[data-theme='dark'] .next-sidebar .next-sidebar-panel-container > .next-side
 }
 
 body[data-theme='dark'] .next-view-container {
-    @apply bg-gray-900;
+    @apply bg-nblack;
 }
 
 body[data-theme='dark'] .next-view-header {
