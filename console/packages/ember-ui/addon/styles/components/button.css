@@ -94,7 +94,7 @@ a.btn.fb-button-primary,
 a.btn.btn-primary,
 .fc-button.btn-primary,
 .ui-full-calendar .fc-button.btn-primary {
-    @apply text-white bg-sky-500 border-sky-500 shadow;
+    @apply text-white bg-ncyan border-ncyan shadow;
 }
 
 .btn.fb-button-primary:hover:not(:disabled),
@@ -105,7 +105,7 @@ a.btn.fb-button-primary:hover:not(:disabled),
 a.btn.btn-primary:hover:not(:disabled),
 .fc-button.btn-primary:hover:not(:disabled),
 .ui-full-calendar .fc-button.btn-primary:hover:not(:disabled) {
-    @apply bg-sky-400;
+    @apply bg-ncyan;
 }
 
 .btn.fb-button-primary:focus,
@@ -127,7 +127,7 @@ a.btn.fb-button-primary:active,
 a.btn.btn-primary:active,
 .fc-button.btn-primary:active,
 .ui-full-calendar .fc-button.btn-primary:active {
-    @apply bg-sky-600;
+    @apply bg-ncyan;
 }
 
 .btn.fb-button-success,
@@ -178,14 +178,14 @@ a.btn.btn-success:active,
 a.btn.btn-magic,
 .fc-button.btn-magic,
 .ui-full-calendar .fc-button.btn-magic {
-    @apply text-white bg-indigo-600 border-indigo-700 shadow-sm;
+    @apply text-white bg-norange border-indigo-700 shadow-sm;
 }
 
 .btn.btn-magic:hover:not(:disabled),
 a.btn.btn-magic:hover:not(:disabled),
 .fc-button.btn-magic:hover:not(:disabled),
 .ui-full-calendar .fc-button.btn-magic:hover:not(:disabled) {
-    @apply bg-indigo-500 text-white;
+    @apply bg-norange text-white;
 }
 
 .btn.btn-magic:focus,
@@ -199,7 +199,7 @@ a.btn.btn-magic:focus,
 a.btn.btn-magic:active,
 .fc-button.btn-magic:active,
 .ui-full-calendar .fc-button.btn-magic:active {
-    @apply bg-indigo-700;
+    @apply bg-norange;
 }
 
 .btn.btn-black,
