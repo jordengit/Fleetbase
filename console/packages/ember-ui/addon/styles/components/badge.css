@@ -123,7 +123,7 @@
 
 .status-badge.info-status-badge > span,
 .status-badge.in-progress-status-badge > span {
-    @apply text-blue-900 bg-blue-300;
+    @apply text-blue-900 bg-ncyan;
 }
 
 .status-badge.info-status-badge > span svg,
