@@ -278,6 +278,7 @@ export default class CoordinatesInputComponent extends Component {
                 if (isBlank(place)) {
                     return;
                 }
+                place.street1 = this.lookupQuery;
 
                 const [longitude, latitude] = place.location.coordinates;
 
