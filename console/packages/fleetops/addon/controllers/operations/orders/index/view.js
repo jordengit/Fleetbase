@@ -124,16 +124,16 @@ export default class OperationsOrdersIndexViewController extends Controller {
     ];
 
     @tracked routePanelButtons = [
-        {
-            type: 'default',
-            text: 'Edit',
-            icon: 'pencil',
-            iconPrefix: 'fas',
-            onClick: () => {
-                const order = this.model;
-                this.editOrderRoute(order);
-            },
-        },
+        // {
+        //     type: 'default',
+        //     text: 'Edit',
+        //     icon: 'pencil',
+        //     iconPrefix: 'fas',
+        //     onClick: () => {
+        //         const order = this.model;
+        //         this.editOrderRoute(order);
+        //     },
+        // },
     ];
 
     @not('isWaypointsCollapsed') waypointsIsNotCollapsed;
