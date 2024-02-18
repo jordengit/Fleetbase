@@ -273,6 +273,18 @@ class Payload extends Model
         return $this;
     }
 
+    public function setCurrentWaypoint(Place $destination, bool $save = true): Payload
+    {
+        $this->current_waypoint_uuid = $destination->uuid;
+
+        if ($this->save) {
+            $this->save();
+        }
+
+        return $this;
+    }
+
+
     public function setWaypoints($waypoints = [])
     {
         if (!is_array($waypoints)) {

@@ -86,9 +86,9 @@ class OrderController extends Controller
             }
             $payload->save();
 
-            // sey waypoints and entities after saving
-            $payload->setWaypoints(data_get($payloadInput, 'waypoints', []));
-            $payload->setEntities(data_get($payloadInput, 'entities', []));
+            // set waypoints and entities after payload is saved
+            $payload->setWaypoints($waypoints);
+            $payload->setEntities($entities);
 
             $input['payload_uuid'] = $payload->uuid;
         } elseif ($request->isString('payload')) {
@@ -127,8 +127,8 @@ class OrderController extends Controller
             $payload->save();
 
             // set waypoints and entities after payload is saved
-            $payload->setWaypoints(data_get($payloadInput, 'waypoints', []));
-            $payload->setEntities(data_get($payloadInput, 'entities', []));
+            $payload->setWaypoints($waypoints);
+            $payload->setEntities($entities);
 
             $input['payload_uuid'] = $payload->uuid;
 

@@ -177,7 +177,7 @@ class OrderController extends FleetOpsController
                     $entity = new Entity(['name' => $itemName]);
                     $entity->setAttribute('destination_uuid', $place->uuid);
                     $entity->setAttribute('_import_id', $importId);
-                    $entity->setMetas($place->getMeta());
+                    $entity->setMeta($place->getMeta());
                     $entities[] = $entity;
                 }
             }

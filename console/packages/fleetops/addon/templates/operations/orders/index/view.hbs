@@ -1,4 +1,4 @@
-<Overlay @position="right" @noBackdrop={{true}} @width="700px" @fullHeight={{true}} @isResizable={{true}} @isMaximizable={{true}} @isMinimizable={{true}} @onLoad={{this.setupInterface}} as |overlay|>
+<Overlay @position="right" @noBackdrop={{true}} @width="570px" @fullHeight={{true}} @isResizable={{true}} @isMaximizable={{true}} @isMinimizable={{true}} @onLoad={{this.setupInterface}} as |overlay|>
     <Overlay::Header @overlay={{overlay}} @title={{@model.public_id}} @status={{@model.status}} @dispatched={{@model.dispatched}} @createdAt={{@model.createdAt}} @onPressCancel={{this.transitionBack}}>
         {{#if @model.canBeDispatched}}
             <Button @type="primary" @icon="paper-plane" @text="Dispatch" class="mr-2" @onClick={{fn this.dispatchOrder @model}} />
@@ -332,7 +332,7 @@
         {{/if}}
 
         <ContentPanel @title="Payload" @open={{true}} @pad={{true}} @panelBodyClass="bg-white dark:bg-gray-800">
-            {{#if this.isMultiDropOrder}}
+            {{#if false}}
                 <div class="space-y-2">
                     {{#each this.entitiesByDestination as |group|}}
                         <div class="rounded-md border border-gray-200 dark:border-gray-900 p-3">
