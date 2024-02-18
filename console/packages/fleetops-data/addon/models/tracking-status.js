@@ -63,4 +63,12 @@ export default class TrackingStatusModel extends Model {
         }
         return formatDate(this.created_at, 'PP');
     }
+
+    @computed('status') get statusIntlKey() {
+        return `fleet-ops.view-order.activity.status.` + this.status.toLowerCase().replace(/ /g, "-");
+    }
+
+    @computed('details') get detailsIntlKey() {
+        return `fleet-ops.view-order.activity.details.` + this.details.toLowerCase().replace(/ /g, "-").replace(/\./g, '');
+    }
 }

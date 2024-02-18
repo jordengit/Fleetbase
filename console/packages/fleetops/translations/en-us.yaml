@@ -145,6 +145,64 @@ fleet-ops:
         notes:
             title: Notes
             placeholder: Enter order notes here....
+    view-order:
+        activity:
+            title: Activity
+            status:
+                order-created: Order Created
+                order-dispatched: Order dispatched
+            details:
+                new-order-created: New Order created
+                order-has-been-dispatched-to-driver: Order has been dispatched
+        details:
+            title: Details
+            customer: Customer
+            facilitator: Facilitator
+            driver-assigned: Driver Assigned
+            change-driver: Change Driver
+            internal-id: Internal ID
+            tracking-number: Tracking Number
+            type: Type
+            date-scheduled: Date Scheduled
+            dated-dispatched: Dated Dispatched
+            date-started: Date Started
+        tracking:
+            title: Tracking
+            get-order-label: Get Order Label
+            order-label: Order Label
+        route:
+            title: Route
+            multiple-dropoff:
+                tap-to-expand: Tap to Expand
+                more-waypoints: more waypoints
+            non-multiple-dropoff:
+                pickup: Pickup
+                dropoff: Dropoff
+                return: Return
+        payload:
+            title: Payload
+            edit-item:
+                title: Edit Item
+                upload-new: Upload new
+                details:
+                    title: Details
+                    name: Name
+                    internal-id: Internal ID
+                    sku: SKU
+                    description: Description
+                pricing-value:
+                    title: Pricing & Value
+                    price: Price
+                    sale-price: Sale Price
+                    declared-value: Declared Value
+                measurements-weight:
+                    title: Measurements & Weight
+                    length: Length
+                    width: Width
+                    height: Height
+                    weight: Weight
+                cancel: Cancel
+                save-changes: Save Changes
 
     management:
         drivers:

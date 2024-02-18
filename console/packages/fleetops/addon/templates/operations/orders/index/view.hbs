@@ -81,15 +81,15 @@
     </Overlay::Header>
 
     <Overlay::Body @wrapperClass="new-order-overlay-body" @increaseInnerBodyHeightBy={{1000}}>
-        <ContentPanel @title="Activity" @open={{true}} @pad={{false}} @isLoading={{this.isLoadingAdditionalData}} @panelBodyWrapperClass="px-0 py-4" @panelBodyClass="bg-white dark:bg-gray-800">
+        <ContentPanel @title={{t "fleet-ops.view-order.activity.title"}} @open={{true}} @pad={{false}} @isLoading={{this.isLoadingAdditionalData}} @panelBodyWrapperClass="px-0 py-4" @panelBodyClass="bg-white dark:bg-gray-800">
             {{#if @model.tracking_statuses}}
                 <Timeline @activity={{@model.tracking_statuses}} @wrapperClass="space-x-4 px-2" @arrowClass="bg-gray-600 border border-gray-900 shadow-md" as |TimelineItem|>
                     <TimelineItem class="flex flex-col w-40 px-3 py-2 rounded text-sm leading-4 truncate space-y-2 bg-gray-100 dark:bg-gray-900 dark:text-white" as |trackingStatus|>
                         <div class="font-semibold truncate">
-                            {{trackingStatus.status}}
+                            {{t trackingStatus.statusIntlKey}}
                         </div>
                         <div class="truncate">
-                            {{trackingStatus.details}}
+                            {{t trackingStatus.detailsIntlKey}}
                         </div>
                         <div class="truncate">
                             {{trackingStatus.createdAt}}
