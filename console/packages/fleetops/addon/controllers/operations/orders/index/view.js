@@ -708,7 +708,7 @@ export default class OperationsOrdersIndexViewController extends Controller {
     @action async viewOrderLabel(order) {
         // render dialog to display label within
         this.modalsManager.show(`modals/order-label`, {
-            title: 'Order Label',
+            title: this.intl.t('fleet-ops.view-order.tracking.order-label'),
             modalClass: 'modal-xl',
             acceptButtonText: 'Done',
             order,
