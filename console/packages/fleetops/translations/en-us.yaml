@@ -185,26 +185,26 @@ fleet-ops:
             title: Payload
             edit-item:
                 title: Edit Item
-                upload-new: Upload new
-                details:
-                    title: Details
-                    name: Name
-                    internal-id: Internal ID
-                    sku: SKU
-                    description: Description
-                pricing-value:
-                    title: Pricing & Value
-                    price: Price
-                    sale-price: Sale Price
-                    declared-value: Declared Value
-                measurements-weight:
-                    title: Measurements & Weight
-                    length: Length
-                    width: Width
-                    height: Height
-                    weight: Weight
-                cancel: Cancel
-                save-changes: Save Changes
+#                upload-new: Upload new
+#                details:
+#                    title: Details
+#                    name: Name
+#                    internal-id: Internal ID
+#                    sku: SKU
+#                    description: Description
+#                pricing-value:
+#                    title: Pricing & Value
+#                    price: Price
+#                    sale-price: Sale Price
+#                    declared-value: Declared Value
+#                measurements-weight:
+#                    title: Measurements & Weight
+#                    length: Length
+#                    width: Width
+#                    height: Height
+#                    weight: Weight
+#                cancel: Cancel
+#                save-changes: Save Changes
 
     management:
         drivers:

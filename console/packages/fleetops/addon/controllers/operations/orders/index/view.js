@@ -827,7 +827,7 @@ export default class OperationsOrdersIndexViewController extends Controller {
 
     @action editEntity(entity) {
         this.modalsManager.show('modals/entity-form', {
-            title: 'Edit Item',
+            title: this.intl.t('fleet-ops.view-order.payload.edit-item.title'),
             acceptButtonText: 'Save Changes',
             entity,
             uploadNewPhoto: (file) => {

@@ -331,7 +331,7 @@
             </ContentPanel>
         {{/if}}
 
-        <ContentPanel @title="Payload" @open={{true}} @pad={{true}} @panelBodyClass="bg-white dark:bg-gray-800">
+        <ContentPanel @title={{t "fleet-ops.view-order.payload.title"}} @open={{true}} @pad={{true}} @panelBodyClass="bg-white dark:bg-gray-800">
             {{#if false}}
                 <div class="space-y-2">
                     {{#each this.entitiesByDestination as |group|}}
@@ -413,7 +413,7 @@
                                     <div class="dark:text-gray-100 truncate mb-2">
                                         {{entity.tracking}}
                                     </div>
-                                    <Button @icon="pencil" @text="Edit Item" @size="sm" @onClick={{fn this.editEntity entity}} />
+                                    <Button @icon="pencil" @text={{t "fleet-ops.view-order.payload.edit-item.title"}} @size="sm" @onClick={{fn this.editEntity entity}} />
                                 </div>
                                 <div class="absolute top-0 right-0 p-2">
                                     <Button @icon="times" @iconPrefix="fas" @type="danger" @size="xs" @onClick={{fn this.removeEntity entity}} @wrapperClass={{if (eq index 0) "invisible"}} />
