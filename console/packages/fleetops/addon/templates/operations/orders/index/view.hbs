@@ -106,7 +106,7 @@
             {{/if}}
         </ContentPanel>
 
-        <ContentPanel @title="Details" @open={{true}} @pad={{true}} @panelBodyClass="bg-white dark:bg-gray-800" @actionButtons={{this.detailPanelButtons}}>
+        <ContentPanel @title={{t "fleet-ops.view-order.details.title"}} @open={{true}} @pad={{true}} @panelBodyClass="bg-white dark:bg-gray-800" @actionButtons={{this.detailPanelButtons}}>
             <div class="flex mb-4 space-x-2">
                 {{#if @model.dispatched}}
                     <Badge @hideStatusDot={{false}} @status="Dispatched" />
@@ -117,7 +117,7 @@
             </div>
             <div class="grid grid-cols-2 lg:grid-cols-3 field-info-containers-darker gap-4 lg:gap-2">
                 <div class="field-info-container space-y-2">
-                    <div class="field-name">Customer</div>
+                    <div class="field-name">{{t "fleet-ops.view-order.details.customer"}}</div>
                     <div class="flex flex-row">
                         <div>
                             <Image src={{avatar-url @model.customer.photo_url}} @fallbackSrc={{config "defaultValues.contactImage"}} class="w-8 h-8 rounded-md shadow-sm mr-2" alt={{@model.customer.name}} />
@@ -131,7 +131,7 @@
                     </div>
                 </div>
                 <div class="field-info-container space-y-2">
-                    <div class="field-name">Facilitator</div>
+                    <div class="field-name">{{t "fleet-ops.view-order.details.facilitator"}}</div>
                     {{#if @model.facilitator.isIntegratedVendor}}
                         <div class="flex flex-row">
                             <div>
@@ -147,7 +147,7 @@
                 </div>
                 <div class="field-info-container space-y-2">
                     <div class="field-name flex flex-row items-center justify-between">
-                        <span>Driver Assigned</span>
+                        <span>{{t "fleet-ops.view-order.details.driver-assigned"}}</span>
                     </div>
                     <div>
                         <a href="javascript:;" class="flex flex-row" {{on "click" (fn this.focusOrderAssignedDriver @model)}}>
@@ -162,34 +162,34 @@
                             </div>
                         </a>
                         <div class="mt-1">
-                            <Button @size="xs" @type="default" @icon="edit" @text={{if @model.has_driver_assigned "Change Driver" "Assign Driver"}} @onClick={{fn this.assignDriver @model}} />
+                            <Button @size="xs" @type="default" @icon="edit" @text={{if @model.has_driver_assigned (t "fleet-ops.view-order.details.change-driver") (t "fleet-ops.view-order.details.assign-driver")}} @onClick={{fn this.assignDriver @model}} />
                         </div>
                     </div>
                 </div>
                 <div class="field-info-container space-y-2">
-                    <div class="field-name">Internal ID</div>
+                    <div class="field-name">{{t "fleet-ops.view-order.details.internal-id"}}</div>
                     <div class="field-value">{{n-a @model.internal_id}}</div>
                 </div>
                 <div class="field-info-container space-y-2">
-                    <div class="field-name">Tracking Number</div>
+                    <div class="field-name">{{t "fleet-ops.view-order.details.tracking-number"}}</div>
                     <div class="field-value">{{n-a @model.tracking_number.tracking_number}}</div>
                 </div>
                 <div class="field-info-container space-y-2">
-                    <div class="field-name">Type</div>
+                    <div class="field-name">{{t "fleet-ops.view-order.details.type"}}</div>
                     <div class="field-value">
                         <Badge @status="default">{{n-a (humanize @model.type)}}</Badge>
                     </div>
                 </div>
                 <div class="field-info-container space-y-2">
-                    <div class="field-name">Date Scheduled</div>
+                    <div class="field-name">{{t "fleet-ops.view-order.details.date-scheduled"}}</div>
                     <div class="field-value">{{n-a @model.scheduledAt}}</div>
                 </div>
                 <div class="field-info-container space-y-2">
-                    <div class="field-name">Date Dispatched</div>
+                    <div class="field-name">{{t "fleet-ops.view-order.details.dated-dispatched"}}</div>
                     <div class="field-value">{{n-a @model.dispatchedAt}}</div>
                 </div>
                 <div class="field-info-container space-y-2">
-                    <div class="field-name">Date Started</div>
+                    <div class="field-name">{{t "fleet-ops.view-order.details.date-started"}}</div>
                     <div class="field-value">{{n-a @model.startedAt}}</div>
                 </div>
             </div>

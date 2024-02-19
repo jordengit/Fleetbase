@@ -160,6 +160,7 @@ fleet-ops:
             facilitator: Facilitator
             driver-assigned: Driver Assigned
             change-driver: Change Driver
+            assign-driver: Assign Driver
             internal-id: Internal ID
             tracking-number: Tracking Number
             type: Type
