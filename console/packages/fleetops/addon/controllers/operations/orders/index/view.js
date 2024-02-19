@@ -102,6 +102,8 @@ export default class OperationsOrdersIndexViewController extends Controller {
      */
     @service contextPanel;
 
+    @service intl;
+
     @tracked isLoadingAdditionalData = false;
     @tracked isWaypointsCollapsed;
     @tracked leafletRoute;
@@ -828,7 +830,8 @@ export default class OperationsOrdersIndexViewController extends Controller {
     @action editEntity(entity) {
         this.modalsManager.show('modals/entity-form', {
             title: this.intl.t('fleet-ops.view-order.payload.edit-item.title'),
-            acceptButtonText: 'Save Changes',
+            acceptButtonText: this.intl.t('fleet-ops.view-order.payload.edit-item.save'),
+            declineButtonText: this.intl.t('fleet-ops.view-order.payload.edit-item.cancel'),
             entity,
             uploadNewPhoto: (file) => {
                 if (entity.get('isNew')) {

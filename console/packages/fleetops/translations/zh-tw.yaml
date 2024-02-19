@@ -153,6 +153,48 @@ fleet-ops:
         notes:
             title: 備註
             placeholder: 在此輸入訂單備註...
+    view-order:
+        activity:
+            title: 活動
+            status:
+                order-created: 訂單已創建
+                order-dispatched: 訂單出貨
+            details:
+                new-order-created: 新訂單已創建
+                order-has-been-dispatched-to-driver: 訂單已出貨
+        details:
+            title: 細節
+            customer: 顧客
+            facilitator: 協調員
+            driver-assigned: 司機已分配
+            change-driver: 更換司機
+            assign-driver: 分配司機
+            internal-id: 內部ID
+            tracking-number: 追蹤號碼
+            type: 類型
+            date-scheduled: 預定日期
+            dated-dispatched: 已發送日期
+            date-started: 開始日期
+        tracking:
+            title: 追蹤
+            get-order-label: 取得訂單標籤
+            order-label: 訂單標籤
+        route:
+            title: 路線
+            multiple-dropoff:
+                tap-to-expand: 點擊展開
+                tap-to-collapse: 點擊收起
+                more-waypoints: 更多航點
+            non-multiple-dropoff:
+                pickup: 撿起
+                dropoff: 放下
+                return: 返回
+        payload:
+            title: 有效負載
+            edit-item:
+                title: 編輯項目
+                cancel: 取消
+                save: 儲存變更
 
     management:
         drivers:

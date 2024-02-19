@@ -203,8 +203,8 @@ fleet-ops:
 #                    width: Width
 #                    height: Height
 #                    weight: Weight
-#                cancel: Cancel
-#                save-changes: Save Changes
+                cancel: Cancel
+                save: Save Changes
 
     management:
         drivers:
