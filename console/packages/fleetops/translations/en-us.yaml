@@ -175,6 +175,7 @@ fleet-ops:
             title: Route
             multiple-dropoff:
                 tap-to-expand: Tap to Expand
+                tap-to-collapse: Tap to collapse
                 more-waypoints: more waypoints
             non-multiple-dropoff:
                 pickup: Pickup

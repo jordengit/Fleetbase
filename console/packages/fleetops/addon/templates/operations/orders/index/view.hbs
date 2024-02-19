@@ -234,7 +234,7 @@
             </ContentPanel>
         {{/if}}
 
-        <ContentPanel @title="Route" @open={{true}} @pad={{true}} @panelBodyClass="bg-white dark:bg-gray-800" @actionButtons={{this.routePanelButtons}}>
+        <ContentPanel @title={{t "fleet-ops.view-order.route.title"}} @open={{true}} @pad={{true}} @panelBodyClass="bg-white dark:bg-gray-800" @actionButtons={{this.routePanelButtons}}>
             {{#if @model.payload.isMultiDrop}}
                 <div>
                     <RouteList @order={{@model}} />
@@ -242,15 +242,15 @@
             {{else}}
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-2">
                     <div class="field-info-container">
-                        <label class="field-name">Pickup</label>
+                        <label class="field-name">{{t "fleet-ops.view-order.route.non-multiple-dropoff.pickup"}}</label>
                         <DisplayPlace @place={{@model.payload.pickup}} />
                     </div>
                     <div class="field-info-container">
-                        <label class="field-name">Dropoff</label>
+                        <label class="field-name">{{t "fleet-ops.view-order.route.non-multiple-dropoff.dropoff"}}</label>
                         <DisplayPlace @place={{@model.payload.dropoff}} />
                     </div>
                     <div class="field-info-container">
-                        <label class="field-name">Return</label>
+                        <label class="field-name">{{t "fleet-ops.view-order.route.non-multiple-dropoff.return"}}</label>
                         <DisplayPlace @place={{@model.payload.return}} />
                     </div>
                 </div>
