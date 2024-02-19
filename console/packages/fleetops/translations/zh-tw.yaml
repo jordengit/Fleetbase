@@ -166,7 +166,7 @@ fleet-ops:
             title: 細節
             customer: 顧客
             facilitator: 協調員
-            driver-assigned: 司機已分配
+            driver-assigned: 分配司機
             change-driver: 更換司機
             assign-driver: 分配司機
             internal-id: 內部ID
