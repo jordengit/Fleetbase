@@ -164,6 +164,16 @@ fleet-ops:
                 order-has-been-dispatched-to-driver: 訂單已出貨
         details:
             title: 細節
+            edit:
+                button: 編輯
+                title: 編輯
+                internal-id: 內部ID
+                schedule: 行程
+                customer: 顧客
+                facilitator: 協調員
+                assign-driver: 分配司機
+                cancel: 取消
+                save: 儲存變更
             customer: 顧客
             facilitator: 協調員
             driver-assigned: 分配司機

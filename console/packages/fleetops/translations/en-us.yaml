@@ -156,6 +156,16 @@ fleet-ops:
                 order-has-been-dispatched-to-driver: Order has been dispatched
         details:
             title: Details
+            edit:
+                button: Edit
+                title: Edit Order Details
+                internal-id: Internal ID
+                schedule: Schedule
+                customer: Customer
+                facilitator: Facilitator
+                assign-driver: Assign Driver
+                cancel: Cancel
+                save: Save Changes
             customer: Customer
             facilitator: Facilitator
             driver-assigned: Driver Assigned

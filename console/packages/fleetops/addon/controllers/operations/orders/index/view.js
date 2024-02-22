@@ -112,18 +112,32 @@ export default class OperationsOrdersIndexViewController extends Controller {
     @alias('currentUser.latitude') userLatitude;
     @alias('currentUser.longitude') userLongitude;
 
-    @tracked detailPanelButtons = [
-        {
-            type: 'default',
-            text: 'Edit',
-            icon: 'pencil',
-            iconPrefix: 'fas',
-            onClick: () => {
-                const order = this.model;
-                this.editOrder(order);
+    // @tracked detailPanelButtons = [
+    //     {
+    //         type: 'default',
+    //         text: this.intl.t('fleet-ops.view-order.details.edit.button'),
+    //         icon: 'pencil',
+    //         iconPrefix: 'fas',
+    //         onClick: () => {
+    //             const order = this.model;
+    //             this.editOrder(order);
+    //         },
+    //     },
+    // ];
+    get detailPanelButtons() {
+        return [
+            {
+                type: 'default',
+                text: this.intl.t('fleet-ops.view-order.details.edit.button'),
+                icon: 'pencil',
+                iconPrefix: 'fas',
+                onClick: () => {
+                    const order = this.model;
+                    this.editOrder(order);
+                },
             },
-        },
-    ];
+        ]
+    }
 
     @tracked routePanelButtons = [
         // {
@@ -358,8 +372,9 @@ export default class OperationsOrdersIndexViewController extends Controller {
         options = options === null ? {} : options;
 
         this.modalsManager.show('modals/order-form', {
-            title: 'Edit Order Details',
-            acceptButtonText: 'Save Changes',
+            title: this.intl.t('fleet-ops.view-order.details.edit.title'),
+            acceptButtonText: this.intl.t('fleet-ops.view-order.details.edit.save'),
+            declineButtonText: this.intl.t('fleet-ops.view-order.details.edit.cancel'),
             acceptButtonIcon: 'save',
             setOrderFacilitator: (model) => {
                 order.set('facilitator', model);
