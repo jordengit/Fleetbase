@@ -6,6 +6,8 @@
     ```
 
    需修改：DB_PASSWORD、GOOGLE_MAPS_API_KEY
+   
+   google api key 申請：https://developers.google.com/maps/documentation/javascript/get-api-key?hl=zh-tw
 
 2. 起 docker
 
