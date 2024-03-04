@@ -117,7 +117,7 @@ class VerificationCode extends Model
         $verifyCode->save();
 
         if ($subject->phone) {
-            Twilio::message($subject->phone, $messageCallback ? $messageCallback($verifyCode) : "Your Fleetbase verification code is {$verifyCode->code}");
+//            Twilio::message($subject->phone, $messageCallback ? $messageCallback($verifyCode) : "Your Fleetbase verification code is {$verifyCode->code}");
         }
 
         return $verifyCode;
