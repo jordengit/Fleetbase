@@ -139,6 +139,7 @@ class OrderController extends FleetOpsController
     public function importFromFiles(Request $request)
     {
         $info    = Utils::lookupIp();
+        $disk    = $request->input('disk', config('filesystems.default'));
         $files   = $request->input('files');
         $files   = File::whereIn('uuid', $files)->get();
         $country = $request->input('country', Utils::or($info, ['country_name', 'region'], 'Singapore'));
@@ -153,7 +154,7 @@ class OrderController extends FleetOpsController
             }
 
             try {
-                $data = Excel::toArray(new OrdersImport(), $file->path, 's3');
+                $data = Excel::toArray(new OrdersImport(), $file->path, $disk);
             } catch (\Exception $e) {
                 return response()->error('Invalid file, unable to proccess.');
             }
@@ -187,7 +188,7 @@ class OrderController extends FleetOpsController
                     $entity = new Entity(['name' => $itemName]);
                     $entity->setAttribute('destination_uuid', $place->uuid);
                     $entity->setAttribute('_import_id', $importId);
-                    $entity->setMetas($place->getMeta());
+                    $entity->setMeta($place->getMeta());
                     $entities[] = $entity;
                 }
             }

@@ -315,6 +315,7 @@ class OrderController extends Controller
                 $pickup  = array_shift($waypoints);
                 $dropoff = array_pop($waypoints);
             }
+
             if ($pickup) {
                 $payload->setPickup($pickup);
             }
