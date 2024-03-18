@@ -744,7 +744,7 @@ class OrderController extends Controller
         $location = $order->getLastLocation();
 
         // set first destination for payload
-        $payload->setFirstWaypoint($activity, $location);
+//        $payload->setFirstWaypoint($activity, $location);
         $order->setRelation('payload', $payload);
 
         // update order activity
@@ -809,7 +809,7 @@ class OrderController extends Controller
 
         // if is multi drop order and no current destination set it
         if ($order->payload->isMultipleDropOrder && !$order->payload->current_waypoint_uuid) {
-            $order->payload->setFirstWaypoint($activity, $location);
+//            $order->payload->setFirstWaypoint($activity, $location);
         }
 
         if (is_array($activity) && $activity['code'] === 'completed' && $order->payload->isMultipleDropOrder) {
