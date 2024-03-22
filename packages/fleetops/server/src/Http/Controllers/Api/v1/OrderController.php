@@ -744,7 +744,7 @@ class OrderController extends Controller
         $location = $order->getLastLocation();
 
         // set first destination for payload
-//        $payload->setFirstWaypoint($activity, $location);
+        $payload->setFirstWaypoint($activity, $location);
         $order->setRelation('payload', $payload);
 
         // update order activity
@@ -809,31 +809,31 @@ class OrderController extends Controller
 
         // if is multi drop order and no current destination set it
         if ($order->payload->isMultipleDropOrder && !$order->payload->current_waypoint_uuid) {
-//            $order->payload->setFirstWaypoint($activity, $location);
+            $order->payload->setFirstWaypoint($activity, $location);
         }
 
-        if (is_array($activity) && $activity['code'] === 'completed' && $order->payload->isMultipleDropOrder) {
-            // confirm every waypoint is completed
-            $isCompleted = $order->payload->waypointMarkers->every(function ($waypoint) {
-                return $waypoint->status_code === 'COMPLETED';
-            });
-
-            // only update activity for waypoint
-            if (!$isCompleted) {
-                $order->payload->updateWaypointActivity($activity, $location, $proof);
-                $order->payload->setNextWaypointDestination();
-                $order->payload->refresh();
-
-                // recheck if order is completed
-                $isFullyCompleted = $order->payload->waypointMarkers->every(function ($waypoint) {
-                    return $waypoint->status_code === 'COMPLETED';
-                });
-
-                if (!$isFullyCompleted) {
-                    return new OrderResource($order);
-                }
-            }
-        }
+//        if (is_array($activity) && $activity['code'] === 'completed' && $order->payload->isMultipleDropOrder) {
+//            // confirm every waypoint is completed
+//            $isCompleted = $order->payload->waypointMarkers->every(function ($waypoint) {
+//                return $waypoint->status_code === 'COMPLETED';
+//            });
+//
+//            // only update activity for waypoint
+//            if (!$isCompleted) {
+//                $order->payload->updateWaypointActivity($activity, $location, $proof);
+//                $order->payload->setNextWaypointDestination();
+//                $order->payload->refresh();
+//
+//                // recheck if order is completed
+//                $isFullyCompleted = $order->payload->waypointMarkers->every(function ($waypoint) {
+//                    return $waypoint->status_code === 'COMPLETED';
+//                });
+//
+//                if (!$isFullyCompleted) {
+//                    return new OrderResource($order);
+//                }
+//            }
+//        }
 
         if (is_array($activity) && $activity['code'] === 'completed' && $order->driverAssigned) {
             // unset from driver current job
@@ -846,13 +846,13 @@ class OrderController extends Controller
 
         // also update for each order entities if not multiple drop order
         // all entities will share the same activity status as is one drop order
-        if (!$order->payload->isMultipleDropOrder) {
+//        if (!$order->payload->isMultipleDropOrder) {
             foreach ($order->payload->entities as $entity) {
                 $entity->insertActivity($activity['status'], $activity['details'] ?? '', $location, $activity['code'], $proof);
             }
-        } else {
-            $order->payload->updateWaypointActivity($activity, $location);
-        }
+//        } else {
+//            $order->payload->updateWaypointActivity($activity, $location);
+//        }
 
         return new OrderResource($order);
     }
@@ -915,15 +915,15 @@ class OrderController extends Controller
             );
         }
 
-        // confirm every waypoint is completed
-        $isCompleted = $order->payload->waypointMarkers->every(function ($waypoint) {
-            return $waypoint->status_code === 'COMPLETED';
-        });
-
-        // if not completed respond with error
-        if (!$isCompleted) {
-            return response()->error('Not all waypoints completed for order.');
-        }
+//        // confirm every waypoint is completed
+//        $isCompleted = $order->payload->waypointMarkers->every(function ($waypoint) {
+//            return $waypoint->status_code === 'COMPLETED';
+//        });
+//
+//        // if not completed respond with error
+//        if (!$isCompleted) {
+//            return response()->error('Not all waypoints completed for order.');
+//        }
 
         $activity = [
             'status'  => 'Order completed',
@@ -994,8 +994,7 @@ class OrderController extends Controller
             return response()->error('Place resource is not a valid destination.');
         }
 
-        $order->payload->update(['current_waypoint_uuid' => $place->uuid]);
-        $order->payload->refresh();
+        $order->payload->setCurrentWaypoint($place);
 
         return new OrderResource($order);
     }
