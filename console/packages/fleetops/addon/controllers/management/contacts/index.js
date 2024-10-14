@@ -1,7 +1,7 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import { action } from '@ember/object';
+import { computed, action } from '@ember/object';
 import { isBlank } from '@ember/utils';
 import { timeout } from 'ember-concurrency';
 import { task } from 'ember-concurrency-decorators';
@@ -20,6 +20,13 @@ export default class ManagementContactsIndexController extends Controller {
      * @var {Service}
      */
     @service notifications;
+
+    /**
+     * Inject the `intl` service
+     *
+     * @var {Service}
+     */
+    @service intl;
 
     /**
      * Inject the `modals-manager` service
@@ -156,6 +163,7 @@ export default class ManagementContactsIndexController extends Controller {
             sortable: true,
             filterable: true,
             filterComponent: 'filter/string',
+            labelKey: 'fleet-ops.common.name'
         },
         {
             label: 'ID',
@@ -166,6 +174,7 @@ export default class ManagementContactsIndexController extends Controller {
             sortable: true,
             filterable: true,
             filterComponent: 'filter/string',
+            labelKey: 'fleet-ops.common.id'
         },
         {
             label: 'Internal ID',
@@ -176,6 +185,7 @@ export default class ManagementContactsIndexController extends Controller {
             sortable: true,
             filterable: true,
             filterComponent: 'filter/string',
+            labelKey: 'fleet-ops.common.internal-id'
         },
         {
             label: 'Title',
@@ -186,6 +196,7 @@ export default class ManagementContactsIndexController extends Controller {
             sortable: true,
             filterable: true,
             filterComponent: 'filter/string',
+            labelKey: 'fleet-ops.common.title'
         },
         {
             label: 'Email',
@@ -196,6 +207,7 @@ export default class ManagementContactsIndexController extends Controller {
             sortable: true,
             filterable: true,
             filterComponent: 'filter/string',
+            labelKey: 'fleet-ops.common.email'
         },
         {
             label: 'Phone',
@@ -206,6 +218,7 @@ export default class ManagementContactsIndexController extends Controller {
             sortable: true,
             filterable: true,
             filterComponent: 'filter/string',
+            labelKey: 'fleet-ops.common.phone'
         },
         {
             label: 'Type',
@@ -217,6 +230,7 @@ export default class ManagementContactsIndexController extends Controller {
             filterable: true,
             filterComponent: 'filter/multi-option',
             filterOptions: ['contact', 'customer'],
+            labelKey: 'fleet-ops.common.type'
         },
         {
             label: 'Created At',
@@ -227,6 +241,7 @@ export default class ManagementContactsIndexController extends Controller {
             sortable: true,
             filterable: true,
             filterComponent: 'filter/date',
+            labelKey: 'fleet-ops.management.contacts.index.created'
         },
         {
             label: 'Updated At',
@@ -238,6 +253,7 @@ export default class ManagementContactsIndexController extends Controller {
             hidden: true,
             filterable: true,
             filterComponent: 'filter/date',
+            labelKey: 'fleet-ops.management.contacts.index.updated'
         },
         {
             label: '',
@@ -253,10 +269,12 @@ export default class ManagementContactsIndexController extends Controller {
                 {
                     label: 'View Contact Details',
                     fn: this.viewContact,
+                    labelKey: 'fleet-ops.management.contacts.index.view-contact'
                 },
                 {
                     label: 'Edit Contact',
                     fn: this.editContact,
+                    labelKey: 'fleet-ops.management.contacts.index.edit-contact'
                 },
                 {
                     separator: true,
@@ -264,6 +282,7 @@ export default class ManagementContactsIndexController extends Controller {
                 {
                     label: 'Delete Contact',
                     fn: this.deleteContact,
+                    labelKey: 'fleet-ops.management.contacts.index.delete-contact'
                 },
             ],
             sortable: false,
@@ -272,6 +291,23 @@ export default class ManagementContactsIndexController extends Controller {
             searchable: false,
         },
     ];
+
+    @computed('intl.locale')
+    get localizedColumns() {
+        return this.columns.map(column => ({
+            ...column,
+            label: column.labelKey ? this.intl.t(column.labelKey) : column.label,
+            actions: column.actions ? column.actions.map(action => {
+                if (action.label) {
+                    return {
+                        ...action,
+                        label: action.labelKey ? this.intl.t(action.labelKey) : action.label,
+                    };
+                }
+                return action;
+            }) : []
+        }));
+    }
 
     /**
      * The search task.
@@ -370,7 +406,7 @@ export default class ManagementContactsIndexController extends Controller {
 
         this.crud.bulkDelete(selected, {
             modelNamePath: `name`,
-            acceptButtonText: 'Delete Contacts',
+            acceptButtonText: this.intl.t('fleet-ops.management.contacts.index.delete-button'),
             onSuccess: () => {
                 return this.hostRouter.refresh();
             },

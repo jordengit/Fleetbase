@@ -40,6 +40,12 @@ export default class ServiceAreasService extends Service {
     @service crud;
 
     /**
+     * Service for intl.
+     * @service
+     */
+    @service intl;
+
+    /**
      * Inject the `appCache` service.
      *
      * @memberof ServiceAreasService
@@ -265,7 +271,7 @@ export default class ServiceAreasService extends Service {
         this.triggerLiveMapFn('showDrawControls', { text: true });
         this.setLayerCreationContext('service-area');
 
-        this.notifications.info('Use drawing controls to the right to draw a service area, complete point connections to save service area.', {
+        this.notifications.info(this.intl.t('fleet-ops.services.service-areas.createareanotice'), {
             clearDuration: 1000 * 9,
         });
     }
@@ -392,7 +398,7 @@ export default class ServiceAreasService extends Service {
     @action editServiceAreaDetails(serviceArea, options = {}) {
         this.modalsManager.show('modals/service-area-form', {
             title: 'Edit Service Area',
-            acceptButtonText: 'Save Changes',
+            acceptButtonText: 'Save Changes', //save-changes
             acceptButtonIcon: 'save',
             declineButtonIcon: 'times',
             declineButtonIconPrefix: 'fas',

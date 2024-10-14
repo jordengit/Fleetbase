@@ -21,9 +21,8 @@
 
 {{#if this.isTableLayout}}
     <Layout::Section::Header @title={{t "fleet-ops.orders.title"}} @onSearch={{perform this.search}}>
-        <Button @icon="cogs" @text={{t "fleet-ops.orders.op-btn.config"}} class="mr-2" @onClick={{fn (transition-to "operations.orders.index.config")}} />
-        <FiltersPicker @columns={{this.columns}} @onApply={{fn this.filters.apply this}} @onClear={{fn this.filters.reset this}} @onFilterClear={{this.filters.clear}} @onChange={{this.filters.set}} @buttonWrapperClass="mr-2" />
-        <VisibleColumnPicker @columns={{this.columns}} @onChange={{fn (mut this.columns)}} class="mr-2" />
+        <FiltersPicker @columns={{this.localizedColumns}} @onApply={{fn this.filters.apply this}} @onClear={{fn this.filters.reset this}} @onFilterClear={{this.filters.clear}} @onChange={{this.filters.set}} @buttonWrapperClass="mr-2" @dropdownHeaderText={{t "fleet-ops.common.filterheader"}} />
+        <VisibleColumnPicker @columns={{this.localizedColumns}} @onChange={{fn (mut this.columns)}} class="mr-2" @dropdownHeaderText={{t "fleet-ops.common.customize-columns"}} />
         {{#if (safe-has this.table "selectedRows")}}
             <DropdownButton @icon="layer-group" @type="magic" @text={{t "fleet-ops.orders.op-btn.bulk-action.title"}} @size="sm" @buttonWrapperClass="mr-2" as |dd|>
                 <div class="next-dd-menu mt-2 mx-0">
@@ -49,7 +48,7 @@
 {{#if this.isKanbanView}}
     <Layout::Section::Header @title="Orders" @onSearch={{perform this.search}}>
         <Button @icon="cogs" @text="Config" class="mr-2" @onClick={{fn (transition-to "operations.orders.index.config")}} />
-        <FiltersPicker @columns={{this.columns}} @onApply={{fn this.filters.apply this}} @onClear={{fn this.filters.reset this}} @onFilterClear={{this.filters.clear}} @onChange={{this.filters.set}} @buttonWrapperClass="mr-2" />
+        <FiltersPicker @columns={{this.columns}} @onApply={{fn this.filters.apply this}} @onClear={{fn this.filters.reset this}} @onFilterClear={{this.filters.clear}} @onChange={{this.filters.set}} @buttonWrapperClass="mr-2" @dropdownHeaderText={{t "fleet-ops.common.filterheader"}} />
         <Button @type="primary" @icon="plus" @iconPrefix="fas" @text="New" @wrapperClass="mr-2" @onClick={{fn (transition-to "operations.orders.index.new")}} />
         <Button @icon="long-arrow-up" @iconClass="rotate-icon-45" @text="Export" @onClick={{this.exportOrders}} />
     </Layout::Section::Header>

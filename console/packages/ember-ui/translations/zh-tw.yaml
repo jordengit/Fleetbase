@@ -1,0 +1,5 @@
+ember-ui:
+    filter-picker:
+        title: 篩選
+        clearbtn: 清除
+        applybtn: 套用

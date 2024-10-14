@@ -16,6 +16,11 @@ export default class FiltersPickerComponent extends Component {
     @service hostRouter;
 
     /**
+     * @service intl
+     */
+    // @service intl;
+
+    /**
      * Array of filters created from columns argument.
      *
      * @memberof FiltersPickerComponent

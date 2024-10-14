@@ -2,7 +2,7 @@ import ManagementController from '../../management';
 import { inject as controller } from '@ember/controller';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import { action } from '@ember/object';
+import { computed, action } from '@ember/object';
 import { isBlank } from '@ember/utils';
 import { timeout } from 'ember-concurrency';
 import { task } from 'ember-concurrency-decorators';
@@ -21,6 +21,13 @@ export default class ManagementVehiclesIndexController extends ManagementControl
      * @var {Service}
      */
     @service modalsManager;
+
+    /**
+     * Inject the `intl` service
+     *
+     * @var {Service}
+     */
+    @service intl;
 
     /**
      * Inject the `store` service
@@ -229,6 +236,7 @@ export default class ManagementVehiclesIndexController extends ManagementControl
     @tracked columns = [
         {
             label: 'Name',
+            labelKey: 'fleet-ops.common.name',
             valuePath: 'display_name',
             photoPath: 'avatar_url',
             width: '200px',
@@ -243,6 +251,7 @@ export default class ManagementVehiclesIndexController extends ManagementControl
         },
         {
             label: 'Plate Number',
+            labelKey: 'fleet-ops.common.plate-number',
             valuePath: 'plate_number',
             cellComponent: 'table/cell/base',
             width: '100px',
@@ -254,6 +263,7 @@ export default class ManagementVehiclesIndexController extends ManagementControl
         },
         {
             label: 'Driver Assigned',
+            labelKey: 'fleet-ops.management.drivers.index.assign-driver',
             cellComponent: 'table/cell/anchor',
             action: async (vehicle) => {
                 const driver = await vehicle.loadDriver();
@@ -265,12 +275,13 @@ export default class ManagementVehiclesIndexController extends ManagementControl
             resizable: true,
             filterable: true,
             filterComponent: 'filter/model',
-            filterComponentPlaceholder: 'Select driver to filter by',
+            filterComponentPlaceholder: 'fleet-ops.common.filterplaceholder',
             filterParam: 'driver',
             model: 'driver',
         },
         {
             label: 'ID',
+            labelKey: 'fleet-ops.common.id',
             valuePath: 'public_id',
             cellComponent: 'click-to-copy',
             width: '120px',
@@ -281,6 +292,7 @@ export default class ManagementVehiclesIndexController extends ManagementControl
         },
         {
             label: 'Make',
+            labelKey: 'fleet-ops.common.make',
             valuePath: 'make',
             cellComponent: 'table/cell/base',
             width: '80px',
@@ -293,6 +305,7 @@ export default class ManagementVehiclesIndexController extends ManagementControl
         },
         {
             label: 'Model',
+            labelKey: 'fleet-ops.common.model',
             valuePath: 'model',
             cellComponent: 'table/cell/base',
             width: '80px',
@@ -305,6 +318,7 @@ export default class ManagementVehiclesIndexController extends ManagementControl
         },
         {
             label: 'Year',
+            labelKey: 'fleet-ops.common.year',
             valuePath: 'year',
             cellComponent: 'table/cell/base',
             width: '80px',
@@ -316,6 +330,7 @@ export default class ManagementVehiclesIndexController extends ManagementControl
         },
         {
             label: 'Vendor',
+            labelKey: 'fleet-ops.common.vendor',
             cellComponent: 'table/cell/anchor',
             action: async ({ vendor_uuid }) => {
                 const vendor = await this.store.findRecord('vendor', vendor_uuid);
@@ -328,12 +343,13 @@ export default class ManagementVehiclesIndexController extends ManagementControl
             resizable: true,
             filterable: true,
             filterComponent: 'filter/model',
-            filterComponentPlaceholder: 'Select vendor to filter by',
+            filterComponentPlaceholder: 'fleet-ops.common.filterplaceholder',
             filterParam: 'vendor',
             model: 'vendor',
         },
         {
             label: 'Status',
+            labelKey: 'fleet-ops.common.status',
             valuePath: 'status',
             cellComponent: 'table/cell/status',
             width: '10%',
@@ -345,6 +361,7 @@ export default class ManagementVehiclesIndexController extends ManagementControl
         },
         {
             label: 'Created At',
+            labelKey: 'fleet-ops.common.created-at',
             valuePath: 'createdAt',
             sortParam: 'created_at',
             width: '120px',
@@ -357,6 +374,7 @@ export default class ManagementVehiclesIndexController extends ManagementControl
         },
         {
             label: 'Updated At',
+            labelKey: 'fleet-ops.common.updated-at',
             valuePath: 'updatedAt',
             sortParam: 'updated_at',
             width: '12%',
@@ -381,10 +399,12 @@ export default class ManagementVehiclesIndexController extends ManagementControl
             actions: [
                 {
                     label: 'View vehicle details...',
+                    labelKey: 'fleet-ops.management.vehicles.index.view-vehicle',
                     fn: this.viewVehicle,
                 },
                 {
                     label: 'Edit vehicle...',
+                    labelKey: 'fleet-ops.management.vehicles.index.edit-vehicle',
                     fn: this.editVehicle,
                 },
                 {
@@ -396,6 +416,7 @@ export default class ManagementVehiclesIndexController extends ManagementControl
                 // },
                 {
                     label: 'Delete vehicle...',
+                    labelKey: 'fleet-ops.management.vehicles.index.delete-vehicle',
                     fn: this.deleteVehicle,
                 },
             ],
@@ -541,5 +562,23 @@ export default class ManagementVehiclesIndexController extends ManagementControl
             location: [latitude, longitude],
             ...options,
         });
+    }
+
+    @computed('intl.locale')
+    get localizedColumns() {
+        return this.columns.map(column => ({
+            ...column,
+            label: column.labelKey ? this.intl.t(column.labelKey) : column.label,
+            filterComponentPlaceholder: column.filterComponentPlaceholder ? this.intl.t(column.filterComponentPlaceholder) : null,
+            actions: column.actions ? column.actions.map(action => {
+                if (action.label) {
+                    return {
+                        ...action,
+                        label: action.labelKey ? this.intl.t(action.labelKey) : action.label,
+                    };
+                }
+                return action;
+            }) : []
+        }));
     }
 }

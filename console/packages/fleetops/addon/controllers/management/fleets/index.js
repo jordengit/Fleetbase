@@ -1,7 +1,7 @@
 import Controller, { inject as controller } from '@ember/controller';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import { action } from '@ember/object';
+import { computed, action } from '@ember/object';
 import { isBlank } from '@ember/utils';
 import { timeout } from 'ember-concurrency';
 import { task } from 'ember-concurrency-decorators';
@@ -27,6 +27,13 @@ export default class ManagementFleetsIndexController extends Controller {
      * @var {Service}
      */
     @service modalsManager;
+
+    /**
+     * Inject the `intl` service
+     *
+     * @var intl
+     */
+    @service intl;
 
     /**
      * Inject the `store` service
@@ -174,6 +181,7 @@ export default class ManagementFleetsIndexController extends Controller {
     @tracked columns = [
         {
             label: 'Name',
+            labelKey: 'fleet-ops.common.name',
             valuePath: 'name',
             width: '150px',
             cellComponent: 'table/cell/anchor',
@@ -186,6 +194,7 @@ export default class ManagementFleetsIndexController extends Controller {
         },
         {
             label: 'Service Area',
+            labelKey: 'fleet-ops.common.service-area',
             cellComponent: 'table/cell/anchor',
             action: this.viewServiceArea.bind(this),
             valuePath: 'service_area.name',
@@ -193,12 +202,13 @@ export default class ManagementFleetsIndexController extends Controller {
             width: '130px',
             filterable: true,
             filterComponent: 'filter/model',
-            filterComponentPlaceholder: 'Select service area',
+            filterComponentPlaceholder: 'fleet-ops.common.filterplaceholder',
             filterParam: 'service_area',
             model: 'service-area',
         },
         {
             label: 'Parent Fleet',
+            labelKey: 'fleet-ops.common.parent-fleet',
             cellComponent: 'table/cell/anchor',
             // action: this.viewServiceArea.bind(this),
             valuePath: 'parent_fleet.name',
@@ -206,12 +216,13 @@ export default class ManagementFleetsIndexController extends Controller {
             width: '130px',
             filterable: true,
             filterComponent: 'filter/model',
-            filterComponentPlaceholder: 'Select fleet',
+            filterComponentPlaceholder: 'fleet-ops.common.filterplaceholder',
             filterParam: 'parent_fleet_uuid',
             model: 'fleet',
         },
         {
             label: 'Vendor',
+            labelKey: 'fleet-ops.common.vendor',
             cellComponent: 'table/cell/anchor',
             action: this.viewServiceArea.bind(this),
             valuePath: 'vendor.name',
@@ -219,12 +230,13 @@ export default class ManagementFleetsIndexController extends Controller {
             width: '130px',
             filterable: true,
             filterComponent: 'filter/model',
-            filterComponentPlaceholder: 'Select vendor',
+            filterComponentPlaceholder: 'fleet-ops.common.filterplaceholder',
             filterParam: 'vendor',
             model: 'vendor',
         },
         {
             label: 'Zone',
+            labelKey: 'fleet-ops.common.zone',
             cellComponent: 'table/cell/anchor',
             action: this.viewZone.bind(this),
             valuePath: 'zone.name',
@@ -232,12 +244,13 @@ export default class ManagementFleetsIndexController extends Controller {
             width: '130px',
             filterable: true,
             filterComponent: 'filter/model',
-            filterComponentPlaceholder: 'Select zone',
+            filterComponentPlaceholder: 'fleet-ops.common.filterplaceholder',
             filterParam: 'zone',
             model: 'zone',
         },
         {
             label: 'ID',
+            labelKey: 'fleet-ops.common.id',
             valuePath: 'public_id',
             width: '120px',
             cellComponent: 'click-to-copy',
@@ -249,6 +262,7 @@ export default class ManagementFleetsIndexController extends Controller {
         },
         {
             label: 'Manpower',
+            labelKey: 'fleet-ops.common.manpower',
             valuePath: 'drivers_count',
             width: '100px',
             resizable: true,
@@ -257,6 +271,7 @@ export default class ManagementFleetsIndexController extends Controller {
         },
         {
             label: 'Active Manpower',
+            labelKey: 'fleet-ops.common.active-manpower',
             valuePath: 'drivers_online_count',
             width: '120px',
             resizable: true,
@@ -265,6 +280,7 @@ export default class ManagementFleetsIndexController extends Controller {
         },
         {
             label: 'Task',
+            labelKey: 'fleet-ops.common.task',
             valuePath: 'task',
             cellComponent: 'table/cell/base',
             width: '120px',
@@ -275,6 +291,7 @@ export default class ManagementFleetsIndexController extends Controller {
         },
         {
             label: 'Status',
+            labelKey: 'fleet-ops.common.status',
             valuePath: 'status',
             cellComponent: 'table/cell/status',
             width: '100px',
@@ -286,6 +303,7 @@ export default class ManagementFleetsIndexController extends Controller {
         },
         {
             label: 'Created At',
+            labelKey: 'fleet-ops.common.created-at',
             valuePath: 'createdAt',
             sortParam: 'created_at',
             width: '120px',
@@ -296,6 +314,7 @@ export default class ManagementFleetsIndexController extends Controller {
         },
         {
             label: 'Updated At',
+            labelKey: 'fleet-ops.common.updated-at',
             valuePath: 'updatedAt',
             sortParam: 'updated_at',
             width: '120px',
@@ -318,14 +337,17 @@ export default class ManagementFleetsIndexController extends Controller {
             actions: [
                 {
                     label: 'View fleet details...',
+                    labelKey: 'fleet-ops.management.fleets.index.view-fleet',
                     fn: this.viewFleet,
                 },
                 {
                     label: 'Edit fleet details...',
+                    labelKey: 'fleet-ops.management.fleets.index.edit-fleet',
                     fn: this.editFleet,
                 },
                 {
                     label: 'Assign driver to fleet...',
+                    labelKey: 'fleet-ops.management.fleets.index.assign-driver',
                     fn: () => {},
                 },
                 {
@@ -333,6 +355,7 @@ export default class ManagementFleetsIndexController extends Controller {
                 },
                 {
                     label: 'Delete fleet...',
+                    labelKey: 'fleet-ops.management.fleets.index.delete-fleet',
                     fn: this.deleteFleet,
                 },
             ],
@@ -378,7 +401,7 @@ export default class ManagementFleetsIndexController extends Controller {
 
         this.crud.bulkDelete(selected, {
             modelNamePath: `name`,
-            acceptButtonText: 'Delete Fleets',
+            acceptButtonText: this.intl.t('fleet-ops.management.fleets.index.delete-button'),
             onSuccess: () => {
                 return this.hostRouter.refresh();
             },
@@ -469,5 +492,23 @@ export default class ManagementFleetsIndexController extends Controller {
      */
     @action viewZone(fleet, options = {}) {
         this.serviceAreas.viewZoneInDialog(fleet.zone, options);
+    }
+
+    @computed('intl.locale')
+    get localizedColumns() {
+        return this.columns.map(column => ({
+            ...column,
+            label: column.labelKey ? this.intl.t(column.labelKey) : column.label,
+            filterComponentPlaceholder: column.filterComponentPlaceholder ? this.intl.t(column.filterComponentPlaceholder) : null,
+            actions: column.actions ? column.actions.map(action => {
+                if (action.label) {
+                    return {
+                        ...action,
+                        label: action.labelKey ? this.intl.t(action.labelKey) : action.label,
+                    };
+                }
+                return action;
+            }) : []
+        }));
     }
 }

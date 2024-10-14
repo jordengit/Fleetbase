@@ -24,6 +24,13 @@ export default class OperationsOrdersIndexController extends Controller {
     @service fetch;
 
     /**
+     * Inject the `intl` service
+     *
+     * @var {Service}
+     */
+    @service intl;
+
+    /**
      * Inject the `filters` service
      *
      * @var {Service}
@@ -71,8 +78,6 @@ export default class OperationsOrdersIndexController extends Controller {
      * @var {Service}
      */
     @service socket;
-
-    @service intl;
 
     /**
      * Queryable parameters for this controller's model
@@ -351,6 +356,7 @@ export default class OperationsOrdersIndexController extends Controller {
             filterLabel: 'Payload ID',
             filterParam: 'payload',
             filterComponent: 'filter/string',
+            labelKey: 'fleet-ops.operations.orders.index.payload',
         },
         {
             label: 'Customer',
@@ -362,9 +368,10 @@ export default class OperationsOrdersIndexController extends Controller {
             hidden: true,
             filterable: true,
             filterComponent: 'filter/model',
-            filterComponentPlaceholder: 'Select order customer',
+            filterComponentPlaceholder: 'fleet-ops.common.filterplaceholder',
             filterParam: 'customer',
             model: 'customer',
+            labelKey: 'fleet-ops.operations.orders.index.customer',
         },
         {
             label: 'Facilitator',
@@ -376,9 +383,10 @@ export default class OperationsOrdersIndexController extends Controller {
             sortable: true,
             filterable: true,
             filterComponent: 'filter/model',
-            filterComponentPlaceholder: 'Select order facilitator',
+            filterComponentPlaceholder: 'fleet-ops.common.filterplaceholder',
             filterParam: 'facilitator',
             model: 'vendor',
+            labelKey: 'fleet-ops.operations.orders.index.facilitator',
         },
         {
             label: 'Pickup',
@@ -390,7 +398,7 @@ export default class OperationsOrdersIndexController extends Controller {
             filterable: true,
             filterComponent: 'filter/model',
             filterOptionLabel: 'address',
-            filterComponentPlaceholder: 'Select order pickup location',
+            filterComponentPlaceholder: 'fleet-ops.common.filterplaceholder',
             filterParam: 'pickup',
             modelNamePath: 'address',
             model: 'place',
@@ -405,7 +413,7 @@ export default class OperationsOrdersIndexController extends Controller {
             sortable: true,
             filterable: true,
             filterComponent: 'filter/model',
-            filterComponentPlaceholder: 'Select order dropoff location',
+            filterComponentPlaceholder: 'fleet-ops.common.filterplaceholder',
             filterParam: 'dropoff',
             modelNamePath: 'address',
             model: 'place',
@@ -430,6 +438,7 @@ export default class OperationsOrdersIndexController extends Controller {
             resizable: true,
             hidden: true,
             width: '50px',
+            labelKey: 'fleet-ops.operations.orders.index.items',
         },
         {
             label: 'Transaction Total',
@@ -439,6 +448,7 @@ export default class OperationsOrdersIndexController extends Controller {
             resizable: true,
             hidden: true,
             sortable: true,
+            labelKey: 'fleet-ops.operations.orders.index.transaction',
         },
         {
             label: 'Tracking Number',
@@ -461,7 +471,7 @@ export default class OperationsOrdersIndexController extends Controller {
             sortable: true,
             filterable: true,
             filterComponent: 'filter/model',
-            filterComponentPlaceholder: 'Select driver for order',
+            filterComponentPlaceholder: 'fleet-ops.common.filterplaceholder',
             filterParam: 'driver',
             model: 'driver',
             labelKey: 'fleet-ops.orders.table.columns.driver-assigned',
@@ -478,7 +488,8 @@ export default class OperationsOrdersIndexController extends Controller {
             filterOptions: this.orderTypes,
             filterOptionLabel: 'name',
             filterOptionValue: 'key',
-            filterComponentPlaceholder: 'Filter by order type',
+            filterComponentPlaceholder: 'fleet-ops.common.filterplaceholder',
+            labelKey: 'fleet-ops.common.type',
         },
         {
             label: 'Status',
@@ -515,6 +526,7 @@ export default class OperationsOrdersIndexController extends Controller {
             hidden: true,
             filterable: true,
             filterComponent: 'filter/date',
+            labelKey: 'fleet-ops.common.updated-at',
         },
         {
             label: 'Created By',
@@ -524,9 +536,10 @@ export default class OperationsOrdersIndexController extends Controller {
             hidden: true,
             filterable: true,
             filterComponent: 'filter/model',
-            filterComponentPlaceholder: 'Select user',
+            filterComponentPlaceholder: 'fleet-ops.common.filterplaceholder',
             filterParam: 'created_by',
             model: 'user',
+            labelKey: 'fleet-ops.operations.orders.index.created-by',
         },
         {
             label: 'Updated By',
@@ -536,9 +549,10 @@ export default class OperationsOrdersIndexController extends Controller {
             hidden: true,
             filterable: true,
             filterComponent: 'filter/model',
-            filterComponentPlaceholder: 'Select user',
+            filterComponentPlaceholder: 'fleet-ops.common.filterplaceholder',
             filterParam: 'updated_by',
             model: 'user',
+            labelKey: 'fleet-ops.operations.orders.index.updated-by',
         },
         {
             label: '',
@@ -585,7 +599,8 @@ export default class OperationsOrdersIndexController extends Controller {
         return this.columns.map(column => ({
             ...column,
             label: column.labelKey ? this.intl.t(column.labelKey) : column.label,
-            ddMenuLabel: this.intl.t('fleet-ops.orders.table.order-actions.title'),
+            filterComponentPlaceholder: column.filterComponentPlaceholder ? this.intl.t(column.filterComponentPlaceholder) : null,
+            ddMenulabelKey: 'fleet-ops.orders.table.order-actions.title',
             actions: column.actions ? column.actions.map(action => {
                 if (action.label) {
                     return {
@@ -846,15 +861,15 @@ export default class OperationsOrdersIndexController extends Controller {
      */
     @action cancelOrder(order, options = {}) {
         this.modalsManager.confirm({
-            title: `Are you sure you wish to cancel this order?`,
-            body: `Once this order is canceled, the order record will still be visible but activity cannot be added to this order.`,
+            title: this.intl.t('fleet-ops.operations.orders.index.cancel-title'),
+            body: this.intl.t('fleet-ops.operations.orders.index.cancel-body'),
             order,
             confirm: (modal) => {
                 modal.startLoading();
 
                 return this.fetch.patch(`orders/cancel`, { order: order.id }).then(() => {
                     order.set('status', 'canceled');
-                    this.notifications.success(`Order ${order.public_id} has been canceled.`);
+                    this.notifications.success(this.intl.t('fleet-ops.operations.orders.index.cancel-success', { orderId: order.public_id }));
                 });
             },
             ...options,
@@ -870,8 +885,8 @@ export default class OperationsOrdersIndexController extends Controller {
      */
     @action dispatchOrder(order, options = {}) {
         this.modalsManager.confirm({
-            title: `Are you sure you want to dispatch this order?`,
-            body: `Once this order is dispatched the assigned driver will be notified.`,
+            title: this.intl.t('fleet-ops.operations.orders.index.dispatch-title'),
+            body: this.intl.t('fleet-ops.operations.orders.index.dispatch-body'),
             acceptButtonScheme: 'primary',
             acceptButtonText: 'Dispatch',
             acceptButtonIcon: 'paper-plane',
@@ -883,7 +898,7 @@ export default class OperationsOrdersIndexController extends Controller {
                     .patch(`orders/dispatch`, { order: order.id })
                     .then(() => {
                         order.set('status', 'dispatched');
-                        this.notifications.success(`Order ${order.public_id} has been dispatched.`);
+                        this.notifications.success(this.intl.t('fleet-ops.operations.orders.index.dispatch-success', { orderId: order.public_id }));
                     })
                     .catch((error) => {
                         modal.stopLoading();

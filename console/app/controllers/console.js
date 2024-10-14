@@ -6,6 +6,7 @@ import { later } from '@ember/runloop';
 import { action, computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
 import { isArray } from '@ember/array';
+import { task } from 'ember-concurrency-decorators';
 import first from '@fleetbase/ember-core/utils/first';
 
 export default class ConsoleController extends Controller {
@@ -259,5 +260,28 @@ export default class ConsoleController extends Controller {
 
     @action switchLocale(newLocale) {
         this.intl.setLocale(newLocale);
+        this.saveUserLocale.perform(newLocale);
+    }
+
+    /**
+     * Saves the user's selected locale to the server.
+     * @param {string} locale - The user's selected locale.
+     * @returns {void}
+     * @memberof ConsoleController
+     * @method saveUserLocale
+     * @instance
+     * @task
+     * @generator
+     */
+    @task *saveUserLocale(locale) {
+        yield this.fetch.post('users/locale', { locale });
+    }
+
+    @computed('intl.locale')
+    get localizedMenus() {
+        return this.universe.headerMenuItems.map(menuItem => ({
+            ...menuItem,
+            title: this.intl.t('menuItem.fleet-ops'),
+        }));
     }
 }

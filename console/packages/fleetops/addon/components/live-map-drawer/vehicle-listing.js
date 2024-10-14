@@ -1,7 +1,7 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
-import { action } from '@ember/object';
+import { computed, action } from '@ember/object';
 import { isBlank } from '@ember/utils';
 import { later } from '@ember/runloop';
 import getWithDefault from '@fleetbase/ember-core/utils/get-with-default';
@@ -24,6 +24,12 @@ export default class LiveMapDrawerVehicleListingComponent extends Component {
      * @service
      */
     @service notifications;
+
+    /**
+     * Service for intl.
+     * @service
+     */
+    @service intl;
 
     /**
      * Service for CRUD operations.
@@ -69,6 +75,7 @@ export default class LiveMapDrawerVehicleListingComponent extends Component {
             cellComponent: 'table/cell/vehicle-name',
             onClick: this.focus,
             showOnlineIndicator: true,
+            labelKey: 'fleet-ops.common.vehicle',
         },
         {
             label: 'Location',
@@ -76,17 +83,20 @@ export default class LiveMapDrawerVehicleListingComponent extends Component {
             width: '80px',
             cellComponent: 'table/cell/point',
             onClick: this.locate,
+            labelKey: 'fleet-ops.component.live-map-drawer.vehicle-listing.location',
         },
         {
             label: 'Status',
             valuePath: 'status',
             cellComponent: 'table/cell/status',
             width: '60px',
+            labelKey: 'fleet-ops.common.status',
         },
         {
             label: 'Last Seen',
             valuePath: 'updatedAgo',
             width: '60px',
+            labelKey: 'fleet-ops.component.live-map-drawer.vehicle-listing.last-seen',
         },
         {
             label: '',
@@ -102,20 +112,24 @@ export default class LiveMapDrawerVehicleListingComponent extends Component {
                 {
                     label: 'View vehicle details...',
                     fn: this.focus,
+                    labelKey: 'fleet-ops.component.live-map-drawer.vehicle-listing.view-vehicle',
                 },
                 {
                     label: 'Edit vehicle...',
                     fn: (vehicle) => {
                         return this.focus(vehicle, 'editing');
                     },
+                    labelKey: 'fleet-ops.component.live-map-drawer.vehicle-listing.edit-vehicle',
                 },
                 {
                     label: 'Locate vehicle...',
                     fn: this.locate,
+                    labelKey: 'fleet-ops.component.live-map-drawer.vehicle-listing.locate-vehicle',
                 },
                 {
                     label: 'Delete vehicle...',
                     fn: this.delete,
+                    labelKey: 'fleet-ops.component.live-map-drawer.vehicle-listing.delete-vehicle',
                 },
             ],
             sortable: false,
@@ -194,7 +208,7 @@ export default class LiveMapDrawerVehicleListingComponent extends Component {
         if (this.liveMap) {
             this.liveMap.focusLayerByRecord(vehicle, 18);
         } else {
-            this.notifications.warning('Unable to locate vehicle.');
+            this.notifications.warning(this.intl.t('fleet-ops.component.live-map-drawer.vehicle-listing.warning-message'));
         }
     }
 
@@ -212,5 +226,22 @@ export default class LiveMapDrawerVehicleListingComponent extends Component {
             },
             ...options,
         });
+    }
+
+    @computed('intl.locale')
+    get localizedColumns() {
+        return this.columns.map(column => ({
+            ...column,
+            label: column.labelKey ? this.intl.t(column.labelKey) : column.label,
+            actions: column.actions ? column.actions.map(action => {
+                if (action.label) {
+                    return {
+                        ...action,
+                        label: action.labelKey ? this.intl.t(action.labelKey) : action.label,
+                    };
+                }
+                return action;
+            }) : []
+        }));
     }
 }

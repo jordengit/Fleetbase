@@ -1,7 +1,7 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import { action } from '@ember/object';
+import { computed, action } from '@ember/object';
 import { isBlank } from '@ember/object';
 import { timeout } from 'ember-concurrency';
 import { task } from 'ember-concurrency-decorators';
@@ -22,6 +22,13 @@ export default class ManagementIssuesIndexController extends Controller {
      * @var {Service}
      */
     @service modalsManager;
+
+    /**
+     * Inject the `intl` service
+     *
+     * @var intl
+     */
+    @service intl;
 
     /**
      * Inject the `crud` service
@@ -174,6 +181,7 @@ export default class ManagementIssuesIndexController extends Controller {
     @tracked columns = [
         {
             label: 'ID',
+            labelKey: 'fleet-ops.common.id',
             valuePath: 'public_id',
             cellComponent: 'table/cell/anchor',
             action: this.viewIssue,
@@ -183,6 +191,7 @@ export default class ManagementIssuesIndexController extends Controller {
         },
         {
             label: 'Priority',
+            labelKey: 'fleet-ops.common.priority',
             valuePath: 'priority',
             cellComponent: 'table/cell/status',
             width: '100px',
@@ -194,6 +203,7 @@ export default class ManagementIssuesIndexController extends Controller {
         },
         {
             label: 'Type',
+            labelKey: 'fleet-ops.common.type',
             valuePath: 'type',
             width: '100px',
             resizable: true,
@@ -205,6 +215,7 @@ export default class ManagementIssuesIndexController extends Controller {
         },
         {
             label: 'Category',
+            labelKey: 'fleet-ops.common.category',
             valuePath: 'category',
             width: '120px',
             resizable: true,
@@ -216,6 +227,7 @@ export default class ManagementIssuesIndexController extends Controller {
         },
         {
             label: 'Reporter',
+            labelKey: 'fleet-ops.common.reporter',
             valuePath: 'reporter_name',
             width: '100px',
             cellComponent: 'table/cell/anchor',
@@ -230,12 +242,13 @@ export default class ManagementIssuesIndexController extends Controller {
             sortable: true,
             filterable: true,
             filterComponent: 'filter/model',
-            filterComponentPlaceholder: 'Select reporter',
+            filterComponentPlaceholder: 'fleet-ops.common.filterplaceholder',
             filterParam: 'reporter',
             model: 'user',
         },
         {
             label: 'Assignee',
+            labelKey: 'fleet-ops.common.assignee',
             valuePath: 'assignee_name',
             width: '100px',
             cellComponent: 'table/cell/anchor',
@@ -250,12 +263,13 @@ export default class ManagementIssuesIndexController extends Controller {
             sortable: true,
             filterable: true,
             filterComponent: 'filter/model',
-            filterComponentPlaceholder: 'Select assignee',
+            filterComponentPlaceholder: 'fleet-ops.common.filterplaceholder',
             filterParam: 'assignee',
             model: 'user',
         },
         {
             label: 'Driver',
+            labelKey: 'fleet-ops.common.driver',
             valuePath: 'driver_name',
             width: '100px',
             cellComponent: 'table/cell/anchor',
@@ -270,12 +284,13 @@ export default class ManagementIssuesIndexController extends Controller {
             sortable: true,
             filterable: true,
             filterComponent: 'filter/model',
-            filterComponentPlaceholder: 'Select driver',
+            filterComponentPlaceholder: 'fleet-ops.common.filterplaceholder',
             filterParam: 'driver',
             model: 'driver',
         },
         {
             label: 'Vehicle',
+            labelKey: 'fleet-ops.common.vehicle',
             valuePath: 'vehicle_name',
             width: '100px',
             cellComponent: 'table/cell/anchor',
@@ -290,13 +305,14 @@ export default class ManagementIssuesIndexController extends Controller {
             sortable: true,
             filterable: true,
             filterComponent: 'filter/model',
-            filterComponentPlaceholder: 'Select vehicle',
+            filterComponentPlaceholder: 'fleet-ops.common.filterplaceholder',
             filterParam: 'vehicle',
             model: 'vehicle',
             modelNamePath: 'displayName',
         },
         {
             label: 'Status',
+            labelKey: 'fleet-ops.common.status',
             valuePath: 'status',
             cellComponent: 'table/cell/status',
             width: '120px',
@@ -308,6 +324,7 @@ export default class ManagementIssuesIndexController extends Controller {
         },
         {
             label: 'Created At',
+            labelKey: 'fleet-ops.common.created-at',
             valuePath: 'createdAt',
             sortParam: 'created_at',
             width: '120px',
@@ -318,6 +335,7 @@ export default class ManagementIssuesIndexController extends Controller {
         },
         {
             label: 'Updated At',
+            labelKey: 'fleet-ops.common.updated-at',
             valuePath: 'updatedAt',
             sortParam: 'updated_at',
             width: '120px',
@@ -340,10 +358,12 @@ export default class ManagementIssuesIndexController extends Controller {
             actions: [
                 {
                     label: 'View Details',
+                    labelKey: 'fleet-ops.management.issues.index.view',
                     fn: this.viewIssue,
                 },
                 {
                     label: 'Edit Issue',
+                    labelKey: 'fleet-ops.management.issues.index.edit-issues',
                     fn: this.editIssue,
                 },
                 {
@@ -351,6 +371,7 @@ export default class ManagementIssuesIndexController extends Controller {
                 },
                 {
                     label: 'Delete Issue',
+                    labelKey: 'fleet-ops.management.issues.index.delete',
                     fn: this.deleteIssue,
                 },
             ],
@@ -464,5 +485,23 @@ export default class ManagementIssuesIndexController extends Controller {
                 return this.hostRouter.refresh();
             },
         });
+    }
+
+    @computed('intl.locale')
+    get localizedColumns() {
+        return this.columns.map(column => ({
+            ...column,
+            label: column.labelKey ? this.intl.t(column.labelKey) : column.label,
+            filterComponentPlaceholder: column.filterComponentPlaceholder ? this.intl.t(column.filterComponentPlaceholder) : null,
+            actions: column.actions ? column.actions.map(action => {
+                if (action.label) {
+                    return {
+                        ...action,
+                        label: action.labelKey ? this.intl.t(action.labelKey) : action.label,
+                    };
+                }
+                return action;
+            }) : []
+        }));
     }
 }

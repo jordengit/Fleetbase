@@ -127,13 +127,13 @@ export default class LayoutHeaderComponent extends Component {
     get localeNavigationItems() {
         return [
             {
-                href: 'javascript:;',
+                href: '#',
                 text: '繁體中文',
                 action: 'switchLocale',
                 params: ['zh-tw'],
             },
             {
-                href: 'javascript:;',
+                href: '#',
                 text: 'English',
                 action: 'switchLocale',
                 params: ['en-us'],

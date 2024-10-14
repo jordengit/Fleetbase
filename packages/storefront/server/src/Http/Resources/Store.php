@@ -30,7 +30,7 @@ class Store extends FleetbaseResource
             'email' => $this->email,
             'phone' => $this->phone,
             'tags' => $this->tags ?? [],
-            'currency' => $this->currency ?? 'USD',
+            'currency' => $this->currency ?? 'TWD',
             'options' => $this->formatOptions($this->options),
             'logo_url' => $this->logo_url,
             'backdrop_url' => $this->backdrop_url,

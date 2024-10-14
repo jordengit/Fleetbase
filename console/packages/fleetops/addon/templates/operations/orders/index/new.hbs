@@ -7,37 +7,37 @@
                         <div class="w-6">
                             <FaIcon @icon="user-plus" />
                         </div>
-                        <span>Create new customer</span>
-                    </a>x
+                        <span>{{t "fleet-ops.operations.orders.index.new.create-new-customer"}}</span>
+                    </a>
                     <a href="javascript:;" class="next-dd-item" {{on "click" (dropdown-fn dd this.newFacilitator)}}>
                         <div class="w-6">
                             <FaIcon @icon="truck" />
                         </div>
-                        <span>Create new facilitator</span>
+                        <span>{{t "fleet-ops.operations.orders.index.new.create-new-facilitator"}}</span>
                     </a>
                     <a href="javascript:;" class="next-dd-item" {{on "click" (dropdown-fn dd this.createPlace)}}>
                         <div class="w-6">
                             <FaIcon @icon="map-pin" />
                         </div>
-                        <span>Create new place</span>
+                        <span>{{t "fleet-ops.operations.orders.index.new.create-new-place"}}</span>
                     </a>
                     <a href="javascript:;" class="next-dd-item" {{on "click" (dropdown-fn dd this.addEntity)}}>
                         <div class="w-6">
                             <FaIcon @icon="box" />
                         </div>
-                        <span>Add entity to order</span>
+                        <span>{{t "fleet-ops.operations.orders.index.new.add-order"}}</span>
                     </a>
                     <a href="javascript:;" class="next-dd-item" {{on "click" (dropdown-fn dd this.editMetaData)}}>
                         <div class="w-6">
                             <FaIcon @icon="table" />
                         </div>
-                        <span>Edit order metadata</span>
+                        <span>{{t "fleet-ops.operations.orders.index.new.edit-order"}}</span>
                     </a>
                     <a href="javascript:;" class="next-dd-item" {{on "click" (dropdown-fn dd this.addCustomField)}}>
                         <div class="w-6">
                             <FaIcon @icon="edit" />
                         </div>
-                        <span>Add custom field</span>
+                        <span>{{t "fleet-ops.operations.orders.index.new.add-field"}}</span>
                     </a>
                 </div>
             </div>
@@ -54,14 +54,14 @@
                     <Select class="w-full" @options={{this.types}} @value={{this.order.type}} @optionLabel={{this.displayNameType}} @optionValue="key" @onSelect={{this.setConfig}} @placeholder={{t "fleet-ops.new-order.order-type.placeholder"}} />
                 </div>
 
-                <InputGroup @name={{t "fleet-ops.new-order.internal-id"}} @value={{this.order.internal_id}} @helpText="Use this field to optionally set a custom identifier or internal identifier for the order." />
+                <InputGroup @name={{t "fleet-ops.new-order.internal-id"}} @value={{this.order.internal_id}} @helpText={{t "fleet-ops.operations.orders.index.new.internal-id-help-text"}} />
 
                 <InputGroup>
-                    <InputLabel @labelText={{t "fleet-ops.new-order.schedule"}} @helpText="The date and time the order will be dispatched. If no driver is assigned at time of dispatch, the dispatch will fail. If the order is Ad-Hoc the order will be pinged to drivers in vicinity of pickup." />
+                    <InputLabel @labelText={{t "fleet-ops.new-order.schedule"}} @helpText={{t "fleet-ops.operations.orders.index.new.schedule-help-text"}} />
                     <DateTimeInput class="form-input" @value={{this.order.scheduled_at}} @minDate={{format-date (now) "yyyy-MM-dd" }} @minTime={{format-date (now) "HH:mm" }} @onUpdate={{this.scheduleOrder}} @disabled={{this.order.dispatched}} />
                 </InputGroup>
 
-                <InputGroup @name={{t "fleet-ops.new-order.customer.label"}} @helpText="Optionally assign the customer of this order. If it's a new customer, use the 'New Customer' button above.">
+                <InputGroup @name={{t "fleet-ops.new-order.customer.label"}} @helpText={{t "fleet-ops.operations.orders.index.new.customer-help-text"}}>
                     <ModelSelect @modelName="customer" @selectedModel={{this.order.customer}} @placeholder={{t "fleet-ops.new-order.customer.placeholder"}} @triggerClass="form-select form-input" @infiniteScroll={{false}} @renderInPlace={{true}} @allowClear={{true}} @onChange={{this.setOrderCustomer}} as |model|>
                         <div class="flex items-center">
                             <div class="w-7">
@@ -74,7 +74,7 @@
                     </ModelSelect>
                 </InputGroup>
 
-                <InputGroup @name={{t "fleet-ops.new-order.facilitator.label"}} @helpText="Optionally assign a facilitator for this order, a facilitator can be a 3rd party subcontractor or service that will facilitate the transport of this order.">
+                <InputGroup @name={{t "fleet-ops.new-order.facilitator.label"}} @helpText={{t "fleet-ops.operations.orders.index.new.facilitator-help-text"}}>
                     <ModelSelect @modelName="facilitator" @selectedModel={{this.order.facilitator}} @placeholder={{t "fleet-ops.new-order.facilitator.placeholder"}} @triggerClass="form-select form-input" @allowClear={{true}} @infiniteScroll={{false}} @renderInPlace={{true}} @onChange={{this.setOrderFacilitator}} as |model|>
                         <div class="flex items-center">
                             <div class="w-7">
@@ -92,12 +92,12 @@
                 </InputGroup>
 
                 {{#if (and this.order.facilitator.isIntegratedVendor this.order.facilitator.service_types.length)}}
-                    <InputGroup @name="Service Type" @helpText={{concat "Select the service type you wish to use for " this.order.facilitator.name "."}}>
-                        <Select class="w-full" @options={{this.order.facilitator.service_types}} @value={{this.integratedVendorServiceType}} @optionLabel="description" @optionValue="key" @onSelect={{this.selectIntegratedServiceType}} @placeholder="Select Service Type" />
+                    <InputGroup @name={{t "fleet-ops.operations.orders.index.new.service-type"}} @helpText={{concat (t "fleet-ops.operations.orders.index.new.service-type-help-text") this.order.facilitator.name "."}}>
+                        <Select class="w-full" @options={{this.order.facilitator.service_types}} @value={{this.integratedVendorServiceType}} @optionLabel="description" @optionValue="key" @onSelect={{this.selectIntegratedServiceType}} @placeholder={{t "fleet-ops.operations.orders.index.new.service-type-placeholder"}} />
                     </InputGroup>
                 {{/if}}
 
-                <InputGroup @name={{t "fleet-ops.new-order.assign-driver.label"}} @helpText="Assign the driver this order will be dispatched to.">
+                <InputGroup @name={{t "fleet-ops.new-order.assign-driver.label"}} @helpText={{t "fleet-ops.operations.orders.index.new.assign-driver-help-text"}}>
                     <ModelSelect @modelName="driver" @selectedModel={{this.order.driver_assigned}} @query={{@options.driversQuery}} @placeholder={{t "fleet-ops.new-order.assign-driver.placeholder"}} @triggerClass="form-select form-input" @infiniteScroll={{false}} @renderInPlace={{true}} @allowClear={{true}} @disabled={{this.isUsingIntegratedVendor}} @onChange={{fn (mut this.order.driver_assigned)}} as |model|>
                         <div class="flex items-center">
                             <div class="w-7">
@@ -120,36 +120,36 @@
 
                 {{#if (and this.order.pod_required (not this.isUsingIntegratedVendor))}}
                     <InputGroup>
-                        <InputLabel @labelText="Proof of Delivery" @helpText="Select the type of proof of delivery to require. This can either be QR code scan or Signature method." />
-                        <Select class="w-full" @options={{this.podOptions}} @value={{this.order.pod_method}} @onSelect={{fn (mut this.order.pod_method)}} @placeholder="Select Proof of Delivery Method" />
+                        <InputLabel @labelText="Proof of Delivery" @helpText={{t "fleet-ops.operations.orders.index.new.proof-delivery-help-text"}} />
+                        <Select class="w-full" @options={{this.podOptions}} @value={{this.order.pod_method}} @onSelect={{fn (mut this.order.pod_method)}} @placeholder={{t "fleet-ops.operations.orders.index.new.proof-delivery-placeholder"}} />
                     </InputGroup>
                 {{/if}}
 
                 {{#if this.order.adhoc}}
                     <div>
-                        <InputGroup @name="Adhoc Ping Distance" @type="number" @value={{this.order.adhoc_distance}} @wrapperClass="mb-0" @helpText="This setting determines the adhoc distance to ping for this order, if unset it will fallback to the default setting." />
+                        <InputGroup @name={{t "fleet-ops.operations.orders.index.new.adhoc-ping"}} @type="number" @value={{this.order.adhoc_distance}} @wrapperClass="mb-0" @helpText={{t "fleet-ops.operations.orders.index.new.adhoc-ping-help-text"}} />
                         <div class="mt-2 px-3 py-1 rounded-lg border border-blue-600 bg-blue-100 flex items-center">
                             <FaIcon @icon="triangle-exclamation" class="text-blue-900 mr-1.5" />
-                            <span class="text-blue-900 text-xs">Distance must be in meters</span>
+                            <span class="text-blue-900 text-xs">{{t "fleet-ops.operations.orders.index.new.adhoc-ping-message"}}</span>
                         </div>
                     </div>
                 {{/if}}
 
                 <div class="lg:col-span-2">
                     <InputGroup @wrapperClass="pt-2">
-                        <Toggle @label={{t "fleet-ops.new-order.ad-hoc"}} @wrapperClass="justify-start-i" @isToggled={{this.order.adhoc}} @onToggle={{this.toggleAdhoc}} @disabled={{this.isUsingIntegratedVendor}} @helpText="Toggling Ad-Hoc will enable the order to intelligently ping drivers within the order pickup vicinity about the order allowing the first available driver to accept the order. This is an alternative to manually assigning the driver for real-time orders." />
+                        <Toggle @label={{t "fleet-ops.new-order.ad-hoc"}} @wrapperClass="justify-start-i" @isToggled={{this.order.adhoc}} @onToggle={{this.toggleAdhoc}} @disabled={{this.isUsingIntegratedVendor}} @helpText={{t "fleet-ops.operations.orders.index.new.ad-hoc-help-text"}} />
                     </InputGroup>
                 </div>
 
                 <div class="lg:col-span-2">
                     <InputGroup @wrapperClass="pt-1">
-                        <Toggle @label={{t "fleet-ops.new-order.dispatch-immediately"}} @wrapperClass="justify-start-i" @isToggled={{this.order.dispatched}} @onToggle={{fn (mut this.order.dispatched)}} @disabled={{this.isUsingIntegratedVendor}} @helpText="Toggling dispatch will dispatch this order immediatley following creation." />
+                        <Toggle @label={{t "fleet-ops.new-order.dispatch-immediately"}} @wrapperClass="justify-start-i" @isToggled={{this.order.dispatched}} @onToggle={{fn (mut this.order.dispatched)}} @disabled={{this.isUsingIntegratedVendor}} @helpText={{t "fleet-ops.operations.orders.index.new.dispatch-help-text"}} />
                     </InputGroup>
                 </div>
 
                 <div class="lg:col-span-2">
                     <InputGroup @wrapperClass="pt-1">
-                        <Toggle @label={{t "fleet-ops.new-order.require-proof-of-delivery"}}  @wrapperClass="justify-start-i" @isToggled={{this.order.pod_required}} @onToggle={{this.toggleProofOfDelivery}} @helpText="Toggling this will require driver to complete a proof of delivery." />
+                        <Toggle @label={{t "fleet-ops.new-order.require-proof-of-delivery"}}  @wrapperClass="justify-start-i" @isToggled={{this.order.pod_required}} @onToggle={{this.toggleProofOfDelivery}} @helpText={{t "fleet-ops.operations.orders.index.new.require-proof-help-text"}} />
                     </InputGroup>
                 </div>
             </div>
@@ -169,7 +169,7 @@
                                     {{#if metaField.removable}}
                                         <div class="flex items-center pr-1">
                                             <a href="javascript:;" {{on "click" (fn this.removeMeta metaField)}}>
-                                                Remove
+                                                {{t "fleet-ops.common.remove"}}
                                             </a>
                                         </div>
                                     {{/if}}
@@ -190,8 +190,7 @@
                         <div class="flex justify-between items-center mb-0.5">
                             <label>{{metaField.label}}</label>
                             <a href="javascript:;" class="text-xs" {{on "click" (fn this.editCustomField index)}}>
-                                <FaIcon @icon="edit" @size="sm" class="mr-1" /> Edit
-                            </a>
+                                <FaIcon @icon="edit" @size="sm" class="mr-1" />{{t "fleet-ops.common.edit"}}</a>
                         </div>
                         <Input class="w-full form-input" @value={{metaField.value}} placeholder={{metaField.label}} />
                     </InputGroup>
@@ -207,7 +206,7 @@
                 <div class="flex flex-1 justify-end space-x-2">
                     {{#if this.isMultipleDropoffOrder}}
                         <Button @type="magic" @icon="magic" @text={{t "fleet-ops.new-order.route.multiple-opration.optimize-route"}} @size="sm" @onClick={{this.optimizeRoute}} @helpText="Fleetbase will automatically optimize the route." @disabled={{lt this.waypoints.length 3}} @isLoading={{this.isOptimizingRoute}} />
-                        <Button @icon="map-marked-alt" @text={{t "fleet-ops.new-order.route.multiple-opration.add-waypoint"}} @size="sm" @onClick={{this.addWaypoint}} @helpText="Use the `Add Waypoint` button to add more stops for this order. The Fleetbase routing engine will automatically optimize the route as each stop is added or removed." />
+                        <Button @icon="map-marked-alt" @text={{t "fleet-ops.new-order.route.multiple-opration.add-waypoint"}} @size="sm" @onClick={{this.addWaypoint}} @helpText={{t "fleet-ops.operations.orders.index.new.add-waypoint-help-text"}} />
                     {{/if}}
                 </div>
             </div>
@@ -229,12 +228,13 @@
                                 </ModelSelect>
 
                                 {{#if (and this.isUsingIntegratedVendor (is-not-facilitator-supported-place this.order.facilitator waypoint.place))}}
-                                    <InfoBlock class="my-2 px-4 py-1.5 danger" @blockClass="flex flex-row items-center" @text={{concat this.order.facilitator.name " is not able to support this location."}} />
+                                    <InfoBlock class="my-2 px-4 py-1.5 danger" @blockClass="flex flex-row items-center" @text={{concat this.order.facilitator.name (t "fleet-ops.operations.orders.index.new.infoblock-text")}} />
                                 {{/if}}
 
                                 {{#if waypoint.place.hasInvalidCoordinates}}
                                     <div class="leading-5 text-sm text-red-400 mt-2">
-                                        <FaIcon @icon="exclamation-triangle" class="mr-1" /> Invalid coordinates!
+                                        <FaIcon @icon="exclamation-triangle" class="mr-1" />
+                                        {{t "fleet-ops.operations.orders.index.new.invalid-coordinates"}}
                                     </div>
                                 {{/if}}
                             </div>
@@ -271,12 +271,13 @@
                         </ModelSelect>
 
                         {{#if (and this.isUsingIntegratedVendor (is-not-facilitator-supported-place this.order.facilitator this.payload.pickup))}}
-                            <InfoBlock class="my-2 px-4 py-1.5 danger" @blockClass="flex flex-row items-center" @text={{concat this.order.facilitator.name " is not able to support this location."}} />
+                            <InfoBlock class="my-2 px-4 py-1.5 danger" @blockClass="flex flex-row items-center" @text={{concat this.order.facilitator.name (t "fleet-ops.operations.orders.index.new.infoblock-text")}} />
                         {{/if}}
 
                         {{#if this.payload.pickup.hasInvalidCoordinates}}
                             <div class="leading-5 text-sm text-red-400 mt-2">
-                                <FaIcon @icon="exclamation-triangle" class="mr-1" /> Invalid coordinates!
+                                <FaIcon @icon="exclamation-triangle" class="mr-1" />
+                                {{t "fleet-ops.operations.orders.index.new.invalid-coordinates"}}
                             </div>
                         {{/if}}
                     </InputGroup>
@@ -302,12 +303,13 @@
                         </ModelSelect>
 
                         {{#if (and this.isUsingIntegratedVendor (is-not-facilitator-supported-place this.order.facilitator this.payload.dropoff))}}
-                            <InfoBlock class="my-2 px-4 py-1.5 danger" @blockClass="flex flex-row items-center" @text={{concat this.order.facilitator.name " is not able to support this location."}} />
+                            <InfoBlock class="my-2 px-4 py-1.5 danger" @blockClass="flex flex-row items-center" @text={{concat this.order.facilitator.name (t "fleet-ops.operations.orders.index.new.infoblock-text")}} />
                         {{/if}}
 
                         {{#if this.payload.dropoff.hasInvalidCoordinates}}
                             <div class="leading-5 text-sm text-red-400 mt-2">
-                                <FaIcon @icon="exclamation-triangle" class="mr-1" /> Invalid coordinates!
+                                <FaIcon @icon="exclamation-triangle" class="mr-1" />
+                                {{t "fleet-ops.operations.orders.index.new.invalid-coordinates"}}
                             </div>
                         {{/if}}
                     </InputGroup>
@@ -317,7 +319,7 @@
                             <label>{{t "fleet-ops.new-order.route.return"}}</label>
 
                             {{#if this.payload.return}}
-                                <a href="javascript:;" {{on "click" (fn this.placesController.editPlace this.payload.return)}}>Edit Address</a>
+                                <a href="javascript:;" {{on "click" (fn this.placesController.editPlace this.payload.return)}}>{{t "fleet-ops.operations.orders.index.new.edit-address"}}</a>
                             {{/if}}
                         </div>
 
@@ -326,12 +328,13 @@
                         </ModelSelect>
 
                         {{#if (and this.isUsingIntegratedVendor (is-not-facilitator-supported-place this.order.facilitator this.payload.return))}}
-                            <InfoBlock class="my-2 px-4 py-1.5 danger" @blockClass="flex flex-row items-center" @text={{concat this.order.facilitator.name " is not able to support this location."}} />
+                            <InfoBlock class="my-2 px-4 py-1.5 danger" @blockClass="flex flex-row items-center" @text={{concat this.order.facilitator.name (t "fleet-ops.operations.orders.index.new.infoblock-text")}} />
                         {{/if}}
 
                         {{#if this.payload.return.hasInvalidCoordinates}}
                             <div class="leading-5 text-sm text-red-400 mt-2">
-                                <FaIcon @icon="exclamation-triangle" class="mr-1" /> Invalid coordinates!
+                                <FaIcon @icon="exclamation-triangle" class="mr-1" />
+                                {{t "fleet-ops.operations.orders.index.new.invalid-coordinates"}}
                             </div>
                         {{/if}}
                     </InputGroup>
@@ -349,11 +352,11 @@
                         <div class="rounded-md border border-gray-200 dark:border-gray-900 p-3">
                             <div class="mb-3 flex justify-between">
                                 <div class="w-3/4">
-                                    <div class="dark:text-gray-100 text-sm">Items drop at</div>
+                                    <div class="dark:text-gray-100 text-sm">{{t "fleet-ops.operations.orders.index.new.items-drop"}}</div>
                                     <h4 class="font-bold dark:text-gray-100">{{group.waypoint.place.address}}</h4>
                                 </div>
                                 <div>
-                                    <Button @icon="plus" @iconPrefix="fas" @text="Add Item" @size="sm" @onClick={{fn this.addEntity group.importId}} />
+                                    <Button @icon="plus" @iconPrefix="fas" @text={{t "fleet-ops.operations.orders.index.new.add-item-button"}} @size="sm" @onClick={{fn this.addEntity group.importId}} />
                                 </div>
                             </div>
                             <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-2">
@@ -424,28 +427,43 @@
         </ContentPanel>
 
         <ContentPanel @title={{t "fleet-ops.new-order.service.title"}} @open={{true}} @pad={{true}} @panelBodyClass="bg-white dark:bg-gray-800">
-            <Toggle @label={{t "fleet-ops.new-order.service.apply-rate"}} @wrapperClass="justify-start-i mb-4" @isToggled={{this.servicable}} @onToggle={{this.checkServiceRates}} @disabled={{this.isNotServicable}} @helpText="Select a defined service rate to generate real time service quotations to apply to this order." />
+            <Toggle @label={{t "fleet-ops.new-order.service.apply-rate"}} @wrapperClass="justify-start-i mb-4" @isToggled={{this.servicable}} @onToggle={{this.checkServiceRates}} @disabled={{this.isNotServicable}} @helpText={{t "fleet-ops.operations.orders.index.new.service-help-text"}} />
 
             {{#if this.servicable}}
                 <ContentPanel @title="Service Quotes" @open={{true}} @pad={{true}} @wrapperClass="mt-6" @panelBodyClass="bg-white dark:bg-gray-800">
                     {{#unless this.isUsingIntegratedVendor}}
                         <div class="input-group mb-2i">
-                            <InputLabel @labelText="Select Service Rate" @helpText="Select which service rate to fetch quotes for." />
+                            <InputLabel
+                                @labelText={{t "fleet-ops.operations.orders.index.new.select-service-rate"}}
+                                @helpText={{t "fleet-ops.operations.orders.index.new.service-quotes-help-text"}}
+                            />
 
-                            <Select class="w-full" @options={{this.serviceRates}} @value={{this.selectedServiceRate}} @optionLabel="service_name" @optionValue="uuid" @onSelect={{this.getQuotes}} @placeholder="Select Service Rate" />
+                            <Select
+                                class="w-full"
+                                @options={{this.serviceRates}}
+                                @value={{this.selectedServiceRate}}
+                                @optionLabel="service_name"
+                                @optionValue="uuid"
+                                @onSelect={{this.getQuotes}}
+                                @placeholder={{t "fleet-ops.operations.orders.index.new.select-service-rate"}}
+                            />
                         </div>
                     {{/unless}}
 
                     <div class="flex flex-row justify-end">
-                        <Button @icon="retweet" @text="Refresh" @disabled={{this.isFetchingQuotes}} @onClick={{this.getQuotes}} />
+                        <Button @icon="retweet" @text={{t "fleet-ops.operations.orders.index.new.refresh-button"}} @disabled={{this.isFetchingQuotes}} @onClick={{this.getQuotes}} />
                     </div>
 
                     {{#if this.isFetchingQuotes}}
                         <div class="flex items-center justify-center py-5">
-                            <Spinner class="text-sm dark:text-gray-100 flex flex-row items-center" @iconClass="mr-2" @loadingMessage="Loading service quotes..." />
+                            <Spinner
+                                class="text-sm dark:text-gray-100 flex flex-row items-center"
+                                @iconClass="mr-2"
+                                @loadingMessage={{t "fleet-ops.operations.orders.index.new.loading-message"}}
+                            />
                         </div>
                     {{else}}
-                        <InfoBlock class="my-3" @text="Select a real time service quote to apply to this order. Once a quote is applied to the order, it will become a purchased rate. Transactions will be tracked within the Fleetbase ledger." />
+                        <InfoBlock class="my-3" @text={{t "fleet-ops.operations.orders.index.new.info-text"}} />
 
                         <div class="radio-group-condensed -space-y-px">
                             {{#each this.serviceQuotes as |serviceQuote index|}}
@@ -461,7 +479,7 @@
                                         <table class="table table-fixed flex-1">
                                             <thead>
                                                 <tr>
-                                                    <th class="text-left">Breakdown</th>
+                                                    <th class="text-left">{{t "fleet-ops.operations.orders.index.new.breakdown"}}</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
@@ -478,7 +496,7 @@
                                                 {{/each}}
                                                 <tr class="border-b-0">
                                                     <td class="border-b-0">
-                                                        <span class="font-semibold">Total</span>
+                                                        <span class="font-semibold">{{t "fleet-ops.common.total"}}</span>
                                                     </td>
                                                     <td class="border-b-0">
                                                         <span>{{format-currency serviceQuote.amount serviceQuote.currency}}</span>
@@ -489,7 +507,15 @@
                                     </div>
                                 </div>
                             {{else}}
-                                <InfoBlock class="my-2 px-4 py-1.5 warning" @blockClass="flex flex-row items-center" @text={{if this.payloadCoordinates.length "No service quotes." "Input order route to view service quotes."}} />
+                                <InfoBlock
+                                    class="my-2 px-4 py-1.5 warning"
+                                    @blockClass="flex flex-row items-center"
+                                    @text={{if
+                                        this.payloadCoordinates.length
+                                        (t "fleet-ops.operations.orders.index.new.no-service-info-text")
+                                        (t "fleet-ops.operations.orders.index.new.input-order-info-text")
+                                    }}
+                                />
                             {{/each}}
                         </div>
                     {{/if}}

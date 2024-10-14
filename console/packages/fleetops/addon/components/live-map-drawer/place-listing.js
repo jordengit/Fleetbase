@@ -1,7 +1,7 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
-import { action } from '@ember/object';
+import { computed, action } from '@ember/object';
 import { isBlank } from '@ember/utils';
 import { later } from '@ember/runloop';
 import getWithDefault from '@fleetbase/ember-core/utils/get-with-default';
@@ -31,6 +31,11 @@ export default class LiveMapDrawerPlaceListingComponent extends Component {
      */
     @service crud;
 
+    /**
+     * Service for intl.
+     * @service
+     */
+    @service intl;
     /**
      * The list of places to display, tracked for reactivity.
      * @tracked
@@ -68,6 +73,7 @@ export default class LiveMapDrawerPlaceListingComponent extends Component {
             cellComponent: 'table/cell/anchor',
             onClick: this.focus,
             showOnlineIndicator: true,
+            labelKey: 'fleet-ops.component.live-map-drawer.place-listing.place',
         },
         {
             label: 'Location',
@@ -75,6 +81,7 @@ export default class LiveMapDrawerPlaceListingComponent extends Component {
             width: '80px',
             cellComponent: 'table/cell/point',
             onClick: this.locate,
+            labelKey: 'fleet-ops.component.live-map-drawer.place-listing.location',
         },
         {
             label: '',
@@ -90,20 +97,24 @@ export default class LiveMapDrawerPlaceListingComponent extends Component {
                 {
                     label: 'View place details...',
                     fn: this.focus,
+                    labelKey: 'fleet-ops.component.live-map-drawer.place-listing.view-place',
                 },
                 {
                     label: 'Edit place...',
                     fn: (place) => {
                         return this.focus(place, 'editing');
                     },
+                    labelKey: 'fleet-ops.component.live-map-drawer.place-listing.edit-place',
                 },
                 {
                     label: 'Locate place...',
                     fn: this.locate,
+                    labelKey: 'fleet-ops.component.live-map-drawer.place-listing.locate-place',
                 },
                 {
                     label: 'Delete place...',
                     fn: this.delete,
+                    labelKey: 'fleet-ops.component.live-map-drawer.place-listing.delete-place',
                 },
             ],
             sortable: false,
@@ -182,7 +193,7 @@ export default class LiveMapDrawerPlaceListingComponent extends Component {
         if (this.liveMap) {
             this.liveMap.focusLayerByRecord(place, 18);
         } else {
-            this.notifications.warning('Unable to locate place.');
+            this.notifications.warning(this.intl.t('fleet-ops.component.live-map-drawer.place-listing.warning-message'));
         }
     }
 
@@ -200,5 +211,22 @@ export default class LiveMapDrawerPlaceListingComponent extends Component {
             },
             ...options,
         });
+    }
+
+    @computed('intl.locale')
+    get localizedColumns() {
+        return this.columns.map(column => ({
+            ...column,
+            label: column.labelKey ? this.intl.t(column.labelKey) : column.label,
+            actions: column.actions ? column.actions.map(action => {
+                if (action.label) {
+                    return {
+                        ...action,
+                        label: action.labelKey ? this.intl.t(action.labelKey) : action.label,
+                    };
+                }
+                return action;
+            }) : []
+        }));
     }
 }

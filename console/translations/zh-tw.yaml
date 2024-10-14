@@ -1,7 +1,7 @@
 app:
   name: Fleetbase
 menuItem:
-  fleet-ops: Fleet-Ops
+  fleet-ops: 派遣運營
 layout:
   header:
     menus:

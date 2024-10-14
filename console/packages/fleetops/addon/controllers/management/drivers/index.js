@@ -1,7 +1,7 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import { action } from '@ember/object';
+import { computed, action } from '@ember/object';
 import { isBlank } from '@ember/utils';
 import { equal } from '@ember/object/computed';
 import { timeout } from 'ember-concurrency';
@@ -16,6 +16,13 @@ export default class ManagementDriversIndexController extends Controller {
      * @var {Service}
      */
     @service notifications;
+
+    /**
+     * Inject the `intl` service
+     *
+     * @var {Service}
+     */
+    @service intl;
 
     /**
      * Inject the `modals-manager` service
@@ -224,6 +231,7 @@ export default class ManagementDriversIndexController extends Controller {
     @tracked columns = [
         {
             label: 'Name',
+            labelKey: 'fleet-ops.common.name',
             valuePath: 'name',
             width: '200px',
             cellComponent: 'table/cell/driver-name',
@@ -235,6 +243,7 @@ export default class ManagementDriversIndexController extends Controller {
         },
         {
             label: 'ID',
+            labelKey: 'fleet-ops.common.id',
             valuePath: 'public_id',
             width: '130px',
             cellComponent: 'click-to-copy',
@@ -246,6 +255,7 @@ export default class ManagementDriversIndexController extends Controller {
         },
         {
             label: 'Internal ID',
+            labelKey: 'fleet-ops.common.internal-id',
             valuePath: 'internal_id',
             cellComponent: 'click-to-copy',
             width: '130px',
@@ -256,6 +266,7 @@ export default class ManagementDriversIndexController extends Controller {
         },
         {
             label: 'Vendor',
+            labelKey: 'fleet-ops.common.vendor',
             cellComponent: 'table/cell/anchor',
             action: this.viewDriverVendor,
             valuePath: 'vendor.name',
@@ -264,12 +275,13 @@ export default class ManagementDriversIndexController extends Controller {
             resizable: true,
             filterable: true,
             filterComponent: 'filter/model',
-            filterComponentPlaceholder: 'Select vendor to filter by',
+            filterComponentPlaceholder: 'fleet-ops.common.filterplaceholder',
             filterParam: 'vendor',
             model: 'vendor',
         },
         {
             label: 'Vehicle',
+            labelKey: 'fleet-ops.common.vehicle',
             cellComponent: 'table/cell/anchor',
             onClick: (driver) => {
                 return driver
@@ -287,12 +299,13 @@ export default class ManagementDriversIndexController extends Controller {
             width: '180px',
             filterable: true,
             filterComponent: 'filter/model',
-            filterComponentPlaceholder: 'Select vehicle to filter by',
+            filterComponentPlaceholder: 'fleet-ops.common.filterplaceholder',
             filterParam: 'vehicle',
             model: 'vehicle',
         },
         {
             label: 'Fleets',
+            labelKey: 'fleet-ops.common.fleet',
             cellComponent: 'table/cell/link-list',
             cellComponentLabelPath: 'name',
             action: (fleet) => {
@@ -304,12 +317,13 @@ export default class ManagementDriversIndexController extends Controller {
             hidden: true,
             filterable: true,
             filterComponent: 'filter/model',
-            filterComponentPlaceholder: 'Select fleet to filter by',
+            filterComponentPlaceholder: 'fleet-ops.common.filterplaceholder',
             filterParam: 'fleet',
             model: 'fleet',
         },
         {
             label: 'License',
+            labelKey: 'fleet-ops.common.license',
             valuePath: 'drivers_license_number',
             cellComponent: 'table/cell/base',
             width: '150px',
@@ -320,6 +334,7 @@ export default class ManagementDriversIndexController extends Controller {
         },
         {
             label: 'Phone',
+            labelKey: 'fleet-ops.common.phone',
             valuePath: 'phone',
             cellComponent: 'table/cell/base',
             width: '150px',
@@ -331,6 +346,7 @@ export default class ManagementDriversIndexController extends Controller {
         },
         {
             label: 'Country',
+            labelKey: 'fleet-ops.common.country',
             valuePath: 'country',
             cellComponent: 'table/cell/country',
             cellClassNames: 'uppercase',
@@ -349,6 +365,7 @@ export default class ManagementDriversIndexController extends Controller {
         },
         {
             label: 'Status',
+            labelKey: 'fleet-ops.common.status',
             valuePath: 'status',
             cellComponent: 'table/cell/status',
             width: '10%',
@@ -360,6 +377,7 @@ export default class ManagementDriversIndexController extends Controller {
         },
         {
             label: 'Created At',
+            labelKey: 'fleet-ops.common.created-at',
             valuePath: 'createdAt',
             sortParam: 'created_at',
             filterParam: 'created_at',
@@ -371,6 +389,7 @@ export default class ManagementDriversIndexController extends Controller {
         },
         {
             label: 'Updated At',
+            labelKey: 'fleet-ops.common.updated-at',
             valuePath: 'updatedAt',
             sortParam: 'updated_at',
             filterParam: 'updated_at',
@@ -394,10 +413,12 @@ export default class ManagementDriversIndexController extends Controller {
             actions: [
                 {
                     label: 'View driver details...',
+                    labelKey: 'fleet-ops.management.drivers.index.view-details',
                     fn: this.viewDriver,
                 },
                 {
                     label: 'Edit driver details...',
+                    labelKey: 'fleet-ops.management.drivers.index.edit-details',
                     fn: this.editDriver,
                 },
                 {
@@ -405,14 +426,17 @@ export default class ManagementDriversIndexController extends Controller {
                 },
                 {
                     label: 'Assign order to driver...',
+                    labelKey: 'fleet-ops.management.drivers.index.assign-order-driver',
                     fn: this.assignOrder,
                 },
                 {
                     label: 'Assign vehicle to driver...',
+                    labelKey: 'fleet-ops.management.drivers.index.assign-vehicle-driver',
                     fn: this.assignVehicle,
                 },
                 {
                     label: 'Locate driver on map...',
+                    labelKey: 'fleet-ops.management.drivers.index.locate-driver-map',
                     fn: this.viewOnMap,
                 },
                 {
@@ -420,6 +444,7 @@ export default class ManagementDriversIndexController extends Controller {
                 },
                 {
                     label: 'Delete driver...',
+                    labelKey: 'fleet-ops.management.drivers.index.delete-driver',
                     fn: this.deleteDriver,
                 },
             ],
@@ -668,5 +693,23 @@ export default class ManagementDriversIndexController extends Controller {
         if (vendor) {
             this.contextPanel.focus(vendor);
         }
+    }
+
+    @computed('intl.locale')
+    get localizedColumns() {
+        return this.columns.map(column => ({
+            ...column,
+            label: column.labelKey ? this.intl.t(column.labelKey) : column.label,
+            filterComponentPlaceholder: column.filterComponentPlaceholder ? this.intl.t(column.filterComponentPlaceholder) : null,
+            actions: column.actions ? column.actions.map(action => {
+                if (action.label) {
+                    return {
+                        ...action,
+                        label: action.labelKey ? this.intl.t(action.labelKey) : action.label,
+                    };
+                }
+                return action;
+            }) : []
+        }));
     }
 }

@@ -1,7 +1,7 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
-import { action } from '@ember/object';
+import { computed, action } from '@ember/object';
 import { isBlank } from '@ember/utils';
 import { later } from '@ember/runloop';
 import getWithDefault from '@fleetbase/ember-core/utils/get-with-default';
@@ -36,6 +36,12 @@ export default class LiveMapDrawerDriverListingComponent extends Component {
      * @service
      */
     @service crud;
+
+    /**
+     * Service for intl.
+     * @service
+     */
+    @service intl;
 
     /**
      * The list of drivers to display, tracked for reactivity.
@@ -74,6 +80,7 @@ export default class LiveMapDrawerDriverListingComponent extends Component {
             width: '100px',
             cellComponent: 'cell/driver-name',
             onClick: this.focus,
+            labelKey: 'fleet-ops.common.driver',
         },
         {
             label: 'Location',
@@ -81,6 +88,7 @@ export default class LiveMapDrawerDriverListingComponent extends Component {
             width: '80px',
             cellComponent: 'table/cell/point',
             onClick: this.locate,
+            labelKey: 'fleet-ops.component.live-map-drawer.driver-listing.location',
         },
         {
             label: 'Current Job',
@@ -88,17 +96,20 @@ export default class LiveMapDrawerDriverListingComponent extends Component {
             width: '80px',
             cellComponent: 'table/cell/anchor',
             onClick: this.job,
+            labelKey: 'fleet-ops.component.live-map-drawer.driver-listing.current-job',
         },
         {
             label: 'Status',
             valuePath: 'status',
             cellComponent: 'table/cell/status',
             width: '60px',
+            labelKey: 'fleet-ops.common.status',
         },
         {
             label: 'Last Seen',
             valuePath: 'updatedAgo',
             width: '60px',
+            labelKey: 'fleet-ops.component.live-map-drawer.driver-listing.last-seen',
         },
         {
             label: '',
@@ -114,20 +125,24 @@ export default class LiveMapDrawerDriverListingComponent extends Component {
                 {
                     label: 'View driver details...',
                     fn: this.focus,
+                    labelKey: 'fleet-ops.component.live-map-drawer.driver-listing.view-driver',
                 },
                 {
                     label: 'Edit driver...',
                     fn: (driver) => {
                         return this.focus(driver, 'editing');
                     },
+                    labelKey: 'fleet-ops.component.live-map-drawer.driver-listing.edit-driver',
                 },
                 {
                     label: 'Locate driver...',
                     fn: this.locate,
+                    labelKey: 'fleet-ops.component.live-map-drawer.driver-listing.locate-driver',
                 },
                 {
                     label: 'Delete driver...',
                     fn: this.delete,
+                    labelKey: 'fleet-ops.component.live-map-drawer.driver-listing.delete-driver',
                 },
             ],
             sortable: false,
@@ -206,7 +221,7 @@ export default class LiveMapDrawerDriverListingComponent extends Component {
         if (this.liveMap) {
             this.liveMap.focusLayerByRecord(driver, 18);
         } else {
-            this.notifications.warning('Unable to locate driver.');
+            this.notifications.warning(this.intl.t('fleet-ops.component.live-map-drawer.driver-listing.warning-message'));
         }
     }
 
@@ -236,5 +251,22 @@ export default class LiveMapDrawerDriverListingComponent extends Component {
             },
             ...options,
         });
+    }
+
+    @computed('intl.locale')
+    get localizedColumns() {
+        return this.columns.map(column => ({
+            ...column,
+            label: column.labelKey ? this.intl.t(column.labelKey) : column.label,
+            actions: column.actions ? column.actions.map(action => {
+                if (action.label) {
+                    return {
+                        ...action,
+                        label: action.labelKey ? this.intl.t(action.labelKey) : action.label,
+                    };
+                }
+                return action;
+            }) : []
+        }));
     }
 }

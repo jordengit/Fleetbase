@@ -13,7 +13,7 @@
                     <Badge @status={{@order.status}} />
                 </div>
                 <div class="whitespace-pre-wrap mb-1">{{@order.payload.nextStop.address}}</div>
-                <div class="truncate">{{n-a @order.customer.name "No Customer"}}</div>
+                <div class="truncate">{{n-a @order.customer.name this.noCustomerNameDisplay}}</div>
             </div>
         </div>
     </a>

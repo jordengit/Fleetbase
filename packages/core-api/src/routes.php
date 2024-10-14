@@ -140,6 +140,8 @@ Route::prefix(config('fleetbase.api.routing.prefix', '/'))->namespace('Fleetbase
                                         $router->delete('bulk-delete', $controller('bulkDelete'));
                                         $router->post('resend-invite', $controller('resendInvitation'));
                                         $router->post('set-password', $controller('setCurrentUserPassword'));
+                                        $router->post('locale', $controller('setUserLocale'));
+                                        $router->get('locale', $controller('getUserLocale'));
                                     }
                                 );
                                 $router->fleetbaseRoutes('user-devices');

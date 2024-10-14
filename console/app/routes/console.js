@@ -32,6 +32,8 @@ export default class ConsoleRoute extends Route {
      */
     @service currentUser;
 
+    @service intl;
+
     /**
      * Require authentication to access all `console` routes.
      *
@@ -71,6 +73,11 @@ export default class ConsoleRoute extends Route {
      */
     @action setupController(controller, model) {
         super.setupController(controller, model);
+
+        // Get and set user locale
+        this.fetch.get('users/locale').then(({ locale }) => {
+            this.intl.setLocale(locale);
+        });
 
         this.fetch.get('auth/organizations').then((organizations) => {
             this.currentUser.setOption('organizations', organizations);

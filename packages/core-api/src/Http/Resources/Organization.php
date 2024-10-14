@@ -22,6 +22,7 @@ class Organization extends FleetbaseResource
             'name'         => $this->name,
             'description'  => $this->description,
             'phone'        => $this->phone,
+            'currency'     => 'TWD',
             'timezone'     => $this->timezone,
             'logo_url'     => $this->logo_url,
             'backdrop_url' => $this->backdrop_url,

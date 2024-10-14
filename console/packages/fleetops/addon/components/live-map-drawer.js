@@ -18,6 +18,11 @@ export default class LiveMapDrawerComponent extends Component {
     @service universe;
 
     /**
+     * @service intl
+     */
+    @service intl;
+
+    /**
      * The current active tab.
      *
      * @type {Object}
@@ -41,9 +46,9 @@ export default class LiveMapDrawerComponent extends Component {
     get tabs() {
         const registeredTabs = this.universe.getMenuItemsFromRegistry('component:live-map-drawer');
         const defaultTabs = [
-            this.universe._createMenuItem('Vehicles', null, { icon: 'car', component: LiveMapDrawerVehicleListingComponent }),
-            this.universe._createMenuItem('Drivers', null, { icon: 'id-card', component: LiveMapDrawerDriverListingComponent }),
-            this.universe._createMenuItem('Places', null, { icon: 'building', component: LiveMapDrawerPlaceListingComponent }),
+            this.universe._createMenuItem(this.intl.t('fleet-ops.management.vehicles.index.title'), null, { icon: 'car', component: LiveMapDrawerVehicleListingComponent }),
+            this.universe._createMenuItem(this.intl.t('fleet-ops.management.drivers.index.title'), null, { icon: 'id-card', component: LiveMapDrawerDriverListingComponent }),
+            this.universe._createMenuItem(this.intl.t('fleet-ops.management.places.index.places-title'), null, { icon: 'building', component: LiveMapDrawerPlaceListingComponent }),
         ];
 
         if (isArray(registeredTabs)) {

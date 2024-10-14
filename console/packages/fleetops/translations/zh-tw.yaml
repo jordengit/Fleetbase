@@ -4,6 +4,105 @@ terms:
     search: 搜尋
 fleet-ops:
     extension-name: Fleet-Ops
+    common:
+        active-manpower: 活躍人力
+        address: 地址
+        amount: 數量
+        assignee: 指派人
+        avatar: 頭像
+        building: 大樓
+        bulk-action: 批量動作
+        cancel: 取消
+        category: 類別
+        city: 城市
+        coordinates: 座標
+        lat: 緯度
+        lng: 經度
+        cost: 成本
+        code: 代碼
+        country: 國家
+        config: 配置
+        created-at: 建立於
+        date-created: 建立日期
+        delete: 刪除
+        destination: 目的地
+        details: 細節
+        description: 描述
+        distance: 距離
+        driver-license: 駕照
+        driver: 司機
+        edit: 編輯
+        email: 電子郵件
+        export: 匯出
+        fleet: 車隊
+        height: 高度
+        host: 主持人
+        id: ID
+        internal-id: 內部編號
+        item: 物品
+        key: 鑰匙
+        label: 標籤
+        length: 長度
+        license: 執照
+        loading: 載入中...
+        loading-resource: 載入中 {resourceName} ...
+        make: 製造商
+        manage-message: 管理您的廠商
+        manpower: 人力
+        model: 型號
+        name: 姓名
+        namespace: 命名空間
+        neighborhood: 鄰里
+        new: 新的
+        odometer: 里程表
+        options: 選項
+        orders: 訂單
+        parent-fleet: 上層車隊
+        phone: 電話
+        photos: 相片
+        plate-number: 車牌號碼
+        postal-code: 郵遞區號
+        priority: 優先事項
+        reload: 重新載入
+        reload-data: 重新載入數據
+        remove: 移除
+        reporter: 回報人
+        sandbox: 沙盒
+        save-changes: 儲存變更
+        schedule: 行程
+        search: 搜尋
+        security-access-code: 安全授權代碼
+        service-area: 服務區
+        service: 服務
+        state: 狀態
+        status: 地位
+        street-1: 街1
+        street-2: 街2
+        street: 街
+        task: 任務
+        title: 標題
+        type: 類型
+        unit: 單元
+        updated-at: 更新於
+        upload-new: 上傳新的
+        uploading: 正在上傳...
+        value: 價值
+        vehicle: 車輛
+        vendor: 廠商
+        filterplaceholder: 依照...篩選
+        vin-number: VIN號
+        volume: 體積
+        weight: 重量
+        website-url: 網址
+        website: 網站
+        width: 寬度
+        year: 年
+        zone: 區
+        total: 全部的
+        back: 後退
+        filterheader: 篩選
+        customize-columns: 自訂欄位
+
     menu-panel:
         operations:
             title: 操作
@@ -203,13 +302,1302 @@ fleet-ops:
             title: 有效負載
             edit-item:
                 title: 編輯項目
+            #    upload-new: Upload new
+            #    details:
+            #        title: Details
+            #        name: Name
+            #        internal-id: Internal ID
+            #        sku: SKU
+            #        description: Description
+            #    pricing-value:
+            #        title: Pricing & Value
+            #        price: Price
+            #        sale-price: Sale Price
+            #        declared-value: Declared Value
+            #    measurements-weight:
+            #        title: Measurements & Weight
+            #        length: Length
+            #        width: Width
+            #        height: Height
+            #        weight: Weight
                 cancel: 取消
                 save: 儲存變更
 
+    component:
+        avatar-picker:
+            avatar: Avatar
+            select-map-avatar: Select map avatar
+            select-avatar-rendering: Select an avatar to be used for rendering on maps when using geolocation tracking features.
+            select-avatar: Select avatar
+        admin:
+            navigator-app:
+                title: Benzol app
+                name: 連結URL
+                message: 使用此URL將Benzol app連結到此 {companyName} .在移動設備上打開此URL將打開Benzol app並更新其配置和品牌.
+            visibility-controls:
+                title: 可見性控制
+                message: 可見性控制可讓您停用派遣運營的部分. 切換複選框以啟用或停用在派遣運營中隱藏的部分.
+                checkbox-text: 在 派遣運營 中啟用或停用此部分的可見性.
+            avatar-management:
+                upload-avatar: Upload Avatar
+                view-avatar: View Avatar
+                vehicles : Vehicles
+                drivers : Drivers
+                places : Places
+        cell:
+            driver-name:
+                not-assigned: 沒有分配司機
+        fleet-panel:
+            details:
+                active-manpower: 活躍人力
+            driver-listing:
+                search-driver: 搜尋車隊的司機
+                add-driver: 將司機加入車隊
+                loading-driver: 正在載入車隊司機...
+            vehicle-listing:
+                search-vehicle: 搜尋車隊中的車輛
+                add-vehicle: 將車輛添加到車隊
+                loading-vehicle: 正在載入車隊車輛...
+        layout:
+            fleet-ops-sidebar:
+                resources: 資源
+                operations: 營運
+                dashboard: 儀表板
+                service-rates: 服務費率
+                scheduler: 調度程式
+                drivers: 司機
+                vehicles: 車輛
+                fleets: 車隊
+                vendors: 廠商
+                contacts: 聯絡
+                places: 地點
+                fuel-reports: 燃油報告
+                issues: 問題
+                title: 建立新訂單
+                settings: 設定
+        live-map-drawer:
+            driver-listing:
+                location: 地點
+                current-job: 目前工作
+                last-seen: 最後一次出現
+                view-driver: 檢視司機細節...
+                edit-driver: 編輯司機
+                locate-driver: 找到司機...
+                delete-driver: 刪除司機...
+                warning-message: 無法找到駕駛員.
+                message: 通過關鍵字過濾司機...
+            place-listing:
+                location: 地點
+                place: 位置
+                view-place: 檢視位置細節...
+                edit-place: 編輯位置...
+                locate-place: 找到位置...
+                delete-place: 刪除位置...
+                warning-message: 無法找到位置.
+                message: 通過關鍵字過濾位置...
+            vehicle-listing:
+                location: 地點
+                last-seen: 最後一次出現
+                view-vehicle: 檢視車輛詳細資料...
+                edit-vehicle: 編輯車輛...
+                locate-vehicle: 定位車輛...
+                delete-vehicle: 刪除車輛...
+                warning-message: 無法找到車輛.
+                message: 通過關鍵字過濾車輛...
+        map-container:
+            visibility-control-panel:
+                title: 可見性控制
+                hide-places: 隱藏所有位置...
+                show-places: 顯示所有位置....
+                vehicles: 車輛
+                vehicle-controls: 車輛能見度控制...
+                hide-vehicles: 隱藏所有車輛...
+                show-vehicles: 顯示所有車輛...
+                online-vehicles: 僅顯示線上車輛...
+                offline-vehicles: 僅顯示離線車輛...
+            zones-panel:
+                title: 服務區域
+                create-service: 建立新服務區域...
+                show: 顯示所有服務區域
+                hide: 隱藏所有服務區
+                action: 動作...
+                focus: 聚焦
+                blur: 模糊服務區...
+                create-zone: 在裡面建立區域...
+            toolbar:
+                create: 建立訂單
+                view-order: 檢視訂單
+                view-service-area: 檢視服務區域
+                visibility: 可見性控制
+                scope: 範圍
+        modals:
+            assign-driver:
+                select-driver: 選擇司機
+                select-assign: 選擇指派人
+            clone-config-form:
+                name: 配置名稱
+                description: 配置描述
+            driver-assign-order:
+                order: 選擇訂單
+                assign-order: 選擇要分配的訂單
+            driver-assign-vehicle:
+                vehicle: 選擇車輛
+                assign-vehicle: 選擇要分配的車輛
+            driver-assign-vendor:
+                vendor: 選擇廠商
+            driver-details:
+                job: 目前工作
+                view: 在地圖上檢視
+            driver-form:
+                select-vendor: 選擇廠商
+                select-vehicle: 選擇車輛
+            edit-meta-form:
+                add: 新增元字段
+            entity-form:
+                name-text: 項目或實體的名稱.
+                id-text: 使用此字段可選為實體設置自定義標識符或內部標識符.
+                sku: 存貨單位
+                sku-text: 庫存單位編號(如果適用).
+                description: 描述
+                description-text: 其他描述實體文本.
+                price-title: 定價與價值
+                price: 價格
+                price-text: 實體的價格.
+                sale-price: 銷售價格
+                sale-price-text: 實體的銷售價格或折扣價格.
+                declare: 申報價值
+                declare-text: 實體的申報價值,有用即可投保.
+                measurement-title: 測量和重量
+                length: 長度
+                length-text: 實體的長度.
+                width: 寬度
+                width-text: 實體的寬度.
+                height: 高度
+                height-text: 實體的高度.
+                weight: 重量
+                weight-text: 實體的重量.
+            entity-meta-field-prompt:
+                name: 元字段鍵
+            fleet-form:
+                title: 車隊的名字
+                assign: 分配到服務區域
+                assign-text: 選擇服務區以將車隊分配給
+                zone: 分配給區域
+                zone-text: 選擇區域將車隊分配給
+                task: 任務/任務
+                task-text: 如適用,請描述該車隊的主要任務或使命.
+                select-task: 選擇任務
+                status-text: 選擇車隊的狀態.
+                select-status: 選擇狀態
+            fuel-report-details:
+                fuel: 燃油/體積
+            fuel-report-form:
+                select-driver: 選擇司機
+                select-vehicle: 選擇車輛
+                volume: 體積
+                volume-text: 選擇指標單元和燃料量以進行報告.
+            group-details:
+                name: 團隊名字
+                member: 成員
+                address: 地址
+            group-form:
+                title: 團隊名字
+                users-add: 選擇要新增至群組的用戶
+                search: 搜索並選擇要添加到此組的用戶.
+                select-user: 選擇要添加到組的用戶
+                no-users: 沒有用戶添加到組
+            install-prompt:
+                message: 您正在嘗試安裝擴展名 {extensionName} .您確定要繼續進行此安裝嗎?
+                sub-message: 一些擴展需要訪問您的資源.
+            issue-details:
+                assigned: 分配給
+                type: 問題類型
+                category: 問題類別
+            issue-form:
+                reported: 報告人
+                select-reporter: 選擇報告人
+                assigned: 分配給
+                select-assignee: 選擇指派人
+                select-driver: 選擇司機
+                select-vehicle: 選擇車輛
+                select-type: 選擇字段類型
+                select-category: 選擇類別
+                type: 問題類型
+                type-text: 選擇問題類型
+                category: 問題類別
+                category-text: 選擇問題類別
+                report: 問題報告
+                tags: 配置標籤
+                add-tags: 添加標籤
+                select-status: 選擇問題狀態
+            map-layer-form:
+                layer-type: 圖層類型
+                layer-type-text: 選擇您要建立的圖層類型.
+                select-layer-type: 選擇圖層類型...
+                service-area: 服務區
+                service-area-text: 選擇該區域所屬的服務區域.
+                select-service-area: 選擇要分配車隊的服務區域
+                set-name: 為 {options} 設置顯示名稱.
+                service-type: 服務區類型
+                service-type-text: 選擇該服務區域的類型定義.
+                select-service-type: 選擇服務區域類型...
+                customize-border: 自定此 {options} 的邊框顏色.
+                customize-fill-color: 自定此 {options} 的填充顏色.
+                service-area-country: 服務區域國家
+                service-area-country-text: 可選地設置該服務區域所在的國家 /地區.
+            new-order-config:
+                name: 角色名稱
+                description: 政策說明
+                tags: 配置標籤
+                add-tags: 添加標籤
+            order-assign-driver:
+                select-driver: 選擇司機
+                select-assign: 選擇指派人
+            order-config-new-status:
+                new-status: 新狀態
+                status-text: 輸入新活動狀態以新增到流程中
+            order-event:
+                schedule: 行程
+                unschedule: 取消安排
+            order-form:
+                id-text: 使用此字段可選為訂單設置自定義標識符或內部標識符.
+                schedule-text: 訂單的出貨日期和時間. 如果調度時沒有分配司機,則調度失敗. 如果訂單是臨時訂單,訂單將發送至取貨附近的司機.
+                customer: 顧客
+                customer-text: 可選地分配此訂單的客戶.如果是新客戶,請使用上面的“新客戶”按鈕.
+                select-customer: 選擇客戶
+                facilitator: 協調員
+                facilitator-text: 可選地為此訂單分配主持人,主持人可以是第三方分包商或服務,可以促進該訂單的運輸.
+                select-facilitator: 選擇協調員
+                assign-driver: 分配司機
+                assign-driver-text: 指定將發送此訂單的司機.
+                select-driver: 選擇司機
+            order-import:
+                loading-message: 處理匯入...
+                drop-upload: 拖放上傳
+                invalid: 座標無效!
+                ready-upload: 準備上傳.
+                upload-spreadsheets: 上傳電子表格
+                drag-drop: 將電子表格檔案拖曳到此放置區
+                button-text: 或選擇要上傳的電子表格
+                spreadsheets: 試算表
+                upload-queue: 上傳佇列
+            order-label:
+                loading: 載入標籤...
+            order-new-activity:
+                select-message: 選擇活動狀態以更新訂單跟踪活動或輸入自定義活動.
+                order-currently-message: 該訂單目前為 {options} ,其他活動將覆蓋此狀態.
+                not-recommend-message: Benzol 不建議這樣做,除非您絕對知道自己在做什麼.
+                activity-options: 活動選項
+                activity: 活動
+                dispatch: 這將觸發派遣訂單.
+                status: 自定義活動狀態
+                details: 自定義活動詳細信息
+                code: 自定義活動代碼
+                fleetbase-message: Benzol 不建議這樣做,除非您絕對知道自己在做什麼.
+            order-route-form:
+                toggle: 切換多個下車點
+                optimize: 優化路線
+                optimize-text: Benzol 將自動最佳化路線.
+                add: 添加航點
+                add-text: 使用「新增航點」按鈕為此訂單新增更多停靠點. 隨著每個站點的新增或刪除,Benzol 路線引擎將自動最佳化路線.
+                select-waypoint: 選擇航點
+                pickup: 撿起
+                edit-address: 編輯地址
+                select-pickup: 選擇取件
+                invalid: 座標無效!
+                dropoff: 放下
+                select-dropoff: 選擇下車地點
+                return: 返回
+                select-return: 選擇返回
+            place-assign-vendor:
+                select-vendor: 選擇廠商
+            place-details:
+                view: 在地圖上檢視
+            policy-form:
+                name: 政策名稱
+                name-text: 輸入您的政策名稱
+                description: 政策描述
+                description-text: 輸入您的政策說明
+                permissions: 選擇權限
+            role-form:
+                name: 角色名稱
+                name-text: 輸入這個角色的名稱
+                permissions: 選擇權限
+            select-payment-method:
+                card-ending: 卡結束於 {method}
+            service-area-form:
+                name: 服務區域名稱
+                name-text: 設定服務區域的顯示名稱.
+                type: 服務區域類型
+                type-text: 選擇此服務區域的類型定義.
+                select-type: 選擇服務區域類型...
+                border-color: 服務區邊界顏色
+                customize-border-color: 自定義此服務區域的邊框顏色.
+                area-color: 服務區域顏色
+                customize-area-color: 自定義此服務區域的填充顏色.
+                country: 服務區國家
+                country-text: 可選地設置該服務區域所在的國家 /地區.
+            set-password:
+                message: 歡迎來到Benzol!在開始之前,請設置一個新密碼以繼續下面.
+                new-password: 新密碼
+                confirm-password: 確認密碼
+                help-text: 輸入至少 8 個字元的密碼以繼續.
+            uninstall-prompt:
+                message: 您正在嘗試卸載擴展名 "{options}".您確定要繼續進行此卸載嗎?
+                sub-message: 所有配置和自訂設定都將遺失.
+            vehicle-details:
+                make: 車輛製造商
+                model: 車輛型號
+                year: 車輛年份
+                driver-assigned: 分配司機
+                no-driver-assigned: 沒有分配司機
+                avatar: 頭像
+                model-information: 型號資訊
+                acceleration: 0至100 kph
+                body: 身體
+                doors: 門
+                length: 長度(mm)
+                seats: 座位
+                top-speed: 最高速度(kph)
+                transmission: 車輛傳動類型
+                weight: 車輛重量(kg)
+                wheelbase: 車輪軸距(mm)
+                width: 車輛寬度(mm)
+                engine-information: 引擎信息
+                engine-bore: 發動機孔(mm)
+                cc: cc
+                compression: 壓縮
+                cylinder: 氣缸
+                position: 位置
+                power-ps: 力量(ps)
+                power-rpm: 電源(rpm)
+                stroke: 中風(mm)
+                torque-nm: 扭矩(nm)
+                torque-rpm: 扭矩(rpm)
+                valves: 每個氣缸的閥
+                fuel-information: 燃油資訊
+                fuel: 燃料
+                fuel-cap: 油箱蓋(L)
+                liters-city: 每公里城市
+                liters-highway: 每公里高速公路
+                liters-mixed: 每公里混合
+            vehicle-form:
+                map-avatar: 選擇地圖頭像
+                map-avatar-text: 使用地理位置追蹤功能時,選擇要用於在地圖上渲染的圖像.
+                select-avatar: 選擇頭像
+                make: 車輛製造商
+                model: 車輛型號
+                year: 車輛年份
+                select-driver: 選擇司機
+                body: 車身類型
+                doors: 門數
+                type: 車輛驅動類型
+                length: 車輛長度(mm)
+                seats: 座位數量
+                top-speed: 車輛最高速度(kph)
+                transmission: 車輛傳動類型
+                weight: 車輛重量(kg)
+                wheelbase: 車輪軸距(mm)
+                width: 車輛寬度(mm)
+                engine-bore: 發動機孔(mm)
+                cc: cc
+                compression: 發動機壓縮
+                cylinder: 發動機氣缸
+                position: 發動機位置
+                power-ps: 發動機電源(ps)
+                power-rpm: 發動機電源(rpm)
+                stroke: 中風長(mm)
+                torque-nm: 發動機扭矩(nm)
+                torque-rpm: 發動機扭矩(rpm)
+                fuel-type: 汽油種類
+                fuel-cap: 油箱蓋(L)
+            vendor-details:
+                sandbox: 沙箱
+                host: 主持人
+                namespace: 命名空間
+            vendor-form:
+                choose-vendor: 選擇集成廠商供應者
+                create-vendor: 建立自訂廠商
+                credentials: 證書
+                options: 選項
+                hide-advanced: 隱藏進階
+                show-advanced: 顯示進階
+                custom-host: 自訂主機
+                host-text: (可選)提供用於此整合的自訂主機.
+                custom-namespace: 自訂命名空間
+                namespace-text: 可選地提供應用於集成的自定義名稱空間或API版本.
+                webhook: Webhook URL
+                webhook-text: 整合廠商通常會要求這樣做,以便 Benzol 可以接收訂單的活動更新. 除非您知道自己在做什麼,否則不要改變! 更改此設定可能會破壞您的訂單更新!
+                cancel-credentials: 取消憑證重置
+                reset-message: 敏感憑證只能重置,要更新憑證,您必須重新輸入憑證.
+                optionally: 可選地提供自己的
+                configure-vendor: 配置該廠商
+                select: 選擇
+                sandbox: 沙盒
+                name-text: 廠商的名稱,通常是企業的名稱.
+                email-text: 廠商的電子郵件,這可用於觸發發送給廠商的電子郵件.
+                phone-text: 廠商的電話\#,可用於觸發發送給廠商的簡訊或訊息.
+                website-text: 廠商的網站,可選地添加廠商網站供參考.
+                select-address: 選擇地址
+            zone-form:
+                name: 區域名稱
+                name-text: 為區域設置顯示名稱.
+                border-color: 區域邊框顏色
+                customize-border: 自定義該區域的邊框顏色.
+                zone-color: 區域顏色
+                customize-fill-color: 自定義該區域的填充顏色.
+                optionally: 可選地給區域描述.
+                description-zone: 區域描述
+        order:
+            header:
+                dispatched-order: 以 {order} 派遣
+                dispatched: 已派遣
+                dispatched-at: 派遣於
+                edit: 編輯
+                update: 更新活動
+                assign: 分配司機
+                get-order: 取得訂單標籤
+                split-order: 分割訂單
+                reschedule: 重新安排訂單
+                cancel-order: 取消訂單
+            place-card:
+                show-less: 顯示較少細節
+                show-more: 顯示更多細節
+            schedule-card:
+                destination: 目的地
+                unassign-driver: 取消分配司機?
+                unassign-text: 您即將取消分配訂單 {orderId} 給司機. 按一下“繼續”確認刪除司機.
+                unassign-button: 繼續並取消分配司機
+                assign-driver: 分配新司機?
+                assign-text: 您即將向訂單 {orderId} 指派新司機 ({driverName}) . 按一下繼續確認司機.
+                assign-button: 繼續並分配司機
+                date: 預定日期
+                driver-assigned: 分配司機
+                no-driver: 未分配司機
+                select-driver: 選擇司機
+                vehicle-assigned: 車輛分配
+                no-vehicle: 沒有分配車輛
+        widget:
+            fleet-ops-quickstart:
+                message: 讓我們看看您可以做些什麼來開始操作...
+                start-task: 開始任務
+            key-metrics:
+                title: 派遣運營指標
+                earnings: 收益
+                fuel-expenses: 燃油費
+                traveled: 行駛距離
+                total-time: 總時間
+                order-scheduled: 預定訂單
+                order-completed: 訂單已完成
+                order-progress: 訂單進行中
+                order-canceled: 訂單已取消
+                driver-online: 司機在線
+                customers: 顧客
+                open-issue: 開放問題
+                closed-issues: 已解決的問題
+            live-order-map:
+                loading: 加載訂單正在進行...
+                assigned: 分配司機
+                no-order: 沒有訂單正在進行中
+                message: 當訂單進行時,它們將顯示在此小部件中並顯示實時活動.
+            recent-orders:
+                title: 最近的訂單
+                loading: 加載最近的訂單...
+                no-orders: 本週無訂單
+                message-part-1: 本週暫無訂單,繼續跟進
+                message-part-2: 建立新訂單
+                message-part-3: 或允許您的客戶透過 API 提交訂單.
+            transactions:
+                title: 最近的交易
+                loading: 加載最近的交易...
+                no-transactions: 本週無交易
+                message: 當訂單通過服務速率進行時, Benzol會自動跟踪交易.
+        contact-form-panel:
+            success-message: 聯繫 {contactName} 成功保存.
+            view-contact-button: 檢視聯絡
+            save-contact: 儲存聯絡
+            create-contact: 建立聯絡
+            cancel-edit-button: 取消編輯聯絡
+            cancel-new-button: 取消新聯絡
+            new-contact: 新聯絡
+        contact-panel:
+            details:
+                web-url: 網址
+            edit-button: 更改聯絡資料
+            cancel-edit-button: 取消編輯聯絡
+            cancel-new-button: 取消新聯絡
+        display-panel:
+            no-address: 沒有 {type} 位址!
+            no-address-message: 沒有地址!
+        driver-card:
+            no-fleets: 沒有車隊
+        driver-form-panel:
+                success-message: 司機 ({driverName}) 成功保存了.
+                driver-detail: 檢視司機細節
+                save-driver: 儲存司機
+                create-driver: 建立司機
+                cancel-edit-driver: 取消編輯司機
+                cancel-new-driver: 取消新司機
+                upload-new-photo: 上傳新照片
+                new-driver: 新增司機
+                vendor: 廠商
+                select-vehicle: 選擇車輛
+                select-vendor: 請選擇
+                select-country: 請選擇
+                driver-status: 選擇司機狀態
+        driver-panel:
+            locate-button-text: 找到司機
+            edit-button-text: 編輯司機
+            close-button-text: 關閉司機細節
+            no-vehicle-message: 沒有分配車輛
+            assign-vehicle-button: 將車輛分配給司機
+        fleet-driver-listing:
+            search-driver: 搜尋車隊司機
+            add-driver: 將司機加入車隊
+            loading-message: 正在載入車隊司機...
+        fleet-form-panel:
+            success-message: 車隊 ({fleetName}) 成功保存了.
+            title: 新增車隊
+            save-fleet: 儲存車隊
+            create-fleet: 建立車隊
+            view-details: 檢視司機細節…
+            cancel-edit-fleet: 取消編輯車隊
+            cancel-new-fleet: 取消新車隊
+            fleet-name: 車隊名稱
+            parent-fleet: 上層車隊
+            select-parent-fleet: 選擇要將車隊指派給的父車隊
+            select-vendor: 選擇要將車隊分配給廠商
+            service-title: 分配到服務區
+            select-service: 選擇要分配車隊的服務區域
+            zone-title: 分配到區域
+            select-zone: 選擇要將車隊分配到的區域
+            select-status-fleet: 選擇車隊的狀態.
+            select-status: 選擇狀態
+            task-mission-title: 任務/使命
+            task-text: 說明該車隊的主要任務或任務(如果適用).
+        fleet-vehicle-listing:
+            search-vehicle: 搜尋車隊中的車輛
+            add-vehicle: 將車輛添加到車隊
+            loading-message: 正在載入車隊司機...
+        fuel-report-form-panel:
+            success-message: 燃油報告成功保存了.
+            fuel-report: 新燃料報告
+            save-fuel-report: 儲存燃油報告
+            create-fuel-report: 建立燃油報告
+            view-details: 檢視司機細節…
+            cancel-edit-fuel-report: 取消編輯燃油報告
+            cancel-new-fuel-report: 取消新燃油報告
+            select-reporter: 選擇報告人
+            select-driver: 選擇司機
+            select-vehicle: 選擇車輛
+            select-fuel-report: 選擇燃油報告狀態
+            odometer: 里程表
+            cost: 成本
+            volume: 體積
+            select-volume-text: 選擇要報告的公制單位和燃油體積.
+        fuel-report-panel:
+            title: 油耗明細
+            edit-button: 編輯燃油報告
+            cancel-edit-fuel-report: 取消編輯燃油報告
+            cancel-new-fuel-report: 取消新燃油報告
+            details:
+                fuel: 燃油/體積
+        global-search:
+            search: 通過關鍵字搜索...
+        integrated-order-details:
+            order-id: 訂單編號
+            quotation-id: 報價編號
+            driver-id: 司機編號
+            link: 可分享的鏈接
+            price-breakdown: 價格細目
+            metadata: 元數據
+        issue-form-panel:
+            success-message: 問題 ({publicId}) 已成功儲存.
+            issue: 新問題
+            save-issue: 儲存問題
+            create-issue: 建立問題
+            view-details: 檢視問題詳細節
+            cancel-edit-issue: 取消編輯問題
+            cancel-new-issue: 取消新問題
+            reported-by: 報告人
+            assigned: 分配司機
+            select-assign: 選擇指派人
+            select-reporter: 選擇報告人
+            select-driver: 選擇司機
+            select-vehicle: 選擇車輛
+            type: 問題類型
+            select-type: 選擇問題類型
+            category: 問題類別
+            select-category: 選擇問題類別
+            report: 問題報告
+            tags: 問題標籤
+            add-tags: 添加標籤
+            priority: 問題優先級
+            select-priority: 選擇問題優先級
+            select-status: 選擇狀態
+        issue-panel:
+            details:
+                assigned: 分配
+                type: 問題類型
+                category: 問題類別
+                priority: 問題優先
+                report: 問題報告
+            title: 問題詳情
+            edit-issue: 編輯問題
+            cancel-edit-issue: 取消編輯問題
+            cancel-new-issue: 取消新問題
+        live-map:
+            onText: 隱藏繪圖控制項...
+            offText: 啟用繪圖控制項...
+            show-coordinates: 顯示座標...
+            center-map: 中心地圖在這裡...
+            zoom-in: 放大...
+            zoom-out: 縮小...
+            hide-draw: 隱藏繪圖控制項...
+            enable-draw: 啟用繪圖控制項...
+            create-new-service: 建立新服務區...
+            focus-service: '定位服務區域: {serviceName}'
+            view-driver: '檢視司機: {driverName}'
+            edit-driver: '修改司機: {driverName}'
+            delete-driver: '刪除司機: {driverName}'
+            view-vehicle-for: '依照司機顯示車輛: {driverName}'
+            view-vehicle: '顯示車輛: {vehicleName}'
+            edit-vehicle: '修改車輛: {vehicleName}'
+            delete-vehicle: '刪除車輛: {vehicleName}'
+            edit-zone: '編輯區域: {zoneName}'
+            delete-zone: '刪除區域: {zoneName}'
+            assign-zone: '將車隊指派給: {zoneName}'
+            blur-service: '隱藏這個服務區域: {serviceName}'
+            create-zone: '在 {serviceName} 中建立區域'
+            assign-fleet: '將車隊指派給: {serviceName}'
+            edit-service: '編輯服務區域: {serviceName}'
+            delete-service: '刪除服務區域: {serviceName}'
+            service-area: 服務區域
+            zone: 區域
+        order-config:
+            create-new-title: 建立新訂單配置
+            warning-message: 訂單配置需要一個名稱
+            success-message: 新訂單配置成功建立了.
+            no-order-warning: 未選擇訂單配置.
+            saved-success: '{orderName} 訂單配置已儲存.'
+            enter-name-title: 輸入複製的配置名稱
+            no-config-warning: 未輸入配置名稱.
+            cloned-success: 訂單配置已成功複製.
+            body: 一旦刪除此訂單配置,您將無法再使用它來建立訂單. 你確定嗎?
+            uninstall-title: 解除安裝配置
+            uninstall-success: 擴充功能 {extensionName} 已卸載.
+            activity-flow-editor:
+                add-status: 添加新狀態
+                no-status: 沒有輸入狀態.
+                overwrite: 這將覆蓋現有狀態!
+                overwrite-text: 此流程中已存在另一個 {statusName} 狀態,如果繼續,此狀態將被覆寫. 您想覆寫先前的 {statusName} 狀態嗎?
+                overwrite-button: 是的,覆蓋!
+                remove: 移除狀態
+                remove-text: 您確定要移除此狀態嗎? 所有相關的活動和邏輯都將與狀態一起刪除.
+                delete-button: 刪除司機
+                unable-warning: '{status} 必須是這個順序,不能移位.'
+                order-warning: 建立的狀態必須始終是訂單流的第一個序列.
+                title: 設定
+                message: 活動流程配置將使您可以定義適用於此訂單類型的不同類型的跟踪狀態活動.活動流的邏輯也可以配置.
+                order-flow: 訂單流程
+                waypoint-flow: 航點流程
+                new-activity: 新活動
+                activity-details: 活動詳情
+                logic-stack: 邏輯堆疊
+                add-logic: 新增邏輯條件
+                select-field: 選擇字段
+                select-operator: 選擇營運商
+                enter-value: 輸入要比較的值
+                no-logic: 未應用邏輯條件
+            details-editor:
+                success: 已安裝
+                key-text: 將此鍵傳遞到您的訂單類型中,以使用此配置配置訂單.
+                namespace-text: 此擴展程序的唯一名稱空間.
+                id: 擴展ID
+                id-text: 此擴充功能的唯一 ID.
+                version: 擴充版本
+                version-text: 此擴充功能的版本.
+                clone: 複製配置
+                uninstall: 解除安裝配置
+                delete: 刪除配置
+            entities-editor:
+                warning-message: 未輸入未輸入META字段密鑰名稱.
+                title: 實體
+                message: 實體配置將允許您定義適用於此訂單類型的不同類型的實體.這些應像模板一樣使用,以更快地建立手動訂單.
+                type: 實體類型
+                add-meta: 新增元字段
+            fields-editor:
+                text-field: 文本域
+                boolean: 布林值
+                boolean-text: 允許使用者透過複選框切換 true 或 false 屬性
+                dropdown: 下拉選擇
+                dropdown-text: 允許使用者從選項下拉清單中選擇一個選項
+                datetime: 日期時間選擇器
+                datetime-text: 允許使用者選擇日期和時間
+                port: 連接埠選擇器
+                port-text: 允許用戶選擇連接埠
+                vessel: 船舶選擇器
+                vessel-text: 允許使用者選擇船隻
+                warning-message: 沒有輸入組名稱.
+                field-title: 元字段
+                new-field: 新自訂字段
+                new-custom-field: 新自訂字段組
+                field-text: 元字段配置將允許您定義將應用於訂單的自訂輸入欄位.
+                custom-field-group: 自訂字段組
+                default-field: 預設字段
+                custom-field: 自訂字段
+                type: 類型
+                select-type: 選擇字段類型
+                add-option: 新增選項
+            select-message: 選擇要修改的訂單配置,或點選「新配置」建立新訂單配置.
+            new-config: 新配置
+            loading-configuration: 正在載入您的訂單配置...
+            select-order: 選擇訂單配置
+            save-changes: 儲存變更
+            details: 細節
+            fields: 自訂字段
+            flow: 活動流程
+            entities: 實體
+        order-list-overlay:
+            search: 搜尋訂單...
+            selected: 已選擇
+            assign: 分配司機
+            cancel: 取消
+            delete: 刪除
+            actions: 動作
+            create-order: 建立新訂單...
+            create-fleet: 建立新車隊
+            active-order: 活躍訂單
+            unassigned-order: 未分配的訂單
+            no-customer: 尚未指派顧客
+        place-form-panel:
+            success-message: 位置 ({placeAddress}) 成功保存.
+            place: 新增位置
+            save-place: 儲存位置
+            create-place: 建立位置
+            view-details: 檢視司機細節
+            cancel-edit-place: 取消編輯地點
+            cancel-new-place: 取消新地點
+            street-1: 街1
+            street-2: 街2
+            neighborhood: 鄰里
+            building: 大樓
+            security-code: 安全授權代碼
+            postal-code: 郵遞區號
+            state: 狀態
+        place-panel:
+            edit-place: 編輯地點
+            cancel-edit-place: 取消編輯地點
+            cancel-new-place: 取消新地點
+        route-list:
+            expand: 點擊展開
+            collapse: 點擊折疊
+            more-waypoints: 更多航點
+        settings-window:
+            success-message: 設置成功保存.
+            title: 車隊設置
+            save: 儲存變更
+            name: 預設Adhoc ping距離
+            name-text: 此設置確定默認距離以儀表訂單為米,應在訂單拾取點附近ping驅動程序.
+            message: 距離必須以米為單位
+        vehicle-form-panel:
+            success-message: 車輛 ({vehicleName}) 成功保存了.
+            view-details: 檢視車輛細節
+            save-vehicle: 儲存車輛
+            create-vehicle: 建立車輛
+            cancel-edit-vehicle: 取消編輯車輛
+            cancel-new-vehicle: 取消新車
+            upload-photo: 上傳新照片
+            new-vehicle: 新車
+            not-assigned: 沒有分配司機
+            plate-number: 車牌號碼
+            vin-number: 車輛識別號碼
+            make: 製造商
+            vehicle-make: 車輛製造商
+            model: 型號
+            vehicle-model: 車輛型號
+            year: 年
+            vehicle-year: 車輛年份
+            driver-assigned: 分配司機
+            select-driver: 選擇司機
+            select-vehicle: 選擇車輛
+            avatar: 頭像
+            select-map-avatar: 選擇地圖頭像
+            select-avatar-rendering: 使用地理位置跟踪功能時,選擇用於在地圖上渲染的化身.
+            select-avatar: 選擇頭像
+        vehicle-panel:
+            edit: 編輯車輛
+            close: 關閉車輛詳細信息
+            not-assigned: 沒有驅動程序分配
+            assign-driver: 將駕駛員分配給車輛
+        vendor-form-panel:
+            success-message: 廠商 ({vendorName}) 儲存成功.
+            create-form:
+                integrated-vendor: 選擇整合廠商
+                custom-vendor: 建立自訂廠商
+                title: 設定
+                select-vendor-type: 選擇供廠商類型
+                choose-vendor: 選擇集成廠商供應者
+                provider: 提供者
+                credentials: 證書
+                advanced-options: 進階選項
+                hide-advanced-options: 隱藏進階選項
+                show-advanced-options: 顯示進階選項
+                host: 主持人
+                host-text: 可選地提供應用於此集成的自定義主機.
+                namespace: 命名空間
+                namespace-text: 可選地提供應用於集成的自定義名稱空間或API版本.
+                webhook: Webhook URL
+                webhook-text: 整合廠商通常會要求這樣做,以便 Benzol 可以接收訂單的活動更新. 除非您知道自己在做什麼,否則不要改變! 更改此設定可能會破壞您的訂單更新!
+                select-integrated: 選擇一個集成廠商提供者
+                vendor-details: 廠商細節
+                select-vendor-status: 選擇廠商狀態
+                select-address: 選擇地址
+                edit: 編輯
+                new-address: 新地址
+                optionally: (可選)為該區域提供描述.
+                configure-vendor: 配置該廠商
+                select: 選擇
+                name-text: 廠商的名稱,通常是企業名稱.
+                email-text: 廠商的電子郵件,這可用於觸發發送給廠商的電子郵件.
+                phone-text: >-
+                    The vendor's phone #, this can be used to trigger SMS or messages to the vendor.
+                website-text: 廠商網站,可選擇新增廠商網站以供參考.
+            edit-form:
+                cancel-credentials: 取消憑證重置
+                sensitive-credentials: 敏感憑證只能重置,要更新憑證,您必須重新輸入憑證.
+                reset-credentials: 按一下此處重設憑證
+                select-address: 選擇地址
+            view-details: 檢視司機細節…
+            save-vendor: 儲存廠商
+            create-vendor: 建立廠商
+            cancel-edit-vendor: 取消編輯廠商
+            cancel-new-vendor: 取消新廠商
+            upload-photo: 上傳新照片
+            new-vendor: 新廠商
+        vendor-panel:
+            edit: 編輯車輛
+            close: 關閉車輛詳細信息
+            new-vendor: 新廠商
     management:
+        contacts:
+            index:
+                delete-button: 刪除司機
+                updated: 更新於
+                created: 建立於
+                view-contact: 檢視聯絡
+                edit-contact: 更改聯絡資料
+                delete-contact: 刪除聯絡
+                edit:
+                    title: 繼續沒有保存?
+                    body: 該聯繫人的未保存更改將丟失.單擊繼續進行.
+                    button: 繼續不保存
+                title: 聯繫人
+                delete-contacts: 刪除聯繫人
         drivers:
             index:
-                title: Drivers
-                fields:
-                    search:
-                        placeholder: Search Drivers
+                assign-driver: 分配司機
+                view-details: 檢視司機細節…
+                edit-details: 編輯司機細節...
+                assign-order-driver: 將訂單分配給司機...
+                assign-vehicle-driver: 將車輛分配給駕駛員...
+                locate-driver-map: 在地圖上找到司機...
+                delete-driver: 刪除司機...
+                delete-button: 刪除司機
+                order-driver: 將訂單分配給司機
+                assign-order: 分配訂單
+                no-order-warning: 未選擇訂單配置.
+                assign-success: '{driverName} 已指派給訂單'
+                title-vehicle: 將車輛分配給司機
+                confirm-button: 確認並建立
+                assign-vehicle: '{driverName} 已指派給車輛.'
+                locate-driver: '{driverName} 的目前位置'
+                edit:
+                    title: 不儲存離開?
+                    body: 該駕駛員的未得救的更改將丟失.單擊繼續進行.
+                    button: 不保存繼續
+                title: 司機
+                delete-drivers: 刪除司機
+                search-placeholder: 搜尋司機
+        fleets:
+            index:
+                view-fleet: 檢視車隊細節...
+                edit-fleet: 編輯車隊細節...
+                assign-driver: 分配司機…
+                delete-fleet: 刪除車隊...
+                delete-button: 刪除車隊
+                edit:
+                    body: 該車隊未得救的變化將丟失.單擊繼續進行.
+                title: 車隊
+                delete-fleets: 刪除車隊
+        fuel-reports:
+            index:
+                view: 檢視細節
+                edit-fuel: 編輯燃油報告
+                delete: 刪除燃料報告
+                delete-button: 刪除燃料報告
+                edit:
+                    body: 該燃料報告未得救的變化將丟失.單擊繼續進行.
+                title: 燃料報告
+                delete-fuel-reports: 刪除燃油報告
+        issues:
+            index:
+                view: 檢視細節
+                edit-issues: 編輯問題
+                delete: 刪除問題
+                delete-button: 刪除問題
+                edit:
+                    body: 對此問題的未保存更改將丟失.單擊繼續進行.
+                title: 問題
+                delete-issues: 刪除問題
+        places:
+            index:
+                view-details: 檢視位置細節
+                edit-place: 編輯位置
+                view-place: 在地圖上檢視位置
+                delete: 刪除位置
+                title: 將這個地方分配給廠商
+                confirm-button: 確認並建立
+                delete-button: 刪除位置
+                success-message: '{placeName} 詳細信息已更新.'
+                locate-title: '{placeName} 的位置'
+                edit:
+                    body: 對這個地方的未得救的變化將會丟失.單擊繼續進行.
+                places-title: 位置
+                delete-places: 位置
+        vehicles:
+            index:
+                view-vehicle: 檢視車輛細節…
+                edit-vehicle: 編輯車輛...
+                delete-vehicle: 刪除車輛...
+                delete-button: 刪除司機
+                locate-action-title: 定位車輛
+                locate-title: '{placeName} 的位置'
+                edit:
+                    body: 該車輛未得救的更改將丟失.單擊繼續進行.
+                title: 車輛
+                delete-vehicles: 刪除車輛
+        vendors:
+            index:
+                delete-button: 刪除司機
+                view-vendor: 檢視廠商細節
+                edit-vendor: 編輯廠商
+                delete-vendor: 刪除廠商
+                edit:
+                    body: 該廠商的未保存更改將丟失.單擊繼續進行.
+                title: 廠商
+                delete-vendors: 刪除廠商
+    operations:
+        orders:
+            index:
+                payload: 有效載荷
+                customer: 顧客
+                facilitator: 協調員
+                pickup: 撿起
+                dropoff: 放下
+                scheduled-at: 預定於
+                items: 專案
+                transaction: 交易總額
+                tracking: 追蹤
+                driver-assigned: 分配司機
+                created-by: 由…建立
+                updated-by: 更新者
+                view-order: 檢視訂單
+                cancel-order: 取消訂單
+                delete-order: 刪除訂單
+                cancel-title: 您確定要取消此訂單嗎?
+                cancel-body: 一旦取消此訂單,訂單記錄仍將是可見的,但活動無法添加到此訂單中.
+                cancel-success: 訂單 {orderId} 已被取消.
+                dispatch-title: 您確定要發送此訂單嗎?
+                dispatch-body: 派遣此訂單後,將通知司機.
+                dispatch-success: 訂單 {orderId} 已出貨.
+                map: 地圖
+                table: 列表
+                cancel-orders: 取消訂單
+                delete-orders: 刪除訂單
+                new:
+                    create-new-customer: 建立新客戶
+                    create-new-facilitator: 建立新協調員
+                    create-new-place: 建立新位置
+                    add-order: 新增實體到訂單
+                    edit-order: 編輯訂單元數據
+                    add-field: 新增自訂字段
+                    order-type: 訂單類型
+                    order-type-help-text: 選擇訂單類型將告訴Benzol 要使用哪些訂單設定.
+                    order-type-placeholder: 選擇訂單類型
+                    internal-id: 內部編號
+                    internal-id-help-text: 使用此欄位可以選擇為訂單設定自訂識別碼或內部識別碼.
+                    schedule: 行程
+                    schedule-help-text: 該訂單將被派發的日期和時間.如果在派遣時未分配驅動程序,則調度將失敗.如果該訂單臨時,則訂單將被提交給接送附近的駕駛員.
+                    customer: 顧客
+                    customer-help-text: 可以選擇指定該訂單的客戶. 如果是新客戶,請使用上面的「新客戶」按鈕.
+                    customer-placeholder: 選擇客戶
+                    facilitator: 協調員
+                    facilitator-help-text: 可以選擇為此訂單指定一名協調員,協調員可以是促進該訂單運輸的第三方分包商或服務商.
+                    facilitator-placeholder: 選擇協調員
+                    service-type: 服務區類型
+                    service-type-placeholder: 選擇服務類型
+                    service-type-help-text: 選擇您想要使用的服務類型
+                    assign-driver: 分配司機
+                    assign-driver-help-text: 指定將發送此訂單的司機.
+                    assign-driver-placeholder: 選擇司機
+                    proof-delivery: 交貨證明
+                    proof-delivery-help-text: 選擇所需的交貨證明類型. 這可以是二維碼掃描或簽章方法.
+                    proof-delivery-placeholder: 選擇交貨方式證明
+                    adhoc-ping: Adhoc ping距離
+                    adhoc-ping-help-text: 此設定確定此訂單的 ping 臨時距離,如果未設置,它將回退到預設設定.
+                    adhoc-ping-message: 距離必須以公尺為單位
+                    ad-hoc: 特別指定
+                    ad-hoc-help-text: 切換 Ad-Hoc 將使訂單能夠智慧地向訂單取貨附近的司機發送有關訂單的信息,從而允許第一個可用的司機接受訂單. 這是手動分配司機進行即時訂單的替代方案.
+                    dispatch: 立即出貨
+                    dispatch-help-text: 切換調度將在建立後立即調度此訂單.
+                    require-proof: 需要交貨證明
+                    require-proof-help-text: 切換此功能將要求司機填寫交貨證明.
+                    additional-details: 額外細節
+                    metadata: 元數據
+                    route: 路線
+                    route-label: 多次下車
+                    optimize-route: 優化路線
+                    optimize-route-help-text: Benzol 將自動最佳化路線.
+                    add-waypoint: 新增航點
+                    add-waypoint-help-text: 使用「新增航點」按鈕為此訂單新增更多停靠點. 隨著每個站點的新增或刪除,Benzol 路線引擎將自動最佳化路線.
+                    select-waypoint-placeholder: 選擇航點
+                    infoblock-text: 無法支援此位置.
+                    invalid-coordinates: 座標無效!
+                    pickup: 撿起
+                    select-pickup: 選擇取件
+                    dropoff: 放下
+                    select-dropoff: 選擇下車地點
+                    return: 返回
+                    edit-address: 編輯地址
+                    select-return: 選擇返回
+                    payload-entities: 有效負載/實體
+                    add-item-order: 新增商品到訂單
+                    items-drop: 物品掉落於
+                    add-item-button: 新增項目
+                    sku: 存貨單位
+                    select-destination: 選擇目的地
+                    edit-item: 編輯項目
+                    apply-service-rate: 申請服務費率
+                    service-help-text: 選擇定義的服務費率以產生應用於此訂單的即時服務報價.
+                    service-quotes: 服務報價
+                    service-quotes-help-text: 選擇要取得報價的服務費率.
+                    select-service-rate: 選擇服務費率
+                    refresh-button: 重新整理
+                    loading-message: 加載服務報價...
+                    info-text: 選擇一個實時服務報價以應用於此訂單.一旦將報價應用於訂單,它將成為購買的費率.交易將在Fleetbase分類帳中進行跟踪.
+                    breakdown: 分解
+                    no-service-info-text: 沒有服務報價.
+                    input-order-info-text: 輸入順序途徑以檢視服務報價.
+                    notes-title: 筆記
+                    notes-placeholder: 在此處輸入訂單註釋.
+                    success-message: 新訂單 {orderId} 建立
+                    warning-message: 沒有隊列中的文件可以上傳!
+                    import-success: 進口完成.
+                    service-warning: 無法獲取此訂單的服務報價.
+                    no-route-warning: 沒有預覽路線.
+                    route-error: 路由優化失敗,檢查路線條目,然後重試.
+                    custom-field-title: 將自定義字段添加到訂單
+                    label-warning: 自定義字段必須具有標籤
+                    value-warning: 自定義字段必須具有一個值
+                    edit-field-title: 編輯自定義字段
+                    edit-metadata: 編輯元數據
+                view:
+                    purchase-rate-panel-title: 購買率
+                    documents-panel-title: 文件和檔案
+                    route-panel-title: 路線
+                    currency: 貨幣
+                    comments-title: 評論
+                    notes-title: 筆記
+                    dispatch: 立即出貨
+                    order-actions: 訂單操作
+                    edit-details: 編輯細節
+                    update-activity: 更新活動
+                    unassign-driver: 取消分配司機
+                    assign-driver: 分配司機
+                    get-order-label: 取得訂單標籤
+                    listen-socket-channel: 監聽socket通道
+                    view-metadata: 檢視元數據
+                    cancel-order: 取消訂單
+                    delete-order: 刪除訂單
+                    activity: 活動
+                    unable-load-order-activity: 無法載入訂單活動
+                    ad-hoc: 特別指定
+                    customer: 顧客
+                    facilitator: 協調員
+                    driver-assigned: 分配司機
+                    change-driver: 更換司機
+                    tracking-number: 追蹤號碼
+                    date-scheduled: 預定日期
+                    date-dispatched: 出貨日期
+                    date-started: 開始日期
+                    order-details-title: 訂單細節
+                    additional-details-title: 額外細節
+                    route: 路線
+                    pickup: 撿起
+                    dropoff: 放下
+                    return: 返回
+                    order-summary: 訂單摘要
+                    subtotal: 小計
+                    delivery-fee: 快遞費
+                    tip: 提示
+                    delivery-tip: 送貨提示
+                    total: 全部的
+                    payload: 有效載荷
+                    items-drop: 物品掉落於
+                    tracking: 追蹤
+                    waypoint-actions: 航點動作
+                    get-label: 取得標籤
+                    view-activity: 檢視活動
+                    add-item-button: 新增項目
+                    edit-item-button: 編輯項目
+                    edit-order-title: 編輯訂單細節
+                    update-success: '{orderId} 細節已更新.'
+                    order-metadata: 訂單元數據
+                    unassign-title: 您確定要取消此訂單中的司機 ({driverName}) 的分配嗎?
+                    unassign-body: 一旦取消分配司機,司機將無法再存取該訂單的細節.
+                    unassign-success: 司機已從該訂單中取消分配.
+                    edit-route-title: 編輯訂單路線
+                    route-error: 路由優化失敗,請檢查路由條目並重試.
+                    route-update-success: '{orderId} 路線細節已更新.'
+                    add-activity-title: 新增活動以訂購
+                    invalid-warning: 自訂狀態條目無效.
+                    change-order: 更改司機訂單
+                    assign-order: 分配訂單
+                    assign-success: '{orderId} 分配的驅動程序更新了.'
+                    order-title: 訂單標籤
+                    waypoint-title: 航點標籤
+                    proof-of-delivery: 交貨證明
+                config:
+                    title: 訂單配置
+                    message: 訂單配置允許您定義動態配置,該配置將告訴Benzol如何執行不同類型的訂單.
+                    configuration: 配置
+                    types:
+                        no-order-installed: 沒有安裝訂單配置!
+                        you-have-no-configs: 您目前尚未安裝訂單配置,請檢查擴充功能以安裝訂單配置以開始使用.
+                        view-extensions: 檢視擴充
+        scheduler:
+            index:
+                success-message: 訂單 {orderId} 已在 {orderAt} 上安排.
+                info-message: 訂單 {orderId} 已取消安排.
+                title: 調度
+                unscheduled-orders: 尚未排定的訂單
+                scheduled-orders: 已排定的訂單
+        service-rates:
+            index:
+                edit-service: 編輯服務費率
+                delete-service: 刪除服務費率
+                accept-button: 刪除服務的
+                edit:
+                    success-message: 服務費率 {serviceName} 更新
+                title: 服務費率
+                reload-data: 重新載入數據
+                delete-service-rates: 刪除服務費率
+                new:
+                    success-message: 建立新服務費率 {serviceName}
+                    new-service-rate-title: 新服務費率
+                    save-service-button: 儲存服務費率
+                    create-service-button: 建立服務費率
+                    service-name: 服務名稱
+                    service-name-help-text: 此服務的顯示名稱.
+                    service-order-label: 服務訂單類型
+                    service-order-help-text: 將此服務費率限制為明確的「訂單類型」.
+                    service-order-placeholder: 選擇訂單類型以限制服務
+                    base-fee-label: 基本費用
+                    base-fee-help-text: 設置基本費用,代表此服務的最低成本.
+                    rate-calculation-label: 費率計算方法
+                    rate-calculation-help-text: 該服務在查詢時用於計算費率的方法.
+                    rate-calculation-placeholder: 選擇費率計算方法
+                    estimated-days: 預計交貨天數
+                    estimated-days-help-text: 此服務預計需要的天數. 對於當日服務,請使用“0”.
+                    duration-terms-label: 期限條款
+                    duration-terms-help-text: 新增有關此服務費率持續時間的附加服務條款.
+                    duration-terms-placeholder: 期限條款(如果適用)
+                    fixed-meter: 固定儀表選項
+                    fixed-meter-text: 此選項定義每公里的固定費用.
+                    fixed-meter-example-text: >-
+                        For example: 每1公里,都會定義固定費用.如果訂單的距離為3,300米,則將增加第三公里的固定費用.
+                    maximum-distance: 最大距離
+                    maximum-distance-help-text: 可服務的最大距離.
+                    distance: 距離
+                    fee: 費用
+                    per-drop-off-title: 每個還車選項
+                    per-drop-off-text: 此選項定義每次下車的固定費用.
+                    per-drop-off-example-text: >-
+                        For example: 訂單中的1-5下降將花費$ x金額,每訂單的5-10次下降將花費$ x金額.這將添加到基本費用之和.
+                    add-drop-off-button: 添加下車範圍
+                    min-drop: 最小下降
+                    max-drop: 最大落差
+                    min: 最小
+                    max: 最大限度
+                    per-meter: 每米
+                    per-meter-text: 此選項允許按公里或米計算服務,這意味著您定義固定費用,然後乘以距離(可以是米或公里).
+                    per-meter-example-text: >-
+                        For example: {fee}' * '{distance}' + '{baseFee}'
+                    per-meter-rate-fee: 每米統一費率
+                    per-meter-rate-fee-help-text: 單一固定費用將乘以距離.
+                    distance-unit: 距離單位
+                    distance-unit-help-text: 距離單位可以是每公里或公尺.
+                    distance-unit-placeholder: 選擇距離單位.
+                    custom-algorithm-title: 自訂演算法
+                    custom-algorithm-info-message: 此選項用於使用變數定義此服務費用的自訂計算.
+                    custom-algorithm-info-second-message: 請注意,變數必須包含在單一花括號中.
+                    distance-message: 距離
+                    distance-continue-message: >-
+                        - the distance in meters from the order route.
+                    time-message: 時間
+                    time-continue-message: >-
+                        - the route ETA in seconds.
+                    example: 例子
+                    example-message: 如果訂單請求的距離為 2,200 米,預計到達時間為 30 分鐘.
+                    example-second-message: 那麼下面的公式將計算出 2.50 美元的服務費,該費用將添加到基本費用中.
+                    algorithm-label: 演算法
+                    algorithm-help-text: 定義要為此服務費率計算進行評估的公式.
+                    algorithm-placeholder: >-
+                        (( '{distance}' / 50 ) * .05 ) + (( '{time}' / 60 ) * .01)
+                    percel-fee-title: 包裹費
+                    length-label: 長度
+                    length-placeholder: 長度(以 {parcelFeeDimension} 為單位)
+                    width-label: 寬度
+                    width-placeholder: 寬度(以 {parcelFeeDimension} 為單位)
+                    height-label: 高度
+                    height-placeholder: 高度 ({parcelFeeDimension})
+                    weight-label: 重量
+                    weight-placeholder: 重量 ({parcelFeeWeight})
+                    deminsions-unit: 尺寸單位
+                    select-unit-placeholder: 選擇單位
+                    weight-unit: 重量單位
+                    additional-fee: 額外費用
+                    cash-delivery-title: 貨到付款
+                    cash-delivery-label: 為「貨到付款」訂單啟用額外費用嗎?
+                    calculation-method-label: 貨到付款費用計算方法
+                    calculation-method-help-text: 用於計算貨到付款費用的方法.
+                    calculation-method-placeholder: 選擇貨到付款費用計算方式
+                    delivery-flat-fee: 貨到付款固定費用
+                    delivery-flat-fee-help-text: 定義在高峰時段新增的固定費用.
+                    fee-percentage: 貨到付款費率
+                    fee-percentage-help-text: 定義服務費率小計中基於百分比的費用,以添加為 COD 費用.
+                    percentage-placeholder: 百分比
+                    peak-hours-title: 尖峰時段
+                    peak-hours-label: 對在服務定義的「高峰時段」期間下的訂單啟用額外費用嗎?
+                    peak-hours-start-label: 尖峰時段開始
+                    peak-hours-start-help-text: 定義高峰時段費用開始的時間.
+                    peak-hours-end-label: 尖峰時段結束
+                    peak-hours-end-help-text: 定義高峰時段費用結束的時間.
+                    peak-hours-fee-label: 尖峰時段費用計算方法
+                    peak-hours-fee-help-text: 用於計算高峰時段費用的方法.
+                    peak-hours-fee-placeholder: 選擇尖峰時段費用計算方式
+                    flat-fee-label: 尖峰時段固定費用
+                    flat-fee-help-text: 定義在高峰時段新增的固定費用.
+                    peak-hours-percentage-label: 尖峰時段費用百分比
+                    peak-hours-percentage-help-text: 定義高峰時段新增的服務費率小計中基於百分比的費用.
+                    restrict-service-title: 限制服務
+                    service-area-label: 服務區
+                    service-area-help-text: 將此服務限制為來自服務區域的訂單請求.
+                    service-area-placeholder: 限制服務區域
+                    zone-label: 區
+                    zone-help-text: 將此服務限制為來自特定區域的訂單請求.
+                    zone-placeholder: 限制區域
+    services:
+        service-areas:
+            createareanotice: 請使用左側的繪圖工具, 繪製區域範圍, 起點與終點相同時即完成圈選.

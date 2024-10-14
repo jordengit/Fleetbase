@@ -13,6 +13,7 @@ use Fleetbase\Http\Requests\Internal\UpdatePasswordRequest;
 use Fleetbase\Models\Company;
 use Fleetbase\Models\CompanyUser;
 use Fleetbase\Models\Invite;
+use Fleetbase\Models\Setting;
 use Fleetbase\Models\User;
 use Fleetbase\Notifications\UserAcceptedCompanyInvite;
 use Fleetbase\Notifications\UserInvited;
@@ -366,5 +367,38 @@ class UserController extends FleetbaseController
         $json['driver'] = $user->driver;
 
         return response()->json(['user' => $user]);
+    }
+
+    /**
+     * Save the user selected locale.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function setUserLocale(Request $request)
+    {
+        $locale           = $request->input('locale', 'en-us');
+        $user             = $request->user();
+        $localeSettingKey = 'user.' . $user->uuid . '.locale';
+
+        // Persist to database
+        Setting::configure($localeSettingKey, $locale);
+
+        return response()->json(['status' => 'ok']);
+    }
+
+    /**
+     * Get the user selected locale.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getUserLocale(Request $request)
+    {
+        $user             = $request->user();
+        $localeSettingKey = 'user.' . $user->uuid . '.locale';
+
+        // Get from database
+        $locale = Setting::lookup($localeSettingKey, 'en-us');
+
+        return response()->json(['status' => 'ok', 'locale' => $locale]);
     }
 }

@@ -1,0 +1,5 @@
+ember-ui:
+    filter-picker:
+        title: Filter
+        clearbtn: Clear
+        applybtn: Apply

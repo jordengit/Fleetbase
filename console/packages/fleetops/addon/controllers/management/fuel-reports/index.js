@@ -1,7 +1,7 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import { action } from '@ember/object';
+import { computed, action } from '@ember/object';
 import { isBlank } from '@ember/utils';
 import { timeout } from 'ember-concurrency';
 import { task } from 'ember-concurrency-decorators';
@@ -20,6 +20,13 @@ export default class ManagementFuelReportsIndexController extends Controller {
      * @var {Service}
      */
     @service modalsManager;
+
+    /**
+     * Inject the `intl` service
+     *
+     * @var intl
+     */
+    @service intl;
 
     /**
      * Inject the `crud` service
@@ -155,6 +162,7 @@ export default class ManagementFuelReportsIndexController extends Controller {
     @tracked columns = [
         {
             label: 'ID',
+            labelKey: 'fleet-ops.common.id',
             valuePath: 'public_id',
             width: '130px',
             cellComponent: 'click-to-copy',
@@ -166,6 +174,7 @@ export default class ManagementFuelReportsIndexController extends Controller {
         },
         {
             label: 'Reporter',
+            labelKey: 'fleet-ops.common.reporter',
             valuePath: 'reporter_name',
             width: '100px',
             cellComponent: 'table/cell/anchor',
@@ -180,12 +189,13 @@ export default class ManagementFuelReportsIndexController extends Controller {
             sortable: true,
             filterable: true,
             filterComponent: 'filter/model',
-            filterComponentPlaceholder: 'Select reporter',
+            filterComponentPlaceholder: 'fleet-ops.common.filterplaceholder',
             filterParam: 'reporter',
             model: 'user',
         },
         {
             label: 'Driver',
+            labelKey: 'fleet-ops.common.driver',
             valuePath: 'driver_name',
             width: '120px',
             cellComponent: 'table/cell/anchor',
@@ -200,12 +210,13 @@ export default class ManagementFuelReportsIndexController extends Controller {
             sortable: true,
             filterable: true,
             filterComponent: 'filter/model',
-            filterComponentPlaceholder: 'Select driver',
+            filterComponentPlaceholder: 'fleet-ops.common.filterplaceholder',
             filterParam: 'driver',
             model: 'driver',
         },
         {
             label: 'Vehicle',
+            labelKey: 'fleet-ops.common.vehicle',
             valuePath: 'vehicle_name',
             width: '100px',
             cellComponent: 'table/cell/anchor',
@@ -220,13 +231,14 @@ export default class ManagementFuelReportsIndexController extends Controller {
             sortable: true,
             filterable: true,
             filterComponent: 'filter/model',
-            filterComponentPlaceholder: 'Select vehicle',
+            filterComponentPlaceholder: 'fleet-ops.common.filterplaceholder',
             filterParam: 'vehicle',
             model: 'vehicle',
             modelNamePath: 'displayName',
         },
         {
             label: 'Status',
+            labelKey: 'fleet-ops.common.status',
             valuePath: 'status',
             cellComponent: 'table/cell/status',
             width: '100px',
@@ -238,6 +250,7 @@ export default class ManagementFuelReportsIndexController extends Controller {
         },
         {
             label: 'volume',
+            labelKey: 'fleet-ops.common.volume',
             valuePath: 'volume',
             width: '130px',
             cellComponent: 'click-to-copy',
@@ -249,6 +262,7 @@ export default class ManagementFuelReportsIndexController extends Controller {
         },
         {
             label: 'odometer',
+            labelKey: 'fleet-ops.common.odometer',
             valuePath: 'odometer',
             width: '130px',
             cellComponent: 'click-to-copy',
@@ -260,6 +274,7 @@ export default class ManagementFuelReportsIndexController extends Controller {
         },
         {
             label: 'Created At',
+            labelKey: 'fleet-ops.common.created-at',
             valuePath: 'createdAt',
             sortParam: 'created_at',
             width: '120px',
@@ -270,6 +285,7 @@ export default class ManagementFuelReportsIndexController extends Controller {
         },
         {
             label: 'Updated At',
+            labelKey: 'fleet-ops.common.updated-at',
             valuePath: 'updatedAt',
             sortParam: 'updated_at',
             width: '120px',
@@ -292,10 +308,12 @@ export default class ManagementFuelReportsIndexController extends Controller {
             actions: [
                 {
                     label: 'View Details',
+                    labelKey: 'fleet-ops.management.fuel-reports.index.view',
                     fn: this.viewFuelReport,
                 },
                 {
                     label: 'Edit Fuel Report',
+                    labelKey: 'fleet-ops.management.fuel-reports.index.edit-fuel',
                     fn: this.editFuelReport,
                 },
                 {
@@ -303,6 +321,7 @@ export default class ManagementFuelReportsIndexController extends Controller {
                 },
                 {
                     label: 'Delete Fuel Report',
+                    labelKey: 'fleet-ops.management.fuel-reports.index.delete',
                     fn: this.deleteFuelReport,
                 },
             ],
@@ -410,10 +429,28 @@ export default class ManagementFuelReportsIndexController extends Controller {
 
         this.crud.bulkDelete(selected, {
             modelNamePath: `name`,
-            acceptButtonText: 'Delete Fuel Reports',
+            acceptButtonText: this.intl.t('fleet-ops.management.fuel-reports.index.delete-button'),
             onSuccess: () => {
                 return this.hostRouter.refresh();
             },
         });
+    }
+
+    @computed('intl.locale')
+    get localizedColumns() {
+        return this.columns.map(column => ({
+            ...column,
+            label: column.labelKey ? this.intl.t(column.labelKey) : column.label,
+            filterComponentPlaceholder: column.filterComponentPlaceholder ? this.intl.t(column.filterComponentPlaceholder) : null,
+            actions: column.actions ? column.actions.map(action => {
+                if (action.label) {
+                    return {
+                        ...action,
+                        label: action.labelKey ? this.intl.t(action.labelKey) : action.label,
+                    };
+                }
+                return action;
+            }) : []
+        }));
     }
 }

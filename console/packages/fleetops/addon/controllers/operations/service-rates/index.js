@@ -1,7 +1,7 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import { action } from '@ember/object';
+import { computed, action } from '@ember/object';
 import { isBlank } from '@ember/utils';
 import { timeout } from 'ember-concurrency';
 import { task } from 'ember-concurrency-decorators';
@@ -20,6 +20,13 @@ export default class OperationsServiceRatesIndexController extends Controller {
      * @var {Service}
      */
     @service currentUser;
+
+    /**
+     * Inject the `intl` service
+     *
+     * @var {Service}
+     */
+    @service intl;
 
     /**
      * Inject the `fetch` service
@@ -121,6 +128,7 @@ export default class OperationsServiceRatesIndexController extends Controller {
             sortable: true,
             filterable: true,
             filterComponent: 'filter/string',
+            labelKey: 'fleet-ops.common.id',
         },
         {
             label: 'Service',
@@ -130,6 +138,7 @@ export default class OperationsServiceRatesIndexController extends Controller {
             resizable: true,
             sortable: true,
             filterable: false,
+            labelKey: 'fleet-ops.common.service',
         },
         {
             label: 'Service Area',
@@ -143,6 +152,7 @@ export default class OperationsServiceRatesIndexController extends Controller {
             filterComponentPlaceholder: 'Select service area',
             filterParam: 'service_area',
             model: 'service-area',
+            labelKey: 'fleet-ops.common.service-area',
         },
         {
             label: 'Zone',
@@ -156,6 +166,7 @@ export default class OperationsServiceRatesIndexController extends Controller {
             filterComponentPlaceholder: 'Select zone',
             filterParam: 'zone',
             model: 'zone',
+            labelKey: 'fleet-ops.common.zone',
         },
         {
             label: 'Created At',
@@ -166,6 +177,7 @@ export default class OperationsServiceRatesIndexController extends Controller {
             sortable: true,
             filterable: true,
             filterComponent: 'filter/date',
+            labelKey: 'fleet-ops.common.created-at',
         },
         {
             label: 'Updated At',
@@ -177,6 +189,7 @@ export default class OperationsServiceRatesIndexController extends Controller {
             hidden: true,
             filterable: true,
             filterComponent: 'filter/date',
+            labelKey: 'fleet-ops.common.updated-at',
         },
         {
             label: '',
@@ -191,10 +204,12 @@ export default class OperationsServiceRatesIndexController extends Controller {
                 {
                     label: 'Edit Service Rate',
                     fn: this.editServiceRate,
+                    labelKey: 'fleet-ops.operations.service-rates.index.edit-service',
                 },
                 {
                     label: 'Delete Service Rate',
                     fn: this.deleteServiceRate,
+                    labelKey: 'fleet-ops.operations.service-rates.index.delete-service',
                 },
             ],
             sortable: false,
@@ -203,6 +218,24 @@ export default class OperationsServiceRatesIndexController extends Controller {
             searchable: false,
         },
     ];
+
+    @computed('intl.locale')
+    get localizedColumns() {
+        return this.columns.map(column => ({
+            ...column,
+            label: column.labelKey ? this.intl.t(column.labelKey) : column.label,
+            filterComponentPlaceholder: column.filterComponentPlaceholder ? this.intl.t(column.filterComponentPlaceholder) : null,
+            actions: column.actions ? column.actions.map(action => {
+                if (action.label) {
+                    return {
+                        ...action,
+                        label: action.labelKey ? this.intl.t(action.labelKey) : action.label,
+                    };
+                }
+                return action;
+            }) : []
+        }));
+    }
 
     /**
      * The search task.
@@ -280,7 +313,7 @@ export default class OperationsServiceRatesIndexController extends Controller {
     @action bulkDeleteServiceRates(selected) {
         this.crud.bulkDelete(selected, {
             modelNamePath: `public_id`,
-            acceptButtonText: "Delete Service's",
+            acceptButtonText: this.intl.t('fleet-ops.operations.service-rates.index.accept-button'),
             onSuccess: () => {
                 return this.hostRouter.refresh();
             },

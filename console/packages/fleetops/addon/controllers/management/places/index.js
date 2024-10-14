@@ -1,7 +1,7 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import { action } from '@ember/object';
+import { computed, action } from '@ember/object';
 import { isBlank } from '@ember/utils';
 import { task, timeout } from 'ember-concurrency';
 
@@ -19,6 +19,13 @@ export default class ManagementPlacesIndexController extends Controller {
      * @var {Service}
      */
     @service modalsManager;
+
+    /**
+     * Inject the `intl` service
+     *
+     * @var {Service}
+     */
+    @service intl;
 
     /**
      * Inject the `store` service
@@ -140,6 +147,7 @@ export default class ManagementPlacesIndexController extends Controller {
     @tracked columns = [
         {
             label: 'Name',
+            labelKey: 'fleet-ops.common.name',
             valuePath: 'name',
             width: '200px',
             cellComponent: 'table/cell/anchor',
@@ -152,6 +160,7 @@ export default class ManagementPlacesIndexController extends Controller {
         },
         {
             label: 'Address',
+            labelKey: 'fleet-ops.common.address',
             valuePath: 'address',
             cellComponent: 'table/cell/anchor',
             action: this.viewPlace,
@@ -164,6 +173,7 @@ export default class ManagementPlacesIndexController extends Controller {
         },
         {
             label: 'State',
+            labelKey: 'fleet-ops.common.state',
             valuePath: 'state',
             cellComponent: 'table/cell/anchor',
             action: this.viewPlace,
@@ -176,6 +186,7 @@ export default class ManagementPlacesIndexController extends Controller {
         },
         {
             label: 'City',
+            labelKey: 'fleet-ops.common.city',
             valuePath: 'city',
             cellComponent: 'table/cell/anchor',
             action: this.viewPlace,
@@ -188,6 +199,7 @@ export default class ManagementPlacesIndexController extends Controller {
         },
         {
             label: 'ID',
+            labelKey: 'fleet-ops.common.id',
             valuePath: 'public_id',
             width: '120px',
             cellComponent: 'click-to-copy',
@@ -198,6 +210,7 @@ export default class ManagementPlacesIndexController extends Controller {
         },
         {
             label: 'Phone',
+            labelKey: 'fleet-ops.common.phone',
             valuePath: 'phone',
             cellComponent: 'table/cell/base',
             width: '120px',
@@ -209,6 +222,7 @@ export default class ManagementPlacesIndexController extends Controller {
         },
         {
             label: 'Country',
+            labelKey: 'fleet-ops.common.country',
             valuePath: 'country_name',
             cellComponent: 'table/cell/base',
             cellClassNames: 'uppercase',
@@ -221,6 +235,7 @@ export default class ManagementPlacesIndexController extends Controller {
         },
         {
             label: 'Neighborhood',
+            labelKey: 'fleet-ops.common.neighborhood',
             valuePath: 'neighborhood',
             cellComponent: 'table/cell/anchor',
             action: this.viewPlace,
@@ -233,6 +248,7 @@ export default class ManagementPlacesIndexController extends Controller {
         },
         {
             label: 'Postal Code',
+            labelKey: 'fleet-ops.common.postal-code',
             valuePath: 'postal_code',
             cellComponent: 'table/cell/anchor',
             action: this.viewPlace,
@@ -244,6 +260,7 @@ export default class ManagementPlacesIndexController extends Controller {
         },
         {
             label: 'Created At',
+            labelKey: 'fleet-ops.common.created-at',
             valuePath: 'createdAt',
             sortParam: 'created_at',
             width: '10%',
@@ -254,6 +271,7 @@ export default class ManagementPlacesIndexController extends Controller {
         },
         {
             label: 'Updated At',
+            labelKey: 'fleet-ops.common.updated-at',
             valuePath: 'updatedAt',
             sortParam: 'updated_at',
             width: '10%',
@@ -277,10 +295,12 @@ export default class ManagementPlacesIndexController extends Controller {
             actions: [
                 {
                     label: 'View Place Details',
+                    labelKey: 'fleet-ops.management.places.index.view-details',
                     fn: this.viewPlace,
                 },
                 {
                     label: 'Edit Place',
+                    labelKey: 'fleet-ops.management.places.index.edit-place',
                     fn: this.editPlace,
                 },
                 {
@@ -288,6 +308,7 @@ export default class ManagementPlacesIndexController extends Controller {
                 },
                 {
                     label: 'View Place on Map',
+                    labelKey: 'fleet-ops.management.places.index.view-place',
                     fn: this.viewOnMap,
                 },
                 {
@@ -295,6 +316,7 @@ export default class ManagementPlacesIndexController extends Controller {
                 },
                 {
                     label: 'Delete Place',
+                    labelKey: 'fleet-ops.management.places.index.delete',
                     fn: this.deletePlace,
                 },
             ],
@@ -466,5 +488,22 @@ export default class ManagementPlacesIndexController extends Controller {
         if (vendor) {
             this.contextPanel.focus(vendor);
         }
+    }
+
+    @computed('intl.locale')
+    get localizedColumns() {
+        return this.columns.map(column => ({
+            ...column,
+            label: column.labelKey ? this.intl.t(column.labelKey) : column.label,
+            actions: column.actions ? column.actions.map(action => {
+                if (action.label) {
+                    return {
+                        ...action,
+                        label: action.labelKey ? this.intl.t(action.labelKey) : action.label,
+                    };
+                }
+                return action;
+            }) : []
+        }));
     }
 }

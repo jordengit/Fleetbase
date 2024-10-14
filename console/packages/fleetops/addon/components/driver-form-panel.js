@@ -16,6 +16,10 @@ export default class DriverFormPanelComponent extends Component {
      * @service fetch
      */
     @service fetch;
+    /**
+     * @service intl
+     */
+    @service intl;
 
     /**
      * @service currentUser
@@ -104,7 +108,7 @@ export default class DriverFormPanelComponent extends Component {
             return driver
                 .save()
                 .then((driver) => {
-                    this.notifications.success(`Driver (${driver.name}) saved successfully.`);
+                    this.notifications.success(this.intl.t('fleet-ops.component.driver-form-panel.success-message', { driverName: driver.name }));
                     contextComponentCallback(this, 'onAfterSave', driver);
                 })
                 .catch((error) => {
@@ -133,7 +137,7 @@ export default class DriverFormPanelComponent extends Component {
             {
                 path: `uploads/${this.currentUser.companyId}/drivers/${this.driver.id}`,
                 subject_uuid: this.driver.id,
-                subject_type: 'driver',
+                subject_type: 'fleet-ops:driver',
                 type: 'driver_photo',
             },
             (uploadedFile) => {

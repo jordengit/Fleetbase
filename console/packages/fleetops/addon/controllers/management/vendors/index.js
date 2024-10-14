@@ -1,7 +1,7 @@
 import Controller, { inject as controller } from '@ember/controller';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import { action } from '@ember/object';
+import { computed, action } from '@ember/object';
 import { isBlank } from '@ember/utils';
 import { timeout } from 'ember-concurrency';
 import { task } from 'ember-concurrency-decorators';
@@ -27,6 +27,13 @@ export default class ManagementVendorsIndexController extends Controller {
      * @var {Service}
      */
     @service modalsManager;
+
+    /**
+     * Inject the `intl` service
+     *
+     * @var {Service}
+     */
+    @service intl;
 
     /**
      * Inject the `crud` service
@@ -169,6 +176,7 @@ export default class ManagementVendorsIndexController extends Controller {
     @tracked columns = [
         {
             label: 'Name',
+            labelKey: 'fleet-ops.common.name',
             valuePath: 'name',
             width: '180px',
             cellComponent: 'table/cell/media-name',
@@ -181,6 +189,7 @@ export default class ManagementVendorsIndexController extends Controller {
         },
         {
             label: 'ID',
+            labelKey: 'fleet-ops.common.id',
             valuePath: 'public_id',
             cellComponent: 'click-to-copy',
             width: '110px',
@@ -191,6 +200,7 @@ export default class ManagementVendorsIndexController extends Controller {
         },
         {
             label: 'Internal ID',
+            labelKey: 'fleet-ops.common.internal-id',
             valuePath: 'internal_id',
             cellComponent: 'click-to-copy',
             width: '100px',
@@ -201,6 +211,7 @@ export default class ManagementVendorsIndexController extends Controller {
         },
         {
             label: 'Email',
+            labelKey: 'fleet-ops.common.email',
             valuePath: 'email',
             cellComponent: 'click-to-copy',
             width: '80px',
@@ -212,6 +223,7 @@ export default class ManagementVendorsIndexController extends Controller {
         },
         {
             label: 'Website URL',
+            labelKey: 'fleet-ops.common.website-url',
             valuePath: 'website_url',
             cellComponent: 'click-to-copy',
             width: '80px',
@@ -223,6 +235,7 @@ export default class ManagementVendorsIndexController extends Controller {
         },
         {
             label: 'Phone',
+            labelKey: 'fleet-ops.common.phone',
             valuePath: 'phone',
             cellComponent: 'click-to-copy',
             width: '80px',
@@ -234,6 +247,7 @@ export default class ManagementVendorsIndexController extends Controller {
         },
         {
             label: 'Address',
+            labelKey: 'fleet-ops.common.address',
             valuePath: 'address',
             cellComponent: 'table/cell/anchor',
             action: this.viewVendorPlace,
@@ -246,6 +260,7 @@ export default class ManagementVendorsIndexController extends Controller {
         },
         {
             label: 'Type',
+            labelKey: 'fleet-ops.common.type',
             valuePath: 'type',
             cellComponent: 'table/cell/anchor',
             action: this.viewVendorPlace,
@@ -258,6 +273,7 @@ export default class ManagementVendorsIndexController extends Controller {
         },
         {
             label: 'Country',
+            labelKey: 'fleet-ops.common.country',
             valuePath: 'country',
             cellComponent: 'table/cell/base',
             cellClassNames: 'uppercase',
@@ -270,6 +286,7 @@ export default class ManagementVendorsIndexController extends Controller {
         },
         {
             label: 'Created At',
+            labelKey: 'fleet-ops.common.created-at',
             valuePath: 'createdAt',
             sortParam: 'created_at',
             width: '150px',
@@ -280,6 +297,7 @@ export default class ManagementVendorsIndexController extends Controller {
         },
         {
             label: 'Updated At',
+            labelKey: 'fleet-ops.common.updated-at',
             valuePath: 'updatedAt',
             sortParam: 'updated_at',
             width: '130px',
@@ -291,6 +309,7 @@ export default class ManagementVendorsIndexController extends Controller {
         },
         {
             label: 'Status',
+            labelKey: 'fleet-ops.common.status',
             valuePath: 'status',
             cellComponent: 'table/cell/status',
             width: '130px',
@@ -313,10 +332,12 @@ export default class ManagementVendorsIndexController extends Controller {
             actions: [
                 {
                     label: 'View Vendor Details',
+                    labelKey: 'fleet-ops.management.vendors.index.view-vendor',
                     fn: this.viewVendor,
                 },
                 {
                     label: 'Edit Vendor',
+                    labelKey: 'fleet-ops.management.vendors.index.edit-vendor',
                     fn: this.editVendor,
                 },
                 {
@@ -324,6 +345,7 @@ export default class ManagementVendorsIndexController extends Controller {
                 },
                 {
                     label: 'Delete Vendor',
+                    labelKey: 'fleet-ops.management.vendors.index.delete-vendor',
                     fn: this.deleteVendor,
                 },
             ],
@@ -481,5 +503,22 @@ export default class ManagementVendorsIndexController extends Controller {
                 vendor.save();
             },
         });
+    }
+
+    @computed('intl.locale')
+    get localizedColumns() {
+        return this.columns.map(column => ({
+            ...column,
+            label: column.labelKey ? this.intl.t(column.labelKey) : column.label,
+            actions: column.actions ? column.actions.map(action => {
+                if (action.label) {
+                    return {
+                        ...action,
+                        label: action.labelKey ? this.intl.t(action.labelKey) : action.label,
+                    };
+                }
+                return action;
+            }) : []
+        }));
     }
 }
